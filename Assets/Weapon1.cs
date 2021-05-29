@@ -34,6 +34,7 @@ public class Weapon : MonoBehaviour {
     public void Update()
     {
         transform.parent.GetComponent<WeaponRotate>().rotateSpeed = rotSpeed;
+        if (WeaponRotate.shootCam != null)
         WeaponRotate.shootCam.fieldOfView = fov;
         if (energy < 100)
         { energy += energy_add * Time.deltaTime; }

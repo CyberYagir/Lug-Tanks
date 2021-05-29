@@ -12,6 +12,7 @@ public class Menu : MonoBehaviour
     public TMP_Text pName;
     public Image icon;
     public RectTransform expLine;
+    public PHPMenuManager menuManager;
 
     float initX;
     private void Start()
@@ -20,9 +21,9 @@ public class Menu : MonoBehaviour
     }
     private void Update()
     {
-        
         if (WebData.playerData != null && PhotonNetwork.IsConnected)
         {
+            menuManager.gameObject.SetActive(false);
             pName.text = WebData.playerData.name;
             rectTransform.position = Vector3.Lerp(rectTransform.position, new Vector3(0, rectTransform.position.y, 0), 4f * Time.deltaTime);
             var currentXp = (rankIcon.startMaxExp * (((rankIcon.currRank) + 1f) * (1.25f * (rankIcon.currRank))));
@@ -31,6 +32,7 @@ public class Menu : MonoBehaviour
         }
         else
         {
+            menuManager.gameObject.SetActive(true);
             rectTransform.position = Vector3.Lerp(rectTransform.position, new Vector3(initX, rectTransform.position.y, 0), 4f * Time.deltaTime);
         }
     }
