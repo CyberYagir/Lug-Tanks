@@ -11,17 +11,8 @@ public class PlayerData
 {
     public int id = -1;
     public string name;
-    public float weapon, corpus, exp, level;
+    public int weapon, corpus, exp, level;
 
-    public PlayerData(string name, float corpus, float turret, float exp, float level, int id)
-    {
-        this.name = name;
-        this.corpus = corpus;
-        this.weapon = turret;
-        this.exp = exp;
-        this.level = level;
-        this.id = id;
-    }
     public PlayerData()
     {
 
@@ -148,6 +139,7 @@ public class WebData : MonoBehaviour
         PHPMenuManager.manager.toRegb.GetComponent<Button>().interactable = true;
         if (String.IsNullOrEmpty(www.error))
         {
+            print(www.text);
             error = JsonUtility.FromJson<Error>(www.text);
             if (!error.isError)
             {

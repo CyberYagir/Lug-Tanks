@@ -23,6 +23,11 @@ public class Player : MonoBehaviourPun, IPunObservable
                 t.enabled = false;
             }
         }
+        else
+        {
+            tank.tankOptions.weapon = WebData.playerData.weapon;
+            tank.tankOptions.corpus = WebData.playerData.corpus;
+        }
     }
 
     private void Update()
