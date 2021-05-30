@@ -40,6 +40,8 @@ public class Menu : MonoBehaviour
         {
             menuManager.gameObject.SetActive(false);
             pName.text = WebData.playerData.name;
+            FindObjectOfType<Tank>().tankOptions.corpus = WebData.playerData.corpus;
+            FindObjectOfType<Tank>().tankOptions.weapon = WebData.playerData.weapon;
             windows[0].isOpen = true;
             var currentXp = (rankIcon.startMaxExp * (((rankIcon.currRank) + 1f) * (1.25f * (rankIcon.currRank))));
             var nextXp = (rankIcon.startMaxExp * (((rankIcon.currRank + 1) + 1f) * (1.25f * (rankIcon.currRank + 1))));

@@ -28,5 +28,7 @@ public class ChangeWeaponUI : MonoBehaviour
     public void Click()
     {
         tank.tankOptions.weapon = weaponid;
+        WebData.playerData.weapon = weaponid;
+        WebData.SaveStart();
     }
 }

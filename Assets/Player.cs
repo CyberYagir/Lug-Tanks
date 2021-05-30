@@ -27,6 +27,7 @@ public class Player : MonoBehaviourPun, IPunObservable
         {
             tank.tankOptions.weapon = WebData.playerData.weapon;
             tank.tankOptions.corpus = WebData.playerData.corpus;
+            tank.tankOptions.hp = tank.corpuses[tank.tankOptions.corpus].hp;
         }
     }
 

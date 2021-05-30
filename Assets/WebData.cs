@@ -42,15 +42,8 @@ public class WebData : MonoBehaviour
             Destroy(gameObject);
 
         StopAllCoroutines();
-        StartCoroutine(INFSave());
     }
-    IEnumerator INFSave()
-    {
-        while (true) {
-            yield return new WaitForSeconds(5);
-            SaveStart();
-        }
-    }
+
     public void Update()
     {
     }
@@ -121,11 +114,6 @@ public class WebData : MonoBehaviour
         }
     }
 
-    public void SaveStart()
-    {
-        StartCoroutine(Save());
-    }
-
     IEnumerator Login(string name, string password)
     {
         WWWForm form = new WWWForm();
@@ -175,15 +163,22 @@ public class WebData : MonoBehaviour
         else
             error = new Error() { error = "Connection lost", isError = true };
     }
+
+
+    public static void SaveStart()
+    {
+        webData.StartCoroutine(webData.Save());
+    }
     IEnumerator Save()
     {
+        print("save");
         WWWForm form = new WWWForm();
-        //form.AddField("save", "");
-        //form.AddField("exp", exp);
-        //form.AddField("rank", rank);
-        //form.AddField("corpus", corpus);
-        //form.AddField("weapon", weapon);
-        //form.AddField("id", id);
+        form.AddField("save", "");
+        form.AddField("fromUnity", "2003");
+        form.AddField("exp", playerData.exp);
+        form.AddField("corpus", playerData.corpus);
+        form.AddField("weapon", playerData.weapon);
+        form.AddField("id", playerData.id);
         WWW www = new WWW(URL, form);
         yield return www;
     }

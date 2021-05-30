@@ -29,5 +29,7 @@ public class ChangeCorpusUI : MonoBehaviour
     public void Click()
     {
         FindObjectOfType<Tank>().tankOptions.corpus = corpusid;
+        WebData.playerData.corpus = corpusid;
+        WebData.SaveStart();
     }
 }

@@ -9,7 +9,9 @@ public class Weapon : MonoBehaviour {
 
     [SerializeField]
     protected float energy = 100, shot_energy, energy_add, cooldown, damage, rotSpeed, time, fov, maxDist;
-    public bool addTime = true;
+    public bool addTime = true, waitTofull;
+    public bool multiplyDeltaTime;
+    bool wait;
     public Transform shootPoint;
     public Action shootAction;
     public Action updateAction;
@@ -31,6 +33,10 @@ public class Weapon : MonoBehaviour {
     {
         return time;
     }
+    public float getShotEnergy()
+    {
+        return shot_energy;
+    }
     public void Update()
     {
         transform.parent.GetComponent<WeaponRotate>().rotateSpeed = rotSpeed;
@@ -41,23 +47,59 @@ public class Weapon : MonoBehaviour {
         else energy = 100;
         if (addTime)
         time += Time.deltaTime;
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (!waitTofull)
         {
-            if (time >= cooldown)
+            if (Input.GetKey(KeyCode.Mouse0))
             {
-                if (energy >= shot_energy)
+                if (time >= cooldown)
                 {
-                    shootAction.Invoke();
-                    time = 0;
-                    energy -= shot_energy;
+                    if (energy >= shot_energy)
+                    {
+                        shootAction.Invoke();
+                        time = 0;
+                        energy -= shot_energy;
+                    }
+                }
+            }
+            else
+            {
+                if (notShootAction != null)
+                {
+                    notShootAction.Invoke();
                 }
             }
         }
         else
         {
-            if (notShootAction != null)
+            if (wait)
             {
-                notShootAction.Invoke();
+                if (energy == 100)
+                {
+                    wait = false;
+                }
+            }
+            if (Input.GetKey(KeyCode.Mouse0) && !wait)
+            {
+                if (time >= cooldown)
+                {
+                    if (energy >= shot_energy && !wait)
+                    {
+                        shootAction.Invoke();
+                        time = 0;
+                        energy -= shot_energy * (multiplyDeltaTime ?  Time.deltaTime : 1);
+                    }
+                    else
+                    {
+                        wait = true;
+                    }
+                }
+            }
+            else
+            {
+                if (notShootAction != null)
+                {
+                    notShootAction.Invoke();
+                }
             }
         }
         if (updateAction != null)

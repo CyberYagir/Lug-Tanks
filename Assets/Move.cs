@@ -9,9 +9,15 @@ public class Move : MonoBehaviour
     public float maxSlope;
     public Rigidbody rb;
     public Tank tank;
-
+    public float angle;
     private void FixedUpdate()
     {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit))
+        {
+            angle = Mathf.Abs(Vector3.Angle(hit.normal, Vector3.down) - 180f);
+        }
+
         bool canRot = false;
         var crp = tank.corpuses[tank.tankOptions.corpus];
         bool isFly = true;
@@ -21,7 +27,7 @@ public class Move : MonoBehaviour
             {
                 canRot = true;
                 isFly = false;
-                rb.AddForce((crp.tracks[i].transform.forward * (tank.corpuses[tank.tankOptions.corpus].speed / crp.tracks.Count) * Input.GetAxisRaw("Vertical")) + (new Vector3(0, 0.02f * Input.GetAxis("Vertical"))) * Time.fixedDeltaTime, ForceMode.Acceleration);
+                rb.AddForce((crp.tracks[i].transform.forward * ((tank.corpuses[tank.tankOptions.corpus].speed + (angle * 0.5f)) / crp.tracks.Count) * Input.GetAxisRaw("Vertical")) + (new Vector3(0, 0.02f * Input.GetAxis("Vertical"))) * Time.fixedDeltaTime, ForceMode.Acceleration);
             }
         }
         rb.drag = isFly ? 0.1f : 1.5f; 
