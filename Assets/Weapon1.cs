@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -120,13 +121,32 @@ public class Weapon : MonoBehaviour {
             if (WeaponRotate.IsVisible(enemies[i]))
             {
                 RaycastHit hit;
-                if (Physics.Raycast(shootPoint.position, enemies[i].transform.position - shootPoint.position, out hit))
+                var t = enemies[i].GetComponent<Tank>();
+                bool finded = false;
+                for (int u = 0; u < t.corpuses[t.tankOptions.corpus].hitPoints.Length; u++)
                 {
-                    if (hit.collider != null)
+                    if (Physics.Raycast(shootPoint.position, enemies[i].transform.position - shootPoint.position, out hit))
                     {
-                        if (hit.transform == enemies[i].transform)
+                        if (hit.collider != null)
                         {
-                            ret.Add(enemies[i]);
+                            if (hit.transform == enemies[i].transform)
+                            {
+                                finded = true;
+                                ret.Add(enemies[i]);
+                                break;
+                            }
+                        }
+                    }
+                }                
+                if (!finded){
+                    if (Physics.Raycast(shootPoint.transform.position, enemies[i].transform.position - shootPoint.position, out hit))
+                    {
+                        if (hit.collider != null)
+                        {
+                            if (hit.transform == enemies[i].transform)
+                            {
+                                ret.Add(enemies[i]);
+                            }
                         }
                     }
                 }
@@ -135,7 +155,16 @@ public class Weapon : MonoBehaviour {
         var trgs = new List<Target>();
         for (int i = 0; i < ret.Count; i++)
         {
-            trgs.Add(new Target() { angle = Vector3.Angle(shootPoint.forward, ret[i].transform.position - shootPoint.position), enemy = ret[i]});
+            bool add = true;
+            if (maxDist != 0)
+            {
+                if (Vector3.Distance(shootPoint.transform.position, ret[i].gameObject.transform.position) > maxDist)
+                {
+                    add = false;
+                }
+            }
+            if (add)
+                trgs.Add(new Target() { angle = Vector3.Angle(shootPoint.forward, ret[i].transform.position - shootPoint.position), enemy = ret[i] });
         }
         return trgs.OrderBy(x => x.angle).ToList();
     }
@@ -148,6 +177,7 @@ public class Weapon1 : Weapon
     //public List<Target> targets;
     private void Start()
     {
+        
         shootAction += () =>
         {
             var targets = Enemies(shootPoint);
@@ -156,6 +186,9 @@ public class Weapon1 : Weapon
                 RaycastHit hit;
                 if (Physics.Raycast(shootPoint.transform.position, shootPoint.forward, out hit))
                 {
+                    if (hit.transform.tag == "Enemy"){                    
+                        hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (int)damage, (string)PhotonNetwork.NickName);
+                    }
                     Destroy(Instantiate(particles.gameObject, hit.point, Quaternion.identity), 2);
                 }
             }
@@ -164,6 +197,7 @@ public class Weapon1 : Weapon
                 RaycastHit hit;
                 if (Physics.Raycast(shootPoint.transform.position, targets[0].enemy.gameObject.transform.position - shootPoint.transform.position, out hit))
                 {
+                    targets[0].enemy.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (int)damage, (string)PhotonNetwork.NickName);
                     Destroy(Instantiate(particles.gameObject, hit.point, Quaternion.identity), 2);
                 }
             }

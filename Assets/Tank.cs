@@ -25,6 +25,7 @@ public class Corpus
     public GameObject obj;
     public Transform weaponPoint;
     public Vector3 centerOfMass;
+    public Transform[] hitPoints;
     public List<Track> tracks;
 }
 public class Tank : MonoBehaviour

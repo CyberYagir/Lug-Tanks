@@ -35,7 +35,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
         {
             PhotonNetwork.GameVersion = Application.version;
             PhotonNetwork.ConnectUsingSettings();
-            PhotonNetwork.NickName = name;
+            PhotonNetwork.NickName = WebData.playerData.name;
         }
         else
         {

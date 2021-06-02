@@ -7,11 +7,15 @@ using UnityEngine;
 public class Player : MonoBehaviourPun, IPunObservable
 {
     Tank tank;
+    public GameObject canvas;
     private void Awake()
     {
         tank = GetComponent<Tank>();
+        tank.name = photonView.Owner.NickName;
         if (!photonView.IsMine)
         {
+            tank.transform.tag = "Enemy";
+            canvas.SetActive(false);
             GetComponent<Move>().enabled = false;
             tank.cameraLook.gameObject.SetActive(false);
             foreach (var t in tank.weapons)
@@ -21,6 +25,10 @@ public class Player : MonoBehaviourPun, IPunObservable
                     t.transform.GetComponent<WeaponAnimate>().enabled = false;
                 }
                 t.enabled = false;
+            }
+            foreach (var t in tank.corpuses)
+            {
+                t.obj.layer = LayerMask.NameToLayer("Default");
             }
         }
         else
@@ -41,6 +49,11 @@ public class Player : MonoBehaviourPun, IPunObservable
         {
             tank.tankOptions.turretRotation = tank.weapons[tank.tankOptions.weapon].transform.rotation;
         }
+    }
+    [PunRPC]
+    public void TakeDamage(int damage, string actorName)
+    {
+        tank.tankOptions.hp -= damage;
     }
 
     public static void RefreshInstance(ref Player player, Player playerPrefab, bool withMasterClient = false)

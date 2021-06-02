@@ -11,11 +11,12 @@ public class WeaponRotate : MonoBehaviour
 
     public static bool IsVisible(GameObject gm)
     {
-        return GeometryUtility.TestPlanesAABB(GeometryUtility.CalculateFrustumPlanes(shootCam), gm.GetComponent<Collider>().bounds);
+        return GeometryUtility.TestPlanesAABB(GeometryUtility.CalculateFrustumPlanes(shootCam), gm.GetComponentInChildren<Collider>().bounds);
     }
     private void Start()
     {
-        shootCam = shootCamera.GetComponent<Camera>();
+        if (GetComponentInParent<Player>().photonView.IsMine)
+            shootCam = shootCamera.GetComponent<Camera>();
     }
     private void Update()
     {

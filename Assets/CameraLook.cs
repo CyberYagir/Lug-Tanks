@@ -6,10 +6,12 @@ public class CameraLook : MonoBehaviour
 {
     public float sence;
     Transform parent;
+    Tank tank;
     // Start is called before the first frame update
     void Start()
     {
         parent = transform.parent;
+        tank = parent.GetComponentInParent<Tank>();
         transform.parent = null;
     }
 
@@ -21,6 +23,7 @@ public class CameraLook : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = parent.transform.position;
+        if (parent.gameObject == null) { Destroy(gameObject); return; } 
+        transform.position = new Vector3(tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position.x, parent.transform.position.y, tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position.z);
     }
 }
