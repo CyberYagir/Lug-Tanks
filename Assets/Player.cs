@@ -47,13 +47,40 @@ public class Player : MonoBehaviourPun, IPunObservable
         }
         else
         {
+            Dead();
             tank.tankOptions.turretRotation = tank.weapons[tank.tankOptions.weapon].transform.rotation;
         }
     }
     [PunRPC]
-    public void TakeDamage(int damage, string actorName)
+    public void TakeDamage(float damage, string actorName, int weapon)
     {
-        tank.tankOptions.hp -= damage;
+        if (photonView.IsMine)
+        {
+            if (tank.tankOptions.hp > 0)
+            {
+                tank.tankOptions.hp -= damage;
+                if (tank.tankOptions.hp <= 0)
+                {
+                    photonView.RPC("KillRPC", RpcTarget.All, actorName, photonView.Owner.NickName, weapon);
+                }
+            }
+        }
+    }
+    [PunRPC]
+    public void KillRPC(string playerKiller, string playerKilled, int weapon)
+    {
+        KillsList.killsList.Create(playerKiller, playerKilled, weapon);
+    }
+
+    public void Dead()
+    {
+        if (photonView.IsMine)
+        {
+            if (tank.tankOptions.hp <= 0)
+            {
+                PhotonNetwork.Destroy(gameObject);
+            }
+        }
     }
 
     public static void RefreshInstance(ref Player player, Player playerPrefab, bool withMasterClient = false)

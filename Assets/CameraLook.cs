@@ -11,19 +11,27 @@ public class CameraLook : MonoBehaviour
     void Start()
     {
         parent = transform.parent;
-        tank = parent.GetComponentInParent<Tank>();
+        foreach (var item in FindObjectsOfType<CameraLook>())
+        {
+            if (item != this) Destroy(item.gameObject);
+        }
+        if (parent)
+        {
+            tank = parent.GetComponentInParent<Tank>();
+        }
         transform.parent = null;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.localEulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * sence, 0);
+        if (parent)
+            transform.localEulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * sence, 0);
     }
 
     private void FixedUpdate()
     {
-        if (parent.gameObject == null) { Destroy(gameObject); return; } 
-        transform.position = new Vector3(tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position.x, parent.transform.position.y, tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position.z);
+        if (parent != null)
+            transform.position = new Vector3(tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position.x, parent.transform.position.y, tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position.z);
     }
 }

@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviourPunCallbacks {
 
     public Transform[] spawns;
 
+    public float time;
+
     private void Awake()
     {
         if (!PhotonNetwork.IsConnected)
@@ -29,12 +31,27 @@ public class GameManager : MonoBehaviourPunCallbacks {
 
     public void RespawnPlayer()
     {
+        if (!Timer.timer_.end)
             Player.RefreshInstance(ref LocalPlayer, playerPrefab, true);
-
     }
     private void Update()
     {
-     
+        if (LocalPlayer == null)
+        {
+            time += Time.deltaTime;
+            if (time > 2.5f)
+            {
+                RespawnPlayer();
+            }
+        }
+        else
+        {
+            time = 0;
+            if (Timer.timer_.end)
+            {
+                PhotonNetwork.Destroy(LocalPlayer.gameObject);
+            }
+        }
     }
     public void Disconnect()
     {
@@ -48,15 +65,10 @@ public class GameManager : MonoBehaviourPunCallbacks {
         SceneManager.LoadScene("Menu");
     }
 
-    private void Start()
-    {
-        RespawnPlayer();
-    }
-
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
-        Player.RefreshInstance(ref LocalPlayer, playerPrefab);
+        //Player.RefreshInstance(ref LocalPlayer, playerPrefab);
     }
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {

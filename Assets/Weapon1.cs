@@ -187,9 +187,9 @@ public class Weapon1 : Weapon
                 if (Physics.Raycast(shootPoint.transform.position, shootPoint.forward, out hit))
                 {
                     if (hit.transform.tag == "Enemy"){                    
-                        hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (int)damage, (string)PhotonNetwork.NickName);
+                        hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float)damage, (string)PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.weapon);
                     }
-                    Destroy(Instantiate(particles.gameObject, hit.point, Quaternion.identity), 2);
+                    PhotonNetwork.Instantiate(particles.name, hit.point, Quaternion.identity).GetComponent<ParticleDestroy>().StartEnum();
                 }
             }
             else
@@ -197,11 +197,10 @@ public class Weapon1 : Weapon
                 RaycastHit hit;
                 if (Physics.Raycast(shootPoint.transform.position, targets[0].enemy.gameObject.transform.position - shootPoint.transform.position, out hit))
                 {
-                    targets[0].enemy.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (int)damage, (string)PhotonNetwork.NickName);
-                    Destroy(Instantiate(particles.gameObject, hit.point, Quaternion.identity), 2);
+                    targets[0].enemy.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float)damage, (string)PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.weapon);
+                    PhotonNetwork.Instantiate(particles.name, targets[0].enemy.gameObject.transform.position, Quaternion.identity).GetComponent<ParticleDestroy>().StartEnum();
                 }
             }
         };
     }
-
 }
