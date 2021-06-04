@@ -62,9 +62,32 @@ public class Player : MonoBehaviourPun, IPunObservable
                 if (tank.tankOptions.hp <= 0)
                 {
                     photonView.RPC("KillRPC", RpcTarget.All, actorName, photonView.Owner.NickName, weapon);
+                    AddDeath();
+                    foreach (var item in PhotonNetwork.CurrentRoom.Players)
+                    {
+                        if (item.Value.NickName == actorName)
+                        {
+                            var newC = new ExitGames.Client.Photon.Hashtable();
+                            newC.Add("k", ((int)item.Value.CustomProperties["k"]) + 1);
+                            newC.Add("d", (int)item.Value.CustomProperties["d"]);
+                            item.Value.SetCustomProperties(newC);
+                            break;
+                        }
+                    }
                 }
             }
         }
+    }
+    public void AddDeath()
+    {
+        var k = (int)photonView.Owner.CustomProperties["k"];
+        var d = (int)photonView.Owner.CustomProperties["d"];
+        print("Form: " + d);
+
+        var newC = new ExitGames.Client.Photon.Hashtable();
+        newC.Add("k", k);
+        newC.Add("d", d + 1);
+        photonView.Owner.SetCustomProperties(newC);
     }
     [PunRPC]
     public void KillRPC(string playerKiller, string playerKilled, int weapon)
@@ -78,6 +101,7 @@ public class Player : MonoBehaviourPun, IPunObservable
         {
             if (tank.tankOptions.hp <= 0)
             {
+                AddDeath();
                 PhotonNetwork.Destroy(gameObject);
             }
         }

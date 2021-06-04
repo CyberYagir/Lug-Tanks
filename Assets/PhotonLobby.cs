@@ -124,8 +124,8 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
         WebData.playerData.corpus = FindObjectOfType<Tank>().tankOptions.corpus;
         WebData.playerData.weapon = FindObjectOfType<Tank>().tankOptions.weapon;
         ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
-        h.Add("K", 0);
-        h.Add("D", 0);
+        h.Add("k", 0);
+        h.Add("d", 0);
         PhotonNetwork.LocalPlayer.SetCustomProperties(h);
         PhotonNetwork.LoadLevel(1);
         base.OnJoinedRoom();

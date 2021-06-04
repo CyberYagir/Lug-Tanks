@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviourPunCallbacks {
 
     public float time;
 
+    public GameObject tabMenu;
     private void Awake()
     {
         if (!PhotonNetwork.IsConnected)
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviourPunCallbacks {
     }
     private void Update()
     {
+        tabMenu.SetActive(Input.GetKey(KeyCode.Tab));
         if (LocalPlayer == null)
         {
             time += Time.deltaTime;
