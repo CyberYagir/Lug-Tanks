@@ -42,7 +42,8 @@ public class Menu : MonoBehaviour
             pName.text = WebData.playerData.name;
             FindObjectOfType<Tank>().tankOptions.corpus = WebData.playerData.corpus;
             FindObjectOfType<Tank>().tankOptions.weapon = WebData.playerData.weapon;
-            windows[0].isOpen = true;
+            if (PhotonNetwork.InLobby)
+                windows[0].isOpen = true;
             var currentXp = (rankIcon.startMaxExp * (((rankIcon.currRank) + 1f) * (1.25f * (rankIcon.currRank))));
             var nextXp = (rankIcon.startMaxExp * (((rankIcon.currRank + 1) + 1f) * (1.25f * (rankIcon.currRank + 1))));
             expLine.localScale = Vector3.Lerp(expLine.localScale, new Vector3((WebData.playerData.exp - currentXp) / (nextXp - currentXp), 1, 1), 6f * Time.deltaTime);

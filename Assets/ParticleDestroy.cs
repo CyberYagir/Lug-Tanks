@@ -13,7 +13,7 @@ public class ParticleDestroy : MonoBehaviour
 
     IEnumerator wait()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.7f);
         PhotonNetwork.Destroy(gameObject);
     }
 }

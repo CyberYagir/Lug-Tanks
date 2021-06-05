@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 public class LineScript : MonoBehaviour
 {
-
+    public string prefabName;
     public void Start_Destroy()
     {
         StartCoroutine(destroy());

@@ -7,6 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviourPun, IPunObservable
 {
     Tank tank;
+    public float timetosuicide;
     public GameObject canvas;
     private void Awake()
     {
@@ -47,6 +48,19 @@ public class Player : MonoBehaviourPun, IPunObservable
         }
         else
         {
+            if (Input.GetKey(KeyCode.Delete))
+            {
+                timetosuicide += Time.deltaTime;
+                if (timetosuicide > 2f)
+                {
+                    tank.tankOptions.hp = 0;
+
+                }
+            }
+            else
+            {
+                timetosuicide = 0;
+            }
             Dead();
             tank.tankOptions.turretRotation = tank.weapons[tank.tankOptions.weapon].transform.rotation;
         }
@@ -82,8 +96,6 @@ public class Player : MonoBehaviourPun, IPunObservable
     {
         var k = (int)photonView.Owner.CustomProperties["k"];
         var d = (int)photonView.Owner.CustomProperties["d"];
-        print("Form: " + d);
-
         var newC = new ExitGames.Client.Photon.Hashtable();
         newC.Add("k", k);
         newC.Add("d", d + 1);
@@ -102,6 +114,9 @@ public class Player : MonoBehaviourPun, IPunObservable
             if (tank.tankOptions.hp <= 0)
             {
                 AddDeath();
+                var dead = PhotonNetwork.Instantiate("TankDead", transform.position, transform.rotation);
+                dead.GetPhotonView().RPC("Set", RpcTarget.All, tank.tankOptions.weapon, tank.tankOptions.corpus, tank.tankOptions.turretRotation, GetComponent<Rigidbody>().velocity, GetComponent<Rigidbody>().mass, GetComponent<Rigidbody>().drag, new Vector3(Random.Range(-5, 5), Random.Range(5, 20), Random.Range(-5, 10)), new Vector3(Random.Range(-100, 100), Random.Range(-100, 100), Random.Range(-100, 100)), true);
+                dead.GetComponent<DeadTank>().StartDestroy(); 
                 PhotonNetwork.Destroy(gameObject);
             }
         }
@@ -111,7 +126,6 @@ public class Player : MonoBehaviourPun, IPunObservable
     {
         if (PhotonNetwork.IsMasterClient == false || withMasterClient == true)
         {
-            print("Respawn");
             var pos = FindObjectOfType<GameManager>().spawns[Random.Range(0, FindObjectOfType<GameManager>().spawns.Length)].position;
             var rot = Quaternion.identity;
             if (player != null)

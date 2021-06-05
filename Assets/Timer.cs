@@ -44,7 +44,7 @@ public class Timer : MonoBehaviour
     {
         if (!startTimer) return;
         timerIncrementValue = PhotonNetwork.Time - startTime;
-        text.text = timerIncrementValue.ToString("F0") + "/" + timer;
+        text.text = timerIncrementValue.ToString("F0") + "/" + timer ;
         if ((int)timerIncrementValue >= timer)
         {
             end = true;
