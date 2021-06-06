@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
         foreach (var item in FindObjectsOfType<Bonus>())
         {
             var n = PhotonNetwork.Instantiate("Bonus", item.transform.position, item.transform.rotation);
-            n.GetPhotonView().RPC("SetParent", RpcTarget.AllBuffered, item.bonus_id);
+            n.GetPhotonView().RPC("SetParent", RpcTarget.AllBuffered, item.bonus_id, item.box_type);
         }
     }
 }

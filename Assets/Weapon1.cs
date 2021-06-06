@@ -116,8 +116,10 @@ public class Weapon : MonoBehaviour {
     {
         var ret = new List<GameObject>();
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (WeaponRotate.shootCam == null) return new List<Target>();
         for (int i = 0; i < enemies.Length; i++)
         {
+            if (enemies[i] == null) continue;
             if (WeaponRotate.IsVisible(enemies[i]))
             {
                 RaycastHit hit;

@@ -6,8 +6,10 @@ public class Look : MonoBehaviour
 {
     SpriteRenderer renderer;
     float transp;
+    Collider col;
     private void Start()
     {
+        col = GetComponent<Collider>();
         renderer = GetComponent<SpriteRenderer>();
     }
     void Update()
@@ -18,10 +20,13 @@ public class Look : MonoBehaviour
             transform.LookAt(new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z));
             if (Vector3.Distance(transform.position, Camera.main.transform.parent.position) < 4f)
             {
+                col.enabled = false;
                 transp = 0.5f;
+
             }
             else
             {
+                col.enabled = true;
                 transp = 1f;
             }
         }
