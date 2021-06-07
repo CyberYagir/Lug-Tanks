@@ -23,9 +23,12 @@ public class CrosshairUI : MonoBehaviour
             {
                 if (hit.transform == enemies[0].enemy.transform)
                 {
-                    crosshair.SetActive(true);
-                    crosshair.transform.position = Camera.main.WorldToScreenPoint(enemies[0].enemy.transform.position, Camera.MonoOrStereoscopicEye.Mono);
-                    return;
+                    if (Tank.lastPlayer == null || Tank.lastPlayerClearTime > 5f)
+                    {
+                        crosshair.SetActive(true);
+                        crosshair.transform.position = Camera.main.WorldToScreenPoint(enemies[0].enemy.transform.position, Camera.MonoOrStereoscopicEye.Mono);
+                        return;
+                    }
                 }
             }
 

@@ -27,12 +27,12 @@ public class Move : MonoBehaviour
             {
                 canRot = true;
                 isFly = false;
-                rb.AddForce((crp.tracks[i].transform.forward * ((tank.corpuses[tank.tankOptions.corpus].speed + (angle * 0.5f)) / crp.tracks.Count) * Input.GetAxisRaw("Vertical")) + (new Vector3(0, 0.02f * Input.GetAxis("Vertical"))) * Time.fixedDeltaTime, ForceMode.Acceleration);
+                rb.AddForce((crp.tracks[i].transform.forward * TankModificators.speedIncrease * ((tank.corpuses[tank.tankOptions.corpus].speed + (angle * 0.5f)) / crp.tracks.Count) * Input.GetAxisRaw("Vertical")) + (new Vector3(0, 0.02f * Input.GetAxis("Vertical"))) * Time.fixedDeltaTime, ForceMode.Acceleration);
             }
         }
         rb.drag = isFly ? 0.1f : 1.5f; 
 
         if (canRot)
-            rb.MoveRotation(Quaternion.Euler(transform.localEulerAngles + (new Vector3(0, Input.GetAxisRaw("Horizontal"), 0) * tank.corpuses[tank.tankOptions.corpus].rotSpeed) * Time.fixedDeltaTime));
+            rb.MoveRotation(Quaternion.Euler(transform.localEulerAngles + (new Vector3(0, Input.GetAxisRaw("Horizontal"), 0) * tank.corpuses[tank.tankOptions.corpus].rotSpeed) * TankModificators.speedIncrease * Time.fixedDeltaTime));
     }
 }

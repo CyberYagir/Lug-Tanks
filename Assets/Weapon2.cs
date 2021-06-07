@@ -33,6 +33,7 @@ public class Weapon2 : Weapon
                 if (Physics.Raycast(shootPoint.transform.position, targets[0].enemy.gameObject.transform.position - shootPoint.transform.position, out hit))
                 {
                     targets[0].enemy.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float)damage, (string)PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.weapon);
+                    Tank.SetLastPlayer(targets[0].enemy.gameObject);
                     CreateLine(shootPoint.transform.position, targets[0].enemy.transform.position);
                 }
             }

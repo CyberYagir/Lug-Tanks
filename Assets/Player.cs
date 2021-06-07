@@ -19,6 +19,7 @@ public class Player : MonoBehaviourPun, IPunObservable
             canvas.SetActive(false);
             GetComponent<Move>().enabled = false;
             tank.cameraLook.gameObject.SetActive(false);
+            Destroy(GetComponent<TankModificators>());
             foreach (var t in tank.weapons)
             {
                 if (t.transform.GetComponent<WeaponAnimate>())
@@ -48,6 +49,7 @@ public class Player : MonoBehaviourPun, IPunObservable
         }
         else
         {
+            print(JsonUtility.ToJson(tank.bonuses, true));
             if (Input.GetKey(KeyCode.Delete))
             {
                 timetosuicide += Time.deltaTime;
@@ -72,7 +74,7 @@ public class Player : MonoBehaviourPun, IPunObservable
         {
             if (tank.tankOptions.hp > 0)
             {
-                tank.tankOptions.hp -= damage;
+                tank.tankOptions.hp -= damage / TankModificators.defenceIncrease;
                 if (tank.tankOptions.hp <= 0)
                 {
                     photonView.RPC("KillRPC", RpcTarget.All, actorName, photonView.Owner.NickName, weapon);
@@ -143,10 +145,12 @@ public class Player : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(JsonUtility.ToJson(tank.tankOptions, true));
+            //stream.SendNext(JsonUtility.ToJson(tank.bonuses, true));
         }
         else
         {
             tank.tankOptions = JsonUtility.FromJson<TankOptions>((string)stream.ReceiveNext());
+            //tank.bonuses = JsonUtility.FromJson<int[]>((string)stream.ReceiveNext());
         }
     }
 }

@@ -31,7 +31,7 @@ public class Bonuses : MonoBehaviour
                 if (spawn != null)
                 {
                     var n = PhotonNetwork.Instantiate(prefab.name, spawn.transform.position, Quaternion.identity);
-                    n.GetPhotonView().RPC("SetParent", RpcTarget.AllBuffered, id, 0 );
+                    n.GetPhotonView().RPC("SetParent", RpcTarget.AllBuffered, id, (int)Random.Range(0, 4));
                 }
                 time = 0;
             }

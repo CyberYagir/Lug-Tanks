@@ -127,7 +127,7 @@ public class WebData : MonoBehaviour
         PHPMenuManager.manager.toRegb.GetComponent<Button>().interactable = true;
         if (String.IsNullOrEmpty(www.error))
         {
-            print(www.text);
+//            print(www.text);
             error = JsonUtility.FromJson<Error>(www.text);
             if (!error.isError)
             {

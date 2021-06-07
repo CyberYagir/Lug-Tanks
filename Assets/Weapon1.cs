@@ -44,10 +44,10 @@ public class Weapon : MonoBehaviour {
         if (WeaponRotate.shootCam != null)
         WeaponRotate.shootCam.fieldOfView = fov;
         if (energy < 100)
-        { energy += energy_add * Time.deltaTime; }
+        { energy += energy_add * Time.deltaTime * TankModificators.fireRateIncrease; }
         else energy = 100;
         if (addTime)
-        time += Time.deltaTime;
+        time += Time.deltaTime * TankModificators.fireRateIncrease;
         if (!waitTofull)
         {
             if (Input.GetKey(KeyCode.Mouse0))
@@ -199,6 +199,7 @@ public class Weapon1 : Weapon
                 RaycastHit hit;
                 if (Physics.Raycast(shootPoint.transform.position, targets[0].enemy.gameObject.transform.position - shootPoint.transform.position, out hit))
                 {
+                    Tank.SetLastPlayer(targets[0].enemy.gameObject);
                     targets[0].enemy.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float)damage, (string)PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.weapon);
                     PhotonNetwork.Instantiate(particles.name, targets[0].enemy.gameObject.transform.position, Quaternion.identity).GetComponent<ParticleDestroy>().StartEnum();
                 }

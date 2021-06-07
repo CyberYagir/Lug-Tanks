@@ -59,7 +59,6 @@ public class Menu : MonoBehaviour
     {
         for (int i = 1; i < windows.Length; i++)
         {
-            windows[i].isOpen = false;
             if (i == n)
             {
                 windows[i].isOpen = !windows[i].isOpen;

@@ -142,7 +142,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
         base.OnRoomListUpdate(roomList);
         rooms = roomList;
         //FindObjectOfType<Menu>().UpdateRooms();
-        print("ROOMS COUNT: " + rooms.Count);
+//        print("ROOMS COUNT: " + rooms.Count);
     }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {

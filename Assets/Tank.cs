@@ -1,20 +1,14 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[System.Serializable]
-public class Keys
-{
-    public string name;
-    public object data;
-}
+
 [System.Serializable]
 public class TankOptions {
     public float hp;
-    public int k, d;
     public int corpus;
     public int weapon;
     public Quaternion turretRotation;
-    public List<Keys> keys = new List<Keys>();
 }
 [System.Serializable]
 public class Corpus
@@ -34,14 +28,27 @@ public class Tank : MonoBehaviour
     public TankOptions tankOptions;
     public List<Corpus> corpuses;
     public List<Weapon> weapons;
+    public int[] bonuses;
     public Rigidbody rb;
-
+    public Transform damageDisplayPoint;
+    public static GameObject lastPlayer;
+    public static float lastPlayerClearTime;
     private void Start()
     {
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Ignore Raycast"), LayerMask.NameToLayer("NoCollisions"));
+        if (gameObject.GetPhotonView() != null && !gameObject.GetPhotonView().IsMine)
+        {
+            SetEqup();
+        }
     }
+    public static void SetLastPlayer(GameObject obj)
+    {
+        lastPlayer = obj;
+        lastPlayerClearTime = 0;
+    }
+    
 
-    private void Update()
+   void SetEqup()
     {
         for (int i = 0; i < corpuses.Count; i++)
         {
@@ -58,6 +65,19 @@ public class Tank : MonoBehaviour
             {
                 weapons[i].transform.position = corpuses[tankOptions.corpus].weaponPoint.transform.position;
             }
+        }
+    }
+    private void Update()
+    {
+
+        if (gameObject.GetPhotonView() == null || gameObject.GetPhotonView().IsMine)
+        {
+            lastPlayerClearTime += Time.deltaTime;
+            SetEqup();
+        }
+        else
+        {
+            weapons[tankOptions.weapon].transform.position = corpuses[tankOptions.corpus].weaponPoint.transform.position;
         }
     }
 
