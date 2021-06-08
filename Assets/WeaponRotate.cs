@@ -28,7 +28,6 @@ public class WeaponRotate : MonoBehaviour
     }
     private void Update()
     {
-
         transform.position = GetComponentInParent<Tank>().corpuses[GetComponentInParent<Tank>().tankOptions.corpus].weaponPoint.transform.position;
         transform.rotation = Quaternion.Lerp(transform.rotation, tank.cameraLook.transform.rotation, rotateSpeed * Time.deltaTime);
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);

@@ -9,6 +9,8 @@ public class PlayerBonus {
     public float heathAdd = 0;
     public float defenceIncrease = 1;
     public float time = 10;
+    [HideInInspector]
+    public float fulltime = 10;
 }
 
 
@@ -16,12 +18,16 @@ public class TankModificators : MonoBehaviour
 {
     public List<PlayerBonus> playerBonus;
     public Tank tank;
+    public static TankModificators modificators;
     public static float defenceIncrease = 1;
     public static float fireRateIncrease = 1;
     public static float speedIncrease = 1;
 
 
-
+    private void Start()
+    {
+        modificators = this;
+    }
     public void AddBonus(PlayerBonus plBonus)
     {
         if (playerBonus.Find(x => x.type == plBonus.type) != null)
@@ -31,6 +37,7 @@ public class TankModificators : MonoBehaviour
         }
         else
         {
+            plBonus.fulltime = plBonus.time;
             playerBonus.Add(plBonus);
         }
     }
@@ -62,6 +69,6 @@ public class TankModificators : MonoBehaviour
                 return;
             }
         }
-        tank.bonuses = bonuses.ToArray();
+        tank.bonuses = bonuses;
     }
 }

@@ -20,6 +20,7 @@ public class Player : MonoBehaviourPun, IPunObservable
             GetComponent<Move>().enabled = false;
             tank.cameraLook.gameObject.SetActive(false);
             Destroy(GetComponent<TankModificators>());
+            Destroy(GetComponentInChildren<WeaponRotate>());
             foreach (var t in tank.weapons)
             {
                 if (t.transform.GetComponent<WeaponAnimate>())
@@ -45,11 +46,12 @@ public class Player : MonoBehaviourPun, IPunObservable
     {
         if (!photonView.IsMine)
         {
-            tank.weapons[tank.tankOptions.weapon].transform.rotation = Quaternion.Lerp(tank.weapons[tank.tankOptions.weapon].transform.rotation, tank.tankOptions.turretRotation, tank.weapons[tank.tankOptions.weapon].getRotSpeed() * 2f * Time.deltaTime);
+            if (tank.tankOptions.weapon != -1)
+                tank.weapons[tank.tankOptions.weapon].transform.rotation = Quaternion.Lerp(tank.weapons[tank.tankOptions.weapon].transform.rotation, tank.tankOptions.turretRotation, tank.weapons[tank.tankOptions.weapon].getRotSpeed() * 2f * Time.deltaTime);
         }
         else
         {
-            print(JsonUtility.ToJson(tank.bonuses, true));
+            //print(JsonUtility.ToJson(tank.bonuses, true));
             if (Input.GetKey(KeyCode.Delete))
             {
                 timetosuicide += Time.deltaTime;
@@ -145,12 +147,14 @@ public class Player : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(JsonUtility.ToJson(tank.tankOptions, true));
-            //stream.SendNext(JsonUtility.ToJson(tank.bonuses, true));
+            stream.SendNext(tank.bonuses.ToArray());
         }
         else
         {
             tank.tankOptions = JsonUtility.FromJson<TankOptions>((string)stream.ReceiveNext());
-            //tank.bonuses = JsonUtility.FromJson<int[]>((string)stream.ReceiveNext());
+            tank.bonuses = ((int[])stream.ReceiveNext()).ToList();
+
+            //tank.bonuses = JsonUtility.FromJson<int[]>();
         }
     }
 }

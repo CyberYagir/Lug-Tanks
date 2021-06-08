@@ -8,7 +8,7 @@ public class Track : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Ground")
+        if (other.transform.tag == "Ground" || other.transform.tag == "Enemy")
         {
             objects.Add(other.gameObject);
         }

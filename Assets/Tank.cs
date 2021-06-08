@@ -28,7 +28,7 @@ public class Tank : MonoBehaviour
     public TankOptions tankOptions;
     public List<Corpus> corpuses;
     public List<Weapon> weapons;
-    public int[] bonuses;
+    public List<int> bonuses;
     public Rigidbody rb;
     public Transform damageDisplayPoint;
     public static GameObject lastPlayer;
@@ -36,10 +36,6 @@ public class Tank : MonoBehaviour
     private void Start()
     {
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Ignore Raycast"), LayerMask.NameToLayer("NoCollisions"));
-        if (gameObject.GetPhotonView() != null && !gameObject.GetPhotonView().IsMine)
-        {
-            SetEqup();
-        }
     }
     public static void SetLastPlayer(GameObject obj)
     {
@@ -77,7 +73,11 @@ public class Tank : MonoBehaviour
         }
         else
         {
-            weapons[tankOptions.weapon].transform.position = corpuses[tankOptions.corpus].weaponPoint.transform.position;
+            if (tankOptions.corpus != -1)
+            {
+                SetEqup();
+                weapons[tankOptions.weapon].transform.position = corpuses[tankOptions.corpus].weaponPoint.transform.position;
+            }
         }
     }
 
