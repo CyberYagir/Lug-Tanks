@@ -89,7 +89,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
     public void CreateRoom()
     {
         int map = Random.Range(0, mapsCount);
-        string name = "Room #" + Random.Range(0, 1000).ToString("0000") + "_"+ map;
+        string name = "Room [" + (PhotonNetwork.CountOfRooms + 1) +  "]_"+ map;
         ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
         h.Add("Map", map);
         RoomOptions roomOptions = new RoomOptions() {IsVisible = true, IsOpen = true, MaxPlayers = 16, CustomRoomProperties = h};
@@ -111,9 +111,9 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
         RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = players, CustomRoomProperties = h };
         PhotonNetwork.CreateRoom(name, roomOptions);
     }
-    public void JoinRoom(TMP_Text mn)
+    public void JoinRoom(string nm)
     {
-        PhotonNetwork.JoinRoom(mn.text);
+        PhotonNetwork.JoinRoom(nm);
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
@@ -141,7 +141,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
     {
         base.OnRoomListUpdate(roomList);
         rooms = roomList;
-        //FindObjectOfType<Menu>().UpdateRooms();
+        FindObjectOfType<Rooms>().UpdateRooms();
 //        print("ROOMS COUNT: " + rooms.Count);
     }
     public override void OnCreateRoomFailed(short returnCode, string message)

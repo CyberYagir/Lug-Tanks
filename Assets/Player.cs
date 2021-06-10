@@ -108,6 +108,11 @@ public class Player : MonoBehaviourPun, IPunObservable
     [PunRPC]
     public void KillRPC(string playerKiller, string playerKilled, int weapon)
     {
+        if (PhotonNetwork.NickName == playerKiller)
+        {
+            WebData.playerData.exp += 15;
+            WebData.SaveStart();
+        }
         KillsList.killsList.Create(playerKiller, playerKilled, weapon);
     }
 
