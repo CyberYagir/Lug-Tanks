@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [System.Serializable]
 public class TankOptions {
     public float hp;
     public int corpus;
     public int weapon;
+    public int team = 0;
     public Quaternion turretRotation;
 }
 [System.Serializable]
@@ -31,11 +33,23 @@ public class Tank : MonoBehaviour
     public List<int> bonuses;
     public Rigidbody rb;
     public Transform damageDisplayPoint;
+    public List<Texture2D> teams;
     public static GameObject lastPlayer;
     public static float lastPlayerClearTime;
     private void Start()
     {
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Ignore Raycast"), LayerMask.NameToLayer("NoCollisions"));
+        if (PhotonNetwork.InRoom)
+        {
+            for (int i = 0; i < corpuses.Count; i++)
+            {
+                corpuses[i].obj.GetComponent<Renderer>().material.SetTexture("_MainTex", teams[(int)gameObject.GetPhotonView().Owner.CustomProperties["Team"]]);
+            }
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                weapons[i].GetComponent<Renderer>().material.SetTexture("_MainTex", teams[(int)gameObject.GetPhotonView().Owner.CustomProperties["Team"]]);
+            }
+        }
     }
     public static void SetLastPlayer(GameObject obj)
     {
@@ -65,7 +79,8 @@ public class Tank : MonoBehaviour
     }
     private void Update()
     {
-
+	if (Input.GetKey(KeyCode.F1))
+		foreach(var n in FindObjectsOfType<Canvas>()) n.gameObject.SetActive(false);
         if (gameObject.GetPhotonView() == null || gameObject.GetPhotonView().IsMine)
         {
             lastPlayerClearTime += Time.deltaTime;

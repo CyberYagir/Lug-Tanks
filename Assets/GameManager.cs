@@ -29,9 +29,52 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
             SceneManager.LoadScene("Menu");
             return;
         }
+
+
+        if ((string)PhotonNetwork.CurrentRoom.CustomProperties["Mode"] == "TDM")
+        {
+            var newC = new ExitGames.Client.Photon.Hashtable();
+            newC.Add("k", 0);
+            newC.Add("d", 0);
+
+            int blue = 0;
+            int red = 0;
+
+            List<Photon.Realtime.Player> players = new List<Photon.Realtime.Player>();
+            foreach (var pl in PhotonNetwork.CurrentRoom.Players)
+            {
+                players.Add(pl.Value);
+            }
+            for (int i = 0; i < players.Count; i++)
+            {
+                if (players[i].CustomProperties["Team"] != null)
+                {
+                    if ((int)players[i].CustomProperties["Team"] == 1)
+                    {
+                        red++;
+                    }
+                    if ((int)players[i].CustomProperties["Team"] == 2)
+                    {
+                        blue++;
+                    }
+                }
+            }
+            if (blue > red)
+            {
+                newC.Add("Team", 1);
+            }
+            else
+            {
+                newC.Add("Team", 2);
+            }
+
+            PhotonNetwork.LocalPlayer.SetCustomProperties(newC);
+        }
     }
 
-
+    private void Start()
+    {
+    }
     public void RespawnPlayer()
     {
         if (!Timer.timer_.end)
@@ -72,7 +115,6 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
-        //Player.RefreshInstance(ref LocalPlayer, playerPrefab);
     }
 
     public void RespawnAll(Photon.Realtime.Player otherPlayer)

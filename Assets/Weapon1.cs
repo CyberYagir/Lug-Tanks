@@ -124,6 +124,7 @@ public class Weapon : MonoBehaviour {
             {
                 RaycastHit hit;
                 var t = enemies[i].GetComponent<Tank>();
+                if (t.tankOptions.team != 0 && (int)PhotonNetwork.LocalPlayer.CustomProperties["Team"] == t.tankOptions.team) continue;
                 bool finded = false;
                 for (int u = 0; u < t.corpuses[t.tankOptions.corpus].hitPoints.Length; u++)
                 {
@@ -170,6 +171,10 @@ public class Weapon : MonoBehaviour {
         }
         return trgs.OrderBy(x => x.angle).ToList();
     }
+    public bool TeamCheck(GameObject hit)
+    {
+        return (int)hit.GetPhotonView().Owner.CustomProperties["Team"] == 0 || (int)hit.GetPhotonView().Owner.CustomProperties["Team"] != (int)PhotonNetwork.LocalPlayer.CustomProperties["Team"];
+    }
 }
 
 
@@ -188,7 +193,8 @@ public class Weapon1 : Weapon
                 RaycastHit hit;
                 if (Physics.Raycast(shootPoint.transform.position, shootPoint.forward, out hit))
                 {
-                    if (hit.transform.tag == "Enemy"){                    
+                    if (hit.transform.tag == "Enemy" && TeamCheck(hit.transform.gameObject))
+                    {
                         hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float)damage, (string)PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.weapon);
                     }
                     PhotonNetwork.Instantiate(particles.name, hit.point, Quaternion.identity).GetComponent<ParticleDestroy>().StartEnum();

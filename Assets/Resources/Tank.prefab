@@ -1161,7 +1161,7 @@ MonoBehaviour:
   shot_energy: 10
   energy_add: 2
   cooldown: 1
-  damage: 20
+  damage: 25
   rotSpeed: 3
   time: 1
   fov: 20
@@ -1347,7 +1347,7 @@ MonoBehaviour:
   shot_energy: 20
   energy_add: 10
   cooldown: 0
-  damage: 20
+  damage: 40
   rotSpeed: 2
   time: 1
   fov: 15
@@ -1655,9 +1655,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8262812256091982443, guid: 9eee52f8eb91c7a46b56debc5480db4e, type: 3}
   - {fileID: 2100000, guid: 55f0a81e155e5ca41b2291f2a7b125f9, type: 2}
-  - {fileID: -6478536213147159724, guid: 9eee52f8eb91c7a46b56debc5480db4e, type: 3}
+  - {fileID: 2100000, guid: 221b093517b007c409c42068e55d0cd2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1694,7 +1693,7 @@ MonoBehaviour:
   shot_energy: 100
   energy_add: 15
   cooldown: 1
-  damage: 70
+  damage: 55
   rotSpeed: 2.5
   time: 1
   fov: 10
@@ -2061,7 +2060,7 @@ MonoBehaviour:
   - {fileID: 1819258921266040336, guid: 4360447eaad9a7549969c11f0eb2c2f5, type: 3}
   - {fileID: 4495864481821950397, guid: 4360447eaad9a7549969c11f0eb2c2f5, type: 3}
   currRank: 0
-  startMaxExp: 200
+  startMaxExp: 100
   expLine: {fileID: 5261011258227744198}
 --- !u!1 &3568077034662742499
 GameObject:
@@ -2761,6 +2760,7 @@ MonoBehaviour:
     hp: 1
     corpus: -1
     weapon: -1
+    team: 0
     turretRotation: {x: 0, y: 0, z: 0, w: 0}
   corpuses:
   - hp: 60
@@ -2809,6 +2809,10 @@ MonoBehaviour:
   bonuses: 
   rb: {fileID: 5447287780107434949}
   damageDisplayPoint: {fileID: 2736207030393267254}
+  teams:
+  - {fileID: 2800000, guid: 13873c8943a76804e841016451112dab, type: 3}
+  - {fileID: 2800000, guid: 762200b4b7fcdc047aca4bdfca676a14, type: 3}
+  - {fileID: 2800000, guid: 2280816bb43ec1947827d5d62a631aa8, type: 3}
 --- !u!114 &5447287780107434950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9094,9 +9098,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5241157
-  m_Height: 1.2
+  m_Height: 1.2928779
   m_Direction: 2
-  m_Center: {x: -0.09754132, y: 0.02681466, z: -0.00000006117649}
+  m_Center: {x: -0.09754129, y: -0.023172239, z: 0.03842196}
 --- !u!1 &5447287781532607895
 GameObject:
   m_ObjectHideFlags: 0
@@ -14573,9 +14577,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5241157
-  m_Height: 1.2
+  m_Height: 1.2979436
   m_Direction: 2
-  m_Center: {x: 0.09754132, y: 0.02681466, z: -0.00000006117649}
+  m_Center: {x: 0.09754129, y: -0.024334911, z: 0.039315637}
 --- !u!1 &5503575421439067131
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,6 +38,7 @@ public class Player : MonoBehaviourPun, IPunObservable
         {
             tank.tankOptions.weapon = WebData.playerData.weapon;
             tank.tankOptions.corpus = WebData.playerData.corpus;
+            tank.tankOptions.team = (int)PhotonNetwork.LocalPlayer.CustomProperties["Team"];
             tank.tankOptions.hp = tank.corpuses[tank.tankOptions.corpus].hp;
         }
     }
@@ -51,6 +52,7 @@ public class Player : MonoBehaviourPun, IPunObservable
         }
         else
         {
+            //Debug.LogError("Team: " + (int)PhotonNetwork.LocalPlayer.CustomProperties["Team"]);
             //print(JsonUtility.ToJson(tank.bonuses, true));
             if (Input.GetKey(KeyCode.Delete))
             {
@@ -88,7 +90,33 @@ public class Player : MonoBehaviourPun, IPunObservable
                             var newC = new ExitGames.Client.Photon.Hashtable();
                             newC.Add("k", ((int)item.Value.CustomProperties["k"]) + 1);
                             newC.Add("d", (int)item.Value.CustomProperties["d"]);
+                            newC.Add("Team", (int)item.Value.CustomProperties["Team"]);
                             item.Value.SetCustomProperties(newC);
+
+
+                            if ((string)PhotonNetwork.CurrentRoom.CustomProperties["Mode"] == "TDM")
+                            {
+                                var rm = new ExitGames.Client.Photon.Hashtable();
+                                rm.Add("Mode", PhotonNetwork.CurrentRoom.CustomProperties["Mode"]);
+                                rm.Add("Map",(int) PhotonNetwork.CurrentRoom.CustomProperties["Map"]);
+                                rm.Add("Time", (int)PhotonNetwork.CurrentRoom.CustomProperties["Time"]);
+
+                                var redK = (int)PhotonNetwork.CurrentRoom.CustomProperties["RedKills"];
+                                var blueK = (int)PhotonNetwork.CurrentRoom.CustomProperties["BlueKills"];
+
+                                if ((int)item.Value.CustomProperties["Team"] == 1)
+                                {
+                                    redK++;
+                                }
+                                if ((int)item.Value.CustomProperties["Team"] == 2)
+                                {
+                                    blueK++;
+                                }
+
+                                rm.Add("BlueKills", blueK);
+                                rm.Add("RedKills", redK);
+                                PhotonNetwork.CurrentRoom.SetCustomProperties(rm);
+                            }
                             break;
                         }
                     }
@@ -103,6 +131,7 @@ public class Player : MonoBehaviourPun, IPunObservable
         var newC = new ExitGames.Client.Photon.Hashtable();
         newC.Add("k", k);
         newC.Add("d", d + 1);
+        newC.Add("Team", (int)photonView.Owner.CustomProperties["Team"]);
         photonView.Owner.SetCustomProperties(newC);
     }
     [PunRPC]

@@ -92,14 +92,15 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
         string name = "Room [" + (PhotonNetwork.CountOfRooms + 1) +  "]_"+ map;
         ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
         h.Add("Map", map);
+        h.Add("Time", 500);
         RoomOptions roomOptions = new RoomOptions() {IsVisible = true, IsOpen = true, MaxPlayers = 16, CustomRoomProperties = h};
         PhotonNetwork.CreateRoom(name, roomOptions, PhotonNetwork.CurrentLobby);
     }
-    public void CreateRoom(string name, bool visible, bool open, byte players, int map = 0)
+    public void CreateRoom(string name, bool visible, byte players, int time, int map = 0, string mode = "FFA")
     {
         if (name.Replace(" ", "") == "")
         {
-            name = "Room #" + Random.Range(0, 1000).ToString("0000") + "_"+map;
+            name = "Room [" + (PhotonNetwork.CountOfRooms + 1) +  "]_"+ map;
         }
         else
         {
@@ -108,7 +109,14 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
         ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
         h.Add("Map", map);
-        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = players, CustomRoomProperties = h };
+        h.Add("Time", time);
+        h.Add("Mode", mode);
+        if (mode == "TDM")
+        {
+            h.Add("RedKills", 0);
+            h.Add("BlueKills", 0);
+        }
+        RoomOptions roomOptions = new RoomOptions() { IsVisible = visible, IsOpen = true, MaxPlayers = players, CustomRoomProperties = h };
         PhotonNetwork.CreateRoom(name, roomOptions);
     }
     public void JoinRoom(string nm)
@@ -126,6 +134,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
         ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
         h.Add("k", 0);
         h.Add("d", 0);
+        h.Add("Team", 0);
         PhotonNetwork.LocalPlayer.SetCustomProperties(h);
         PhotonNetwork.LoadLevel(1);
         base.OnJoinedRoom();

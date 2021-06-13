@@ -4,12 +4,13 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 using TMPro;
+using UnityEngine.UI;
 
 public class Scores : MonoBehaviour
 {
     public GameObject item, holder;
     float time;
-
+    public List<Color> teamColors;
 
     private void Update()
     {
@@ -24,7 +25,7 @@ public class Scores : MonoBehaviour
                 {
                     players.Add(pl.Value);
                 }
-                players = players.OrderBy(x => x.CustomProperties["k"]).ToList();
+                players = players.OrderBy(x => (int)x.CustomProperties["Team"]).ThenBy(x=>(int)x.CustomProperties["k"]).ToList();
                 players.Reverse();
                 foreach (Transform item in holder.transform)
                 {
@@ -34,6 +35,7 @@ public class Scores : MonoBehaviour
                 for (int i = 0; i < players.Count; i++)
                 {
                     var n = Instantiate(item.gameObject, holder.transform);
+                    n.GetComponent<Image>().color = teamColors[(int)players[i].CustomProperties["Team"]];
                     var rt = n.GetComponent<RectTransform>();
                     rt.anchoredPosition = new Vector2(0, i * -rt.sizeDelta.y);
                     rt.offsetMin = new Vector2(0, rt.offsetMin.y);
