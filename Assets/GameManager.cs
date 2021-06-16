@@ -32,8 +32,11 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public static int map = 0;
 
     public GameObject tabMenu;
+
+    public static bool pause;
     private void Awake()
     {
+        pause = false;
         manager = this;
         if (!PhotonNetwork.IsConnected)
         {

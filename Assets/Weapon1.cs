@@ -49,6 +49,9 @@ public class Weapon : MonoBehaviour {
         else energy = 100;
         if (addTime)
         time += Time.deltaTime * TankModificators.fireRateIncrease;
+
+
+        if (GameManager.pause) return;
         if (!waitTofull)
         {
             if (Input.GetKey(KeyCode.Mouse0))

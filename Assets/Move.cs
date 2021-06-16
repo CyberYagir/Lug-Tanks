@@ -12,6 +12,8 @@ public class Move : MonoBehaviour
     public float angle;
     private void FixedUpdate()
     {
+
+        if (GameManager.pause) return;
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit))
         {

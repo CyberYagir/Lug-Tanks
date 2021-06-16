@@ -79,8 +79,10 @@ public class Tank : MonoBehaviour
     }
     private void Update()
     {
-	if (Input.GetKey(KeyCode.F1))
-		foreach(var n in FindObjectsOfType<Canvas>()) n.gameObject.SetActive(false);
+        if (Input.GetKey(KeyCode.F1))
+            foreach (var n in FindObjectsOfType<Canvas>()) n.gameObject.SetActive(false);
+
+
         if (gameObject.GetPhotonView() == null || gameObject.GetPhotonView().IsMine)
         {
             lastPlayerClearTime += Time.deltaTime;

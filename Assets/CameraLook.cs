@@ -27,7 +27,7 @@ public class CameraLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (parent)
+        if (parent && !GameManager.pause)
         {
 
             transform.localEulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * sence, 0);
