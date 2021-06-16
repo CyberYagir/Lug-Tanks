@@ -164,7 +164,8 @@ public class Player : MonoBehaviourPun, IPunObservable
     {
         if (PhotonNetwork.IsMasterClient == false || withMasterClient == true)
         {
-            var pos = FindObjectOfType<GameManager>().spawns[Random.Range(0, FindObjectOfType<GameManager>().spawns.Length)].position;
+            var team = GameManager.manager.maps[GameManager.map].teamSpawns[(int)PhotonNetwork.LocalPlayer.CustomProperties["Team"]];
+            var pos = team.spawns[Random.Range(0, team.spawns.Length)].position;
             var rot = Quaternion.identity;
             if (player != null)
             {

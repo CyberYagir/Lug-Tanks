@@ -13,6 +13,7 @@ public class Weapon : MonoBehaviour {
     public bool addTime = true, waitTofull;
     public bool multiplyDeltaTime;
     bool wait;
+    public Transform minPoint;
     public Transform shootPoint;
     public Action shootAction;
     public Action updateAction;

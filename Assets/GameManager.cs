@@ -8,6 +8,16 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
 using TMPro;
+[System.Serializable]
+public class Map {
+    public GameObject map;
+    public List<TeamSpawn> teamSpawns;
+}
+[System.Serializable]
+public class TeamSpawn
+{
+    public Transform[] spawns;
+}
 
 public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
 {
@@ -15,10 +25,11 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public Player playerPrefab;
 
     public Player LocalPlayer;
-
-    public Transform[] spawns;
+    public List<Map> maps;
+    [HideInInspector]
 
     public float time;
+    public static int map = 0;
 
     public GameObject tabMenu;
     private void Awake()
@@ -29,8 +40,12 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
             SceneManager.LoadScene("Menu");
             return;
         }
-
-
+        map = (int)PhotonNetwork.CurrentRoom.CustomProperties["Map"];
+        for (int i = 0; i < maps.Count; i++)
+        {
+            maps[i].map.SetActive(false);
+        }
+        maps[map].map.SetActive(true);
         if ((string)PhotonNetwork.CurrentRoom.CustomProperties["Mode"] == "TDM")
         {
             var newC = new ExitGames.Client.Photon.Hashtable();
