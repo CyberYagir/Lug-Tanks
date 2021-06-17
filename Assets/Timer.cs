@@ -25,9 +25,9 @@ public class Timer : MonoBehaviour
     void Start()
     {
         timer_ = this;
+        timer = (int)PhotonNetwork.CurrentRoom.CustomProperties["Time"];
         if (PhotonNetwork.IsMasterClient)
         {
-            timer = (int)PhotonNetwork.CurrentRoom.CustomProperties["Time"];
             CustomeValue = new ExitGames.Client.Photon.Hashtable();
             startTime = PhotonNetwork.Time;
             startTimer = true;

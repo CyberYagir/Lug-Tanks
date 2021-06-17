@@ -18,7 +18,11 @@ public class Menu : MonoBehaviour
     public Image icon;
     public Window[] windows;
     public PHPMenuManager menuManager;
-
+    public void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
     private void Update()
     {
         for (int i = 0; i < windows.Length; i++)

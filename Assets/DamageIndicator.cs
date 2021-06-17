@@ -13,7 +13,7 @@ public class DamageIndicator : MonoBehaviour
     public GameObject bonus;
     private void Update()
     {
-        if (Tank.lastPlayer != null && Tank.lastPlayerClearTime < 10)
+        if (Tank.lastPlayer != null && Tank.lastPlayerClearTime < 10 && WeaponRotate.IsVisible(Tank.lastPlayer.gameObject))
         {
             indicator.gameObject.SetActive(true);
             hp.transform.localScale = new Vector3(Tank.lastPlayer.GetComponent<Tank>().tankOptions.hp / GetComponentInParent<Tank>().corpuses[Tank.lastPlayer.GetComponent<Tank>().tankOptions.corpus].hp, 1, 1);

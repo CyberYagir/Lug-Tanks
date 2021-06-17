@@ -117,6 +117,16 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
                 PhotonNetwork.Destroy(LocalPlayer.gameObject);
             }
         }
+        if (pause)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
     public void Disconnect()
     {
