@@ -24,7 +24,13 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
+        SetTimer();
+    }
+
+    public void SetTimer()
+    {
         timer_ = this;
+        end = false;
         timer = (int)PhotonNetwork.CurrentRoom.CustomProperties["Time"];
         if (PhotonNetwork.IsMasterClient)
         {

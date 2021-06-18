@@ -174,7 +174,6 @@ public class Player : MonoBehaviourPun, IPunObservable
                 PhotonNetwork.Destroy(player.gameObject);
             }
             player = PhotonNetwork.Instantiate(playerPrefab.gameObject.name, pos, rot).GetComponent<Player>();
-
         }
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

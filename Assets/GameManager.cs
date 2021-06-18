@@ -8,6 +8,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
 using TMPro;
+using ExitGames.Client.Photon;
+
 [System.Serializable]
 public class Map {
     public GameObject map;
@@ -19,7 +21,7 @@ public class TeamSpawn
     public Transform[] spawns;
 }
 
-public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
+public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEventCallback
 {
     public static GameManager manager;
     public Player playerPrefab;
@@ -43,6 +45,12 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
             SceneManager.LoadScene("Menu");
             return;
         }
+
+        ChangeMap();
+    }
+
+    public void ChangeMap()
+    {
         map = (int)PhotonNetwork.CurrentRoom.CustomProperties["Map"];
         for (int i = 0; i < maps.Count; i++)
         {
@@ -88,10 +96,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
             PhotonNetwork.LocalPlayer.SetCustomProperties(newC);
         }
-    }
 
-    private void Start()
-    {
     }
     public void RespawnPlayer()
     {
@@ -100,7 +105,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
     }
     private void Update()
     {
-        tabMenu.SetActive(Input.GetKey(KeyCode.Tab));
+        tabMenu.SetActive(Input.GetKey(KeyCode.Tab) || Timer.timer_.end);
         if (LocalPlayer == null)
         {
             time += Time.deltaTime;
@@ -117,7 +122,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
                 PhotonNetwork.Destroy(LocalPlayer.gameObject);
             }
         }
-        if (pause)
+        if (pause || Timer.timer_.end)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -189,6 +194,29 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks
         {
             var n = PhotonNetwork.Instantiate("Bonus", item.transform.position, item.transform.rotation);
             n.GetPhotonView().RPC("SetParent", RpcTarget.AllBuffered, item.bonus_id, item.box_type);
+        }
+    }
+
+    private void OnEnable()
+    {
+        PhotonNetwork.AddCallbackTarget(this);
+    }
+
+    private void OnDisable()
+    {
+        PhotonNetwork.RemoveCallbackTarget(this);
+    }
+
+    public void OnEvent(EventData photonEvent)
+    {
+        if (photonEvent.Code == 0)
+        {
+            var objs = (object[])photonEvent.CustomData;
+
+            PhotonNetwork.CurrentRoom.CustomProperties["Map"] = (int)objs[0];
+            PhotonNetwork.CurrentRoom.CustomProperties["Time"] = (int)objs[1];
+            ChangeMap();
+            Timer.timer_.SetTimer();
         }
     }
 }
