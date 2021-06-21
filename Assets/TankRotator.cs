@@ -8,6 +8,16 @@ public class TankRotator : MonoBehaviour
     public float speed;
     private void Update()
     {
+        var tank = GetComponent<Tank>();
+        foreach (var t in tank.weapons)
+        {
+            if (t.transform.GetComponent<WeaponAnimate>())
+            {
+                t.transform.GetComponent<WeaponAnimate>().enabled = false;
+            }
+            t.enabled = false;
+        }
+
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 

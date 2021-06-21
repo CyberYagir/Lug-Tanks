@@ -15,12 +15,15 @@ public class Rooms : MonoBehaviour
         }
         for (int i = 0; i < r.Count; i++)
         {
-            var n = Instantiate(item.gameObject, holder);
-            var k = n.GetComponent<RoomItem>();
-            k.r_name.text = r[i].Name.Split('_')[0];
-            k.roomname = r[i].Name;
-            k.r_count.text = r[i].PlayerCount + "/" + r[i].MaxPlayers;
-            n.SetActive(true);
+            if (r[i].PlayerCount != r[i].MaxPlayers)
+            {
+                var n = Instantiate(item.gameObject, holder);
+                var k = n.GetComponent<RoomItem>();
+                k.r_name.text = r[i].Name.Split('_')[0];
+                k.roomname = r[i].Name;
+                k.r_count.text = r[i].PlayerCount + "/" + r[i].MaxPlayers;
+                n.SetActive(true);
+            }
         }
     }
 }

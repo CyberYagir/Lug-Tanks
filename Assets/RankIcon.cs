@@ -34,4 +34,17 @@ public class RankIcon : MonoBehaviour
             GetComponent<Image>().sprite = sprites[currRank];
         }
     }
+
+    public static int GetRank(int exp, Sprite[] sprites)
+    {
+        int currRank = 0;
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            if (100f * ((i + 1f) * (1.25f * i)) < exp)
+            {
+                currRank = i;
+            }
+        }
+        return currRank;
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -46,6 +47,17 @@ public class WebData : MonoBehaviour
 
     public void Update()
     {
+        if (!PhotonNetwork.InRoom)
+        {
+            if (playerData != null)
+            {
+                SetResolution.SetName("Tanks Of Donbass: " + playerData.name);
+            }
+        }
+        else
+        {
+            SetResolution.SetName("Tanks Of Donbass: " + playerData.name + " | Room: " + PhotonNetwork.CurrentRoom.Name);
+        }
     }
     public void LoginStart()
     {

@@ -9,7 +9,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour {
 
     [SerializeField]
-    protected float energy = 100, shot_energy, energy_add, cooldown, damage, rotSpeed, time, fov, maxDist;
+    protected float energy = 100, shot_energy, energy_add, cooldown, damage, rotSpeed, time, fov, maxDist, upForce;
     public bool addTime = true, waitTofull;
     public bool multiplyDeltaTime;
     bool wait;
@@ -54,13 +54,15 @@ public class Weapon : MonoBehaviour {
         if (GameManager.pause) return;
         if (!waitTofull)
         {
-            if (Input.GetKey(KeyCode.Mouse0))
+            if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Space))
             {
                 if (time >= cooldown)
                 {
                     if (energy >= shot_energy)
                     {
                         shootAction.Invoke();
+                        transform.GetComponentInParent<Rigidbody>().AddTorque(-FindObjectOfType<WeaponRotate>().transform.right * upForce);
+                        transform.GetComponentInParent<Rigidbody>().AddForce(-FindObjectOfType<WeaponRotate>().transform.forward * upForce * 2);
                         time = 0;
                         energy -= shot_energy;
                     }
@@ -89,6 +91,8 @@ public class Weapon : MonoBehaviour {
                 {
                     if (energy >= shot_energy && !wait)
                     {
+                        transform.GetComponentInParent<Rigidbody>().AddTorque(-FindObjectOfType<WeaponRotate>().transform.right * upForce);
+                        transform.GetComponentInParent<Rigidbody>().AddForce(-FindObjectOfType<WeaponRotate>().transform.forward * upForce * 2);
                         shootAction.Invoke();
                         time = 0;
                         energy -= shot_energy * (multiplyDeltaTime ?  Time.deltaTime : 1);

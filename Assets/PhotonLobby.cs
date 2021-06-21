@@ -134,6 +134,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
         ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
         h.Add("k", 0);
         h.Add("d", 0);
+        h.Add("Exp", WebData.playerData.exp);
         h.Add("Team", 0);
         PhotonNetwork.LocalPlayer.SetCustomProperties(h);
         PhotonNetwork.LoadLevel(1);

@@ -11,6 +11,7 @@ public class Player : MonoBehaviourPun, IPunObservable
     public GameObject canvas;
     private void Awake()
     {
+        GameManager.pause = false;
         tank = GetComponent<Tank>();
         tank.name = photonView.Owner.NickName;
         if (!photonView.IsMine)
@@ -52,8 +53,6 @@ public class Player : MonoBehaviourPun, IPunObservable
         }
         else
         {
-            //Debug.LogError("Team: " + (int)PhotonNetwork.LocalPlayer.CustomProperties["Team"]);
-            //print(JsonUtility.ToJson(tank.bonuses, true));
             if (Input.GetKey(KeyCode.Delete))
             {
                 timetosuicide += Time.deltaTime;
@@ -66,6 +65,10 @@ public class Player : MonoBehaviourPun, IPunObservable
             else
             {
                 timetosuicide = 0;
+            }
+            if (transform.position.y < -20)
+            {
+                tank.tankOptions.hp = 0;
             }
             Dead();
             tank.tankOptions.turretRotation = tank.weapons[tank.tankOptions.weapon].transform.rotation;
@@ -140,6 +143,7 @@ public class Player : MonoBehaviourPun, IPunObservable
         if (PhotonNetwork.NickName == playerKiller)
         {
             WebData.playerData.exp += 15;
+            PhotonNetwork.LocalPlayer.CustomProperties["Exp"] = WebData.playerData.exp;
             WebData.SaveStart();
         }
         KillsList.killsList.Create(playerKiller, playerKilled, weapon);
@@ -187,8 +191,6 @@ public class Player : MonoBehaviourPun, IPunObservable
         {
             tank.tankOptions = JsonUtility.FromJson<TankOptions>((string)stream.ReceiveNext());
             tank.bonuses = ((int[])stream.ReceiveNext()).ToList();
-
-            //tank.bonuses = JsonUtility.FromJson<int[]>();
         }
     }
 }

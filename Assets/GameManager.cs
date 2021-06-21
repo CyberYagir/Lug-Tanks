@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEvent
                 PhotonNetwork.Destroy(LocalPlayer.gameObject);
             }
         }
-        if (pause || Timer.timer_.end)
+        if (pause || Timer.timer_.end || tabMenu.active )
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -212,11 +212,9 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEvent
         if (photonEvent.Code == 0)
         {
             var objs = (object[])photonEvent.CustomData;
-
-            PhotonNetwork.CurrentRoom.CustomProperties["Map"] = (int)objs[0];
-            PhotonNetwork.CurrentRoom.CustomProperties["Time"] = (int)objs[1];
             ChangeMap();
-            Timer.timer_.SetTimer();
+            if (!PhotonNetwork.IsMasterClient)
+                Timer.timer_.SetTimer();
         }
     }
 }

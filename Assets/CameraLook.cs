@@ -21,6 +21,7 @@ public class CameraLook : MonoBehaviour
         {
             tank = parent.GetComponentInParent<Tank>();
         }
+        sence = PlayerPrefs.GetFloat("Sens", 1);
         transform.parent = null;
     }
 
@@ -30,7 +31,7 @@ public class CameraLook : MonoBehaviour
         if (parent && !GameManager.pause)
         {
 
-            transform.localEulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * sence, 0);
+            transform.localEulerAngles += new Vector3(0, (Input.GetAxis("Mouse X") + Input.GetAxis("Turret")) * sence, 0);
             RaycastHit back, up;
             Physics.Raycast(tank.weapons[tank.tankOptions.weapon].minPoint.transform.position, -tank.weapons[tank.tankOptions.weapon].minPoint.transform.forward, out back, Mathf.Abs(maxpoint.localPosition.z));
             Physics.Raycast(tank.weapons[tank.tankOptions.weapon].minPoint.transform.position, tank.weapons[tank.tankOptions.weapon].minPoint.transform.up, out up, maxpoint.localPosition.y);

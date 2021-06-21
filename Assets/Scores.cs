@@ -11,9 +11,19 @@ public class Scores : MonoBehaviour
     public GameObject item, holder;
     float time;
     public List<Color> teamColors;
-
+    public GameObject manageButton;
+    public Sprite[] ranks;
+    public void Disconnect()
+    {
+        GameManager.manager.Disconnect();
+    }
+    public void OpenClose(GameObject gameObject)
+    {
+        gameObject.SetActive(!gameObject.active);
+    }
     private void Update()
     {
+        manageButton.SetActive(Timer.timer_.end && PhotonNetwork.LocalPlayer.IsMasterClient);
         time += Time.deltaTime;
         if (time > 0.5f)
         {
@@ -40,11 +50,15 @@ public class Scores : MonoBehaviour
                     rt.anchoredPosition = new Vector2(0, i * -rt.sizeDelta.y);
                     rt.offsetMin = new Vector2(0, rt.offsetMin.y);
                     rt.offsetMax = new Vector2(-0, rt.offsetMax.y);
+
+
+
                     n.transform.GetChild(0).GetComponent<TMP_Text>().text = players[i].NickName;
                     var k = (int)players[i].CustomProperties["k"];
                     var d = (int)players[i].CustomProperties["d"];
                     n.transform.GetChild(1).GetComponent<TMP_Text>().text = (k).ToString();
                     n.transform.GetChild(2).GetComponent<TMP_Text>().text = (d).ToString();
+                    n.transform.GetChild(n.transform.childCount - 1).GetComponent<Image>().sprite = ranks[RankIcon.GetRank((int)players[i].CustomProperties["Exp"], ranks)];
                     if (d == 0)
                         n.transform.GetChild(3).GetComponent<TMP_Text>().text = ((float)k / (float)1f).ToString("F2");
                     else
