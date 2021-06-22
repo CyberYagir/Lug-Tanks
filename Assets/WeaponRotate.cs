@@ -8,7 +8,6 @@ public class WeaponRotate : MonoBehaviour
     public Transform shootCamera;
     public static Camera shootCam;
     public float rotateSpeed;
-
     public static bool IsVisible(GameObject gm)
     {
         try
@@ -24,7 +23,9 @@ public class WeaponRotate : MonoBehaviour
     private void Start()
     {
         if (GetComponentInParent<Player>().photonView.IsMine)
+        {
             shootCam = shootCamera.GetComponent<Camera>();
+        }
     }
     private void Update()
     {

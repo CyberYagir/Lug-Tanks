@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour {
 
     [SerializeField]
     protected float energy = 100, shot_energy, energy_add, cooldown, damage, rotSpeed, time, fov, maxDist, upForce;
+    public Rect cameraRect = new Rect(0, 0, 1, 1);
     public bool addTime = true, waitTofull;
     public bool multiplyDeltaTime;
     bool wait;
@@ -44,6 +45,7 @@ public class Weapon : MonoBehaviour {
         transform.parent.GetComponent<WeaponRotate>().rotateSpeed = rotSpeed;
         if (WeaponRotate.shootCam != null)
         WeaponRotate.shootCam.fieldOfView = fov;
+        WeaponRotate.shootCam.rect = cameraRect;
         if (energy < 100)
         { energy += energy_add * Time.deltaTime * TankModificators.fireRateIncrease; }
         else energy = 100;
@@ -136,7 +138,7 @@ public class Weapon : MonoBehaviour {
                 bool finded = false;
                 for (int u = 0; u < t.corpuses[t.tankOptions.corpus].hitPoints.Length; u++)
                 {
-                    if (Physics.Raycast(shootPoint.position, enemies[i].transform.position - shootPoint.position, out hit))
+                    if (Physics.Raycast(shootPoint.position, t.corpuses[t.tankOptions.corpus].hitPoints[u].position - shootPoint.position, out hit))
                     {
                         if (hit.collider != null)
                         {

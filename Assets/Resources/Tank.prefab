@@ -1326,6 +1326,12 @@ MonoBehaviour:
   fov: 20
   maxDist: 0
   upForce: 50
+  cameraRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
   addTime: 1
   waitTofull: 0
   multiplyDeltaTime: 0
@@ -1517,6 +1523,12 @@ MonoBehaviour:
   fov: 15
   maxDist: 6.5
   upForce: 0
+  cameraRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
   addTime: 1
   waitTofull: 1
   multiplyDeltaTime: 1
@@ -2135,9 +2147,15 @@ MonoBehaviour:
   damage: 55
   rotSpeed: 2.5
   time: 1
-  fov: 15
+  fov: 40
   maxDist: 0
   upForce: 100
+  cameraRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0.2
+    height: 1
   addTime: 1
   waitTofull: 0
   multiplyDeltaTime: 0
