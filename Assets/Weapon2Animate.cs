@@ -8,6 +8,7 @@ public class Weapon2Animate : WeaponAnimate
     public Animator animator;
     public GameObject sphere;
     public Transform spherePoint;
+    public AudioSource audioSource;
     private void Update()
     {
         animator.SetBool("IsShoot", weapon.getTime() < weapon.getCooldown());
@@ -15,6 +16,7 @@ public class Weapon2Animate : WeaponAnimate
 
     public void SpawnSphere()
     {
+        audioSource.Play();
         Destroy(Instantiate(sphere.gameObject, spherePoint.transform.position, Quaternion.identity), 2f);
     }
 }
