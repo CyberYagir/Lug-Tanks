@@ -9,7 +9,7 @@ using UnityStandardAssets.ImageEffects;
 
 public class Settings : MonoBehaviour
 {
-    public Slider shadowsS, senseS;
+    public Slider shadowsS, senseS, audioS;
     public Toggle toggleAmbient;
     public RenderPipelineAsset normal, ambient;
     private void Start()
@@ -20,6 +20,9 @@ public class Settings : MonoBehaviour
         toggleAmbient.isOn = PlayerPrefs.GetInt("Ambient", 1) == 1 ? true : false;
         AmbientChange(toggleAmbient);
 
+        audioS.value = PlayerPrefs.GetFloat("Vol", 1);
+        AudioChange(audioS);
+
         senseS.value = PlayerPrefs.GetFloat("Sens", 1);
     }
 
@@ -28,6 +31,11 @@ public class Settings : MonoBehaviour
     {
         PlayerPrefs.SetFloat("Sens", slider.value);
         senseS.value = slider.value;
+    }
+    public void AudioChange(Slider slider)
+    {
+        PlayerPrefs.SetFloat("Vol", slider.value);
+        AudioListener.volume = slider.value;
     }
     public void ChangeShadow(Slider slider)
     {

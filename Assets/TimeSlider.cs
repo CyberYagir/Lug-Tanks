@@ -9,7 +9,15 @@ public class TimeSlider : MonoBehaviour
     public Slider slider;
 
 
-    void Update(){
-        text.text = slider.value + "/" + slider.maxValue;
+    void Update()
+    {
+        if (!slider.wholeNumbers)
+        {
+            text.text = slider.value.ToString("F2") + "/" + slider.maxValue.ToString("F2");
+        }
+        else
+        {
+            text.text = slider.value + "/" + slider.maxValue;
+        }
     }
 }

@@ -17,5 +17,6 @@ public class Weapon3Audio : MonoBehaviour
         {
             audio.volume -= Time.deltaTime * 2f;
         }
+        audio.volume = Mathf.Clamp(audio.volume, 0, 0.5f);
     }
 }
