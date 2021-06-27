@@ -34,6 +34,7 @@ public class Bonus : MonoBehaviour
     {
         gameObject.GetPhotonView().RPC("SpawnAnimated", RpcTarget.All, transform.position, transform.rotation, box_type);
         PhotonNetwork.Destroy(gameObject);
+	Destroy(gameObject);
     }
     private void OnTriggerEnter(Collider other)
     {
