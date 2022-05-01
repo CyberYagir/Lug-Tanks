@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEvent
         pause = false;
         manager = this;
         if (!PhotonNetwork.IsConnected)
-        {
+        {   
             SceneManager.LoadScene("Menu");
             return;
         }
