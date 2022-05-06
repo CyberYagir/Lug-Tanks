@@ -4,11 +4,16 @@ using UnityEngine;
 using Photon.Pun;
 public class DeadTank : MonoBehaviour
 {
-    public GameObject[] weapons, corpuses;
-    public int weapon, corpus;
-    public Quaternion rot;
-    public GameObject particles;
+    [SerializeField] private GameObject[] weapons, corpuses;
+    [SerializeField] private Quaternion rot;
+    [SerializeField] private GameObject particles;
 
+    public int weapon { get; private set; }
+    public int corpus { get; private set; }
+    
+    
+    public Quaternion GetRot() => rot; 
+    
     public void StartDestroy()
     {
         StartCoroutine(wait());

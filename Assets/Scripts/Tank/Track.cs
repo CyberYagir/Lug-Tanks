@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Track : MonoBehaviour
 {
-    public List<GameObject> objects;
+    [SerializeField] private List<GameObject> objects;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Ground" || other.transform.tag == "Enemy")
+        if (other.transform.CompareTag("Ground") || other.transform.CompareTag("Enemy"))
         {
             objects.Add(other.gameObject);
         }
@@ -21,4 +21,6 @@ public class Track : MonoBehaviour
             objects.Remove(other.gameObject);
         }
     }
+
+    public int GetCount() => objects.Count;
 }

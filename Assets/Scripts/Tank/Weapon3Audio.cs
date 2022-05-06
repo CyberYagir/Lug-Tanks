@@ -6,10 +6,11 @@ public class Weapon3Audio : MonoBehaviour
 {
     public Animator animator;
     public AudioSource audio;
+    private static readonly int IsShoot = Animator.StringToHash("IsShoot");
 
     private void Update()
     {
-        if (animator.GetBool("IsShoot"))
+        if (animator.GetBool(IsShoot))
         {
             audio.volume += Time.deltaTime * 2f;
         }

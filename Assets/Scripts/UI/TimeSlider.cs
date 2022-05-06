@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 public class TimeSlider : MonoBehaviour
 {
-    public TMP_Text text;
-    public Slider slider;
+    [SerializeField] TMP_Text text;
+    [SerializeField] Slider slider;
 
 
     void Update()

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Rooms : MonoBehaviour
 {
-    public Transform holder;
-    public Transform item;
+    [SerializeField] private Transform holder;
+    [SerializeField] private Transform item;
     public void UpdateRooms()
     {
         var r = PhotonLobby.lobby.rooms;
@@ -19,9 +19,7 @@ public class Rooms : MonoBehaviour
             {
                 var n = Instantiate(item.gameObject, holder);
                 var k = n.GetComponent<RoomItem>();
-                k.r_name.text = r[i].Name.Split('_')[0];
-                k.roomname = r[i].Name;
-                k.r_count.text = r[i].PlayerCount + "/" + r[i].MaxPlayers;
+                k.Init(r[i].Name.Split('_')[0], r[i].Name, r[i].PlayerCount + "/" + r[i].MaxPlayers);
                 n.SetActive(true);
             }
         }

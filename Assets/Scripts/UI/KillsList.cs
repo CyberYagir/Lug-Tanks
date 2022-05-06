@@ -6,14 +6,14 @@ using UnityEngine.UI;
 
 public class KillsList : MonoBehaviour
 {
-    public static KillsList killsList;
-    public GameObject holder;
-    public GameObject item;
-    public Sprite[] icons;
+    public static KillsList Instance;
+    [SerializeField] private GameObject holder;
+    [SerializeField] private GameObject item;
+    [SerializeField] private Sprite[] icons;
 
     private void Start()
     {
-        killsList = this;
+        Instance = this;
     }
 
     public void Create(string playerKiller, string playerKilled, int weapon)

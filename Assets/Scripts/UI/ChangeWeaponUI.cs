@@ -5,30 +5,31 @@ using UnityEngine.UI;
 
 public class ChangeWeaponUI : MonoBehaviour
 {
-    public int weaponid;
-    public Color standard, selected;
-    Tank tank;
-
+    [SerializeField] private int weaponid;
+    [SerializeField] private Color standard, selected;
+    private Image image;
+    private Tank tank;
     private void Start()
     {
         tank = FindObjectOfType<Tank>();
+        image = GetComponent<Image>();
     }
     private void Update()
     {
         if (tank.tankOptions.weapon == weaponid)
         {
-            GetComponent<Image>().color = selected;
+            image.color = selected;
         }
         else
         {
-            GetComponent<Image>().color = standard;
+            image.color = standard;
         }
     }
 
     public void Click()
     {
         tank.tankOptions.weapon = weaponid;
-        WebData.playerData.weapon = weaponid;
+        WebData.tankData.weapon = weaponid;
         WebData.SaveStart();
     }
 }

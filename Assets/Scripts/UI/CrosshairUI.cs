@@ -1,12 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CrosshairUI : MonoBehaviour
 {
-    public GameObject crosshair;
-    public Tank tank;
-    public LayerMask layerMask;
+    [SerializeField] private GameObject crosshair;
+    [SerializeField] private Tank tank;
+    [SerializeField] private LayerMask layerMask;
+
+    private Camera camera;
+
+    private void Start()
+    {
+        camera = Camera.main;
+    }
+
     private void Update()
     {
         var enemies = tank.weapons[tank.tankOptions.weapon].Enemies(tank.weapons[tank.tankOptions.weapon].shootPoint);
@@ -26,7 +35,7 @@ public class CrosshairUI : MonoBehaviour
                     if (Tank.lastPlayer == null || Tank.lastPlayerClearTime > 5f)
                     {
                         crosshair.SetActive(true);
-                        crosshair.transform.position = Camera.main.WorldToScreenPoint(enemies[0].enemy.transform.position, Camera.MonoOrStereoscopicEye.Mono);
+                        crosshair.transform.position = camera.WorldToScreenPoint(enemies[0].enemy.transform.position, Camera.MonoOrStereoscopicEye.Mono);
                         return;
                     }
                 }

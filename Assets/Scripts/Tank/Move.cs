@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    public float speed;
-    public float rotSpeed;
-    public float maxSlope;
-    public Rigidbody rb;
-    public Tank tank;
-    public float angle;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Tank tank;
+    [SerializeField] private float angle;
     private void FixedUpdate()
     {
 
@@ -25,7 +22,7 @@ public class Move : MonoBehaviour
         bool isFly = true;
         for (int i = 0; i < crp.tracks.Count; i++)
         {
-            if (crp.tracks[i].objects.Count != 0)
+            if (crp.tracks[i].GetCount() != 0)
             {
                 canRot = true;
                 isFly = false;

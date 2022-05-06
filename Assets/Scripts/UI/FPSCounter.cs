@@ -1,19 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class FPSCounter : MonoBehaviour
 {
+    private TMP_Text text;
+
+    private void Start()
+    {
+        text = GetComponent<TMP_Text>();
+        
+    }
 
     void Update()
     {
-        var manager = FindObjectOfType<GameManager>();
-        GetComponent<TMP_Text>().text = "" + (int)(1f / Time.unscaledDeltaTime) + "/";
+        text.text = "" + (int)(1f / Time.unscaledDeltaTime) + "/";
 
-        if (manager.LocalPlayer != null)
+        if (GameManager.Instance.LocalPlayer != null)
         {
-            GetComponent<TMP_Text>().text += manager.LocalPlayer.photonView.Owner.IsMasterClient;
+            text.text += GameManager.Instance.LocalPlayer.photonView.Owner.IsMasterClient;
         }
     }
 }

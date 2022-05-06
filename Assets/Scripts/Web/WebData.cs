@@ -1,37 +1,26 @@
 ﻿using Photon.Pun;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
-
-[System.Serializable]
-public class PlayerData
-{
-    public int id = -1;
-    public string name;
-    public int weapon, corpus, exp, level;
-
-    public PlayerData()
-    {
-
-    }
-}
-[System.Serializable]
-public class Error {
-    public string error;
-    public bool isError;
-}
 
 
 public class WebData : MonoBehaviour
 {
     public static WebData webData;
-    public string URL;
-    public static PlayerData playerData = null;
+
+    public static PlayerTankData tankData
+    {
+        get => data?.tank;
+        set => data.tank = value;
+    }
+
+    public static Responce data = null;
+    public Responce serilizable = null;
+    [SerializeField] private string URL;
+    [SerializeField] private Statistics statistics;
     public Error error;
+
     private void Start()
     {
         if (webData == null)
@@ -40,164 +29,132 @@ public class WebData : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else
+        {
             Destroy(gameObject);
+            SaveStart();
+        }
 
         StopAllCoroutines();
     }
 
     public void Update()
     {
+        serilizable = data; 
         if (!PhotonNetwork.InRoom)
         {
-            if (playerData != null)
+            if (tankData != null)
             {
-                SetResolution.SetName("Tanks Of Donbass: " + playerData.name);
+                SetResolution.SetName("Lug-Tanks: " + data.playerData.name);
             }
         }
         else
         {
-            SetResolution.SetName("Tanks Of Donbass: " + playerData.name + " | Room: " + PhotonNetwork.CurrentRoom.Name);
+            SetResolution.SetName("Lug-Tanks: " + data.playerData.name + " | Room: " + PhotonNetwork.CurrentRoom.Name);
         }
     }
+
     public void LoginStart()
     {
-        var l = PHPMenuManager.manager.login;
-        var p = PHPMenuManager.manager.pass;
-        if (l.text.Length <= l.characterLimit)
+        if (!PHPMenuManager.manager.CanSendData(out error, false))
         {
-            if (l.text.Length >= 4)
-            {
-                if (p.text.Length >= 4)
-                {
-                    StartCoroutine(Login(l.text, PHPMenuManager.manager.pass.text));
-                    PHPMenuManager.manager.loginb.GetComponent<Button>().interactable = false;
-                    PHPMenuManager.manager.toRegb.GetComponent<Button>().interactable = false;
-                }
-                else
-                {
-                    error = new Error() { error = "Password is so short..", isError = true };
-                }
-            }
-            else
-            {
-                error = new Error() { error = "Login is so short..", isError = true };
-            }
-        }
-        else
-        {
-            error = new Error() { error = "Login is so big..", isError = true };
+            StartCoroutine(Login(PHPMenuManager.manager.GetLogin(), PHPMenuManager.manager.GetPass()));
+            PHPMenuManager.manager.DisableButtons(false);
         }
     }
+
     public void RegStart()
     {
-        var l = PHPMenuManager.manager.login;
-        var p = PHPMenuManager.manager.pass;
-        var p1 = PHPMenuManager.manager.passr;
-        if (l.text.Length <= l.characterLimit)
+        if (!PHPMenuManager.manager.CanSendData(out error, true))
         {
-            if (l.text.Length >= 4)
-            {
-                if (p.text.Length >= 4)
-                {
-                    if (p1.text == p.text)
-                    {
-                        StartCoroutine(Register(PHPMenuManager.manager.login.text, PHPMenuManager.manager.pass.text));
-                        PHPMenuManager.manager.regb.GetComponent<Button>().interactable = false;
-                        PHPMenuManager.manager.toLoginb.GetComponent<Button>().interactable = false;
-                    }
-                    else
-                    {
-                        error = new Error() { error = "Passwords not equal", isError = true };
-                    }
-                }
-                else
-                {
-                    error = new Error() { error = "Password is so short..", isError = true };
-                }
-            }
-            else
-            {
-                error = new Error() { error = "Login is so short..", isError = true };
-            }
+            StartCoroutine(Register(PHPMenuManager.manager.GetLogin(), PHPMenuManager.manager.GetPass()));
+            PHPMenuManager.manager.DisableButtons();
         }
-        else
-        {
-            error = new Error() { error = "Login is so big..", isError = true };
-        }
+    }
+
+    public WWWForm GetForm(string name, string password)
+    {
+        var form = new WWWForm();
+        form.AddField("fromUnity", "2003");
+        form.AddField("login", name.ToLower());
+        form.AddField("password", password.ToLower());
+
+        return form;
     }
 
     IEnumerator Login(string name, string password)
     {
-        WWWForm form = new WWWForm();
-        form.AddField("fromUnity", "2003");
-        form.AddField("login", name.ToLower());
-        form.AddField("password", password.ToLower());
+        WWWForm form = GetForm(name, password);
         WWW www = new WWW(URL, form);
         yield return www;
 
-        PHPMenuManager.manager.loginb.GetComponent<Button>().interactable = true;
-        PHPMenuManager.manager.toRegb.GetComponent<Button>().interactable = true;
+
+        PHPMenuManager.manager.DisableButtons(true);
         if (String.IsNullOrEmpty(www.error))
         {
-//            print(www.text);
+            print(www.text);
             error = JsonUtility.FromJson<Error>(www.text);
             if (!error.isError)
             {
-                playerData = JsonUtility.FromJson<PlayerData>(www.text);
+                data = JsonUtility.FromJson<Responce>(www.text);
                 PhotonLobby.lobby.InitPUN();
             }
         }
         else
-            error = new Error() { error = "Connection lost", isError = true };
+            error = new Error() {error = "Connection lost", isError = true};
     }
 
     IEnumerator Register(string name, string password)
     {
-
-        WWWForm form = new WWWForm();
-        form.AddField("fromUnity", "2003");
+        WWWForm form = GetForm(name, password);
         form.AddField("register", "");
-        form.AddField("login", name.ToLower());
-        form.AddField("password", password.ToLower());
         WWW www = new WWW(URL, form);
         yield return www;
 
-        PHPMenuManager.manager.regb.GetComponent<Button>().interactable = true;
-        PHPMenuManager.manager.toLoginb.GetComponent<Button>().interactable = true;
+        PHPMenuManager.manager.DisableButtons(true);
+
         if (String.IsNullOrEmpty(www.error))
         {
             error.isError = false;
-            //playerData = JsonUtility.FromJson<PlayerData>(www.text);
             error = JsonUtility.FromJson<Error>(www.text);
             if (!error.isError)
                 PHPMenuManager.manager.Change(true);
         }
         else
-            error = new Error() { error = "Connection lost", isError = true };
+            error = new Error() {error = "Connection lost", isError = true};
     }
-
 
     public static void SaveStart()
     {
         webData.StartCoroutine(webData.Save());
     }
+
     IEnumerator Save()
     {
-        print("save");
         WWWForm form = new WWWForm();
-        form.AddField("save", "");
         form.AddField("fromUnity", "2003");
-        form.AddField("exp", playerData.exp);
-        form.AddField("corpus", playerData.corpus);
-        form.AddField("weapon", playerData.weapon);
-        form.AddField("id", playerData.id);
+        form.AddField("save", "");
+        form.AddField("response", JsonUtility.ToJson(data));
+
         WWW www = new WWW(URL, form);
         yield return www;
     }
 
-    public void Exit()
+    private async void OnApplicationQuit()
     {
-        SaveStart();
-        //isLogged = false;
+        WWWForm form = new WWWForm();
+        form.AddField("fromUnity", "2003");
+        form.AddField("statisticsAdd", "");
+        form.AddField("userid", data.playerData.id);
+
+        data.statistics = statistics.GetStats();
+        form.AddField("response", JsonUtility.ToJson(data));
+
+        UnityWebRequest req = UnityWebRequest.Post(URL, form);
+
+        req.SendWebRequest();
+        while (!req.isDone)
+        {
+            System.Threading.Thread.Sleep(100);
+        }
     }
 }

@@ -5,15 +5,15 @@ using UnityEngine.UI;
 using TMPro;
 public class CreateRoom : MonoBehaviour
 {
-    public Image preview;
-    public TMP_Dropdown dropDown;
-    public Slider players, time;
-    public Toggle ispublic;
-    public TMP_InputField mapName;
-    public string mode;
-    public Sprite[] maps;
-    public int map;
-    public int mapCount;
+    [SerializeField] private Image preview;
+    [SerializeField] private TMP_Dropdown dropDown;
+    [SerializeField] private Slider players, time;
+    [SerializeField] private Toggle ispublic;
+    [SerializeField] private TMP_InputField mapName;
+    [SerializeField] private string mode;
+    [SerializeField] private Sprite[] maps;
+    [SerializeField] private int map;
+    [SerializeField] private int mapCount;
     public void SetMode(string newMode)
     {
         mode = newMode;
@@ -28,6 +28,7 @@ public class CreateRoom : MonoBehaviour
 
         preview.sprite = maps[map];
     }
+
     public void Create()
     {
         PhotonLobby.lobby.CreateRoom(mapName.text, ispublic.isOn, (byte)players.value, (int)time.value, map, mode);

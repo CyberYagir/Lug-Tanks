@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TankAudio : MonoBehaviour
 {
-    public Rigidbody rigidbody;
-    public AudioSource audioSource;
+    [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private AudioSource audioSource;
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();

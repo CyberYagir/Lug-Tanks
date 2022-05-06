@@ -18,7 +18,7 @@ public class Weapon2 : Weapon
                 RaycastHit hit;
                 if (Physics.Raycast(shootPoint.transform.position, shootPoint.forward, out hit))
                 {
-                    if (hit.transform.tag == "Enemy" && TeamCheck(hit.transform.gameObject))
+                    if (hit.transform.CompareTag("Enemy") && TeamCheck(hit.transform.gameObject))
                         hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float)damage, (string)PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.weapon);
                     CreateLine(shootPoint.transform.position, hit.point);
                 }

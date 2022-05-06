@@ -1,14 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TankRotator : MonoBehaviour
 {
-    public bool down;
-    public float speed;
+    [SerializeField] bool down;
+    [SerializeField] float speed;
+
+    private Tank tank;
+    private Camera camera;
+    private void Start()
+    {
+        tank = GetComponent<Tank>();
+        camera = Camera.main;
+    }
+
     private void Update()
     {
-        var tank = GetComponent<Tank>();
         foreach (var t in tank.weapons)
         {
             if (t.transform.GetComponent<WeaponAnimate>())
@@ -19,11 +28,11 @@ public class TankRotator : MonoBehaviour
         }
 
         RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.transform.tag == "Player")
+            if (hit.transform.CompareTag("Player"))
             {
                 if (Input.GetKey(KeyCode.Mouse0))
                     down = true;

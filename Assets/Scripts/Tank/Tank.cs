@@ -26,6 +26,9 @@ public class Corpus
 }
 public class Tank : MonoBehaviour
 {
+    public static GameObject lastPlayer;
+    public static float lastPlayerClearTime;
+    
     public CameraLook cameraLook;
     public TankOptions tankOptions;
     public List<Corpus> corpuses;
@@ -34,8 +37,6 @@ public class Tank : MonoBehaviour
     public Rigidbody rb;
     public Transform damageDisplayPoint;
     public List<Texture2D> teams;
-    public static GameObject lastPlayer;
-    public static float lastPlayerClearTime;
     private void Start()
     {
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Ignore Raycast"), LayerMask.NameToLayer("NoCollisions"));

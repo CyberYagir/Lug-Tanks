@@ -9,9 +9,11 @@ public class Weapon2Animate : WeaponAnimate
     public GameObject sphere;
     public Transform spherePoint;
     public AudioSource audioSource;
+    private static readonly int IsShoot = Animator.StringToHash("IsShoot");
+
     private void Update()
     {
-        animator.SetBool("IsShoot", weapon.getTime() < weapon.getCooldown());
+        animator.SetBool(IsShoot, weapon.GetTime() < weapon.GetCooldown());
     }
 
     public void SpawnSphere()

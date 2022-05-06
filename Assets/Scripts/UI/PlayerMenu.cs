@@ -13,11 +13,12 @@ public class PlayerMenu : MonoBehaviour
     }
 
     public void Suicide(){
-        GameManager.manager.LocalPlayer.GetComponent<Tank>().tankOptions.hp = 0;
+        GameManager.Instance.LocalPlayer.GetComponent<Tank>().tankOptions.hp = 0;
     }
 
     public void Disconnect(){
-        GameManager.manager.Disconnect();
+        WebData.SaveStart();
+        GameManager.Instance.Disconnect();
     }
 
     private void Update()
@@ -29,17 +30,19 @@ public class PlayerMenu : MonoBehaviour
         }
     }
 
-    public void ChangeMode(){
+    public void ChangeMode()
+    {
         if (open)
-            {
-                animator.Play("HideMenu");
-            }
-            else
-            {
-                animator.Play("OpenMenu");
-            }
-            open = !open;
-            GameManager.pause = open;
-            time = 0;
+        {
+            animator.Play("HideMenu");
+        }
+        else
+        {
+            animator.Play("OpenMenu");
+        }
+
+        open = !open;
+        GameManager.pause = open;
+        time = 0;
     }
 }

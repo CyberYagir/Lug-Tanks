@@ -15,13 +15,17 @@ public class Window
 
 public class Menu : MonoBehaviour
 {
-    public Image icon;
-    public Window[] windows;
-    public PHPMenuManager menuManager;
+    [SerializeField] private Window[] windows;
+    [SerializeField] private PHPMenuManager menuManager;
+
+
+    private Tank tank;
+    
     public void Start()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        tank = FindObjectOfType<Tank>();
     }
     private void Update()
     {
@@ -37,11 +41,11 @@ public class Menu : MonoBehaviour
             }
         }
 
-        if (WebData.playerData != null && PhotonNetwork.IsConnected)
+        if (WebData.tankData != null && PhotonNetwork.IsConnected)
         {
             menuManager.gameObject.SetActive(false);
-            FindObjectOfType<Tank>().tankOptions.corpus = WebData.playerData.corpus;
-            FindObjectOfType<Tank>().tankOptions.weapon = WebData.playerData.weapon;
+            tank.tankOptions.corpus = WebData.tankData.corpus;
+            tank.tankOptions.weapon = WebData.tankData.weapon;
             if (PhotonNetwork.InLobby)
                 windows[0].isOpen = true;
         }

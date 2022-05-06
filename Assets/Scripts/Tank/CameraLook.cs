@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class CameraLook : MonoBehaviour
 {
-    public float sence;
-    Transform parent;
-    Tank tank;
-    public Transform maxpoint;
-    public Camera camera;
+    [SerializeField] private float sence;
+    [SerializeField] private Transform maxpoint;
+    [SerializeField] private Camera camera;
+    private Transform parent;
+    private Tank tank;
+
+    public Camera GetCamera() => camera;
+    
     // Start is called before the first frame update
     void Start()
     {

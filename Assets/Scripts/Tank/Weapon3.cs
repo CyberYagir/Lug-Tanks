@@ -6,7 +6,8 @@ using UnityEngine;
 public class Weapon3 : Weapon
 {
     public Animator animator;
-    
+    private static readonly int IsShoot = Animator.StringToHash("IsShoot");
+
     private void Start()
     {
         shootAction += () =>
@@ -28,7 +29,7 @@ public class Weapon3 : Weapon
         };
         notShootAction += () =>
         {
-            animator.SetBool("IsShoot", false);
+            animator.SetBool(IsShoot, false);
         };
     }
 }

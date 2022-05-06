@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TeamsCounters : MonoBehaviour
 {
-    public TMP_Text redT, blueT;
+    [SerializeField] private TMP_Text redT, blueT;
 
     private void Start()
     {

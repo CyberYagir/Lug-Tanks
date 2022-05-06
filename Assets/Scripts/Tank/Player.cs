@@ -6,9 +6,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviourPun, IPunObservable
 {
+    [SerializeField] private GameObject canvas;
+    [SerializeField] private float timetosuicide;
     Tank tank;
-    public float timetosuicide;
-    public GameObject canvas;
+
+
+    public float GetTime() => timetosuicide;
+    
     private void Awake()
     {
         GameManager.pause = false;
@@ -37,8 +41,8 @@ public class Player : MonoBehaviourPun, IPunObservable
         }
         else
         {
-            tank.tankOptions.weapon = WebData.playerData.weapon;
-            tank.tankOptions.corpus = WebData.playerData.corpus;
+            tank.tankOptions.weapon = WebData.tankData.weapon;
+            tank.tankOptions.corpus = WebData.tankData.corpus;
             tank.tankOptions.team = (int)PhotonNetwork.LocalPlayer.CustomProperties["Team"];
             tank.tankOptions.hp = tank.corpuses[tank.tankOptions.corpus].hp;
         }
@@ -49,7 +53,7 @@ public class Player : MonoBehaviourPun, IPunObservable
         if (!photonView.IsMine)
         {
             if (tank.tankOptions.weapon != -1)
-                tank.weapons[tank.tankOptions.weapon].transform.rotation = Quaternion.Lerp(tank.weapons[tank.tankOptions.weapon].transform.rotation, tank.tankOptions.turretRotation, tank.weapons[tank.tankOptions.weapon].getRotSpeed() * 2f * Time.deltaTime);
+                tank.weapons[tank.tankOptions.weapon].transform.rotation = Quaternion.Lerp(tank.weapons[tank.tankOptions.weapon].transform.rotation, tank.tankOptions.turretRotation, tank.weapons[tank.tankOptions.weapon].GetRotSpeed() * 2f * Time.deltaTime);
         }
         else
         {
@@ -136,17 +140,21 @@ public class Player : MonoBehaviourPun, IPunObservable
         newC.Add("d", d + 1);
         newC.Add("Team", (int)photonView.Owner.CustomProperties["Team"]);
         photonView.Owner.SetCustomProperties(newC);
+
+
+        WebData.data.userStatistics.deaths++;
     }
     [PunRPC]
     public void KillRPC(string playerKiller, string playerKilled, int weapon)
     {
         if (PhotonNetwork.NickName == playerKiller)
         {
-            WebData.playerData.exp += 15;
-            PhotonNetwork.LocalPlayer.CustomProperties["Exp"] = WebData.playerData.exp;
+            WebData.tankData.exp += 15;
+            WebData.data.userStatistics.kills++;
+            PhotonNetwork.LocalPlayer.CustomProperties["Exp"] = WebData.tankData.exp;
             WebData.SaveStart();
         }
-        KillsList.killsList.Create(playerKiller, playerKilled, weapon);
+        KillsList.Instance.Create(playerKiller, playerKilled, weapon);
     }
 
     public void Dead()
@@ -168,7 +176,7 @@ public class Player : MonoBehaviourPun, IPunObservable
     {
         if (PhotonNetwork.IsMasterClient == false || withMasterClient == true)
         {
-            var team = GameManager.manager.maps[GameManager.map].teamSpawns[(int)PhotonNetwork.LocalPlayer.CustomProperties["Team"]];
+            var team = GameManager.Instance.maps[GameManager.map].teamSpawns[(int)PhotonNetwork.LocalPlayer.CustomProperties["Team"]];
             var pos = team.spawns[Random.Range(0, team.spawns.Length)].position;
             var rot = Quaternion.identity;
             if (player != null)

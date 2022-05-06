@@ -11,7 +11,7 @@ public class BonusBox: PlayerBonus
 public class Bonus : MonoBehaviour
 {
     public int bonus_id, box_type;
-    public List<BonusBox> bonuses;
+    [SerializeField] private List<BonusBox> bonuses;
     [PunRPC]
     public void SetParent(int id, int type = 0)
     {

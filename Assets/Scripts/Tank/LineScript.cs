@@ -1,37 +1,46 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 public class LineScript : MonoBehaviour
 {
     public string prefabName;
+
+    private LineRenderer line;
+
+    private void Awake()
+    {
+        line = GetComponent<LineRenderer>();
+    }
+
     public void Start_Destroy()
     {
-        StartCoroutine(destroy());
+        StartCoroutine(DestroyWait());
     }
 
     private void Update()
     {
-        if (GetComponent<LineRenderer>().material.color.a > 0)
+        if (line.material.color.a > 0)
         {
-            GetComponent<LineRenderer>().material.color -= new Color(0, 0, 0, Time.deltaTime / 4f);
+            line.material.color -= new Color(0, 0, 0, Time.deltaTime / 4f);
         }
         else
         {
-            GetComponent<LineRenderer>().material.color = new Color(0, 0, 0, 0);
+            line.material.color = new Color(0, 0, 0, 0);
         }
     }
 
     [PunRPC]
     public void SetLinePoses(Vector3 pos1, Vector3 pos2)
     {
-        GetComponent<LineRenderer>().SetPosition(0, pos1);
-        GetComponent<LineRenderer>().SetPosition(1, pos2);
+        line.SetPosition(0, pos1);
+        line.SetPosition(1, pos2);
     }
 
     
 
-    IEnumerator destroy()
+    IEnumerator DestroyWait()
     {
         yield return new WaitForSeconds(5f);
         PhotonNetwork.Destroy(gameObject);

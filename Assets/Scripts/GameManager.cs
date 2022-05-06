@@ -23,7 +23,7 @@ public class TeamSpawn
 
 public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEventCallback
 {
-    public static GameManager manager;
+    public static GameManager Instance;
     public Player playerPrefab;
 
     public Player LocalPlayer;
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEvent
     private void Awake()
     {
         pause = false;
-        manager = this;
+        Instance = this;
         if (!PhotonNetwork.IsConnected)
         {   
             SceneManager.LoadScene("Menu");
@@ -100,12 +100,12 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEvent
     }
     public void RespawnPlayer()
     {
-        if (!Timer.timer_.end)
+        if (!Timer.Instance.end)
             Player.RefreshInstance(ref LocalPlayer, playerPrefab, true);
     }
     private void Update()
     {
-        tabMenu.SetActive(Input.GetKey(KeyCode.Tab) || Timer.timer_.end);
+        tabMenu.SetActive(Input.GetKey(KeyCode.Tab) || Timer.Instance.end);
         if (LocalPlayer == null)
         {
             time += Time.deltaTime;
@@ -117,12 +117,12 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEvent
         else
         {
             time = 0;
-            if (Timer.timer_.end)
+            if (Timer.Instance.end)
             {
                 PhotonNetwork.Destroy(LocalPlayer.gameObject);
             }
         }
-        if (pause || Timer.timer_.end || tabMenu.active )
+        if (pause || Timer.Instance.end || tabMenu.active )
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEvent
                 if (item.gameObject.GetPhotonView().OwnerActorNr == otherPlayer.ActorNumber)
                 {
                     var n = PhotonNetwork.Instantiate("TankDead", item.transform.position, item.transform.rotation);
-                    n.GetPhotonView().RPC("Set", RpcTarget.All, item.weapon, item.corpus, item.rot, item.GetComponent<Rigidbody>().velocity, item.GetComponent<Rigidbody>().mass, item.GetComponent<Rigidbody>().drag, Vector3.zero, item.GetComponent<Rigidbody>().angularVelocity, false);
+                    n.GetPhotonView().RPC("Set", RpcTarget.All, item.weapon, item.corpus, item.GetRot(), item.GetComponent<Rigidbody>().velocity, item.GetComponent<Rigidbody>().mass, item.GetComponent<Rigidbody>().drag, Vector3.zero, item.GetComponent<Rigidbody>().angularVelocity, false);
                     n.GetComponent<DeadTank>().StartDestroy();
                 }
             }
@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEvent
             var objs = (object[])photonEvent.CustomData;
             ChangeMap();
             if (!PhotonNetwork.IsMasterClient)
-                Timer.timer_.SetTimer();
+                Timer.Instance.SetTimer();
         }
     }
 }

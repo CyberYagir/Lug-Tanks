@@ -8,14 +8,15 @@ using UnityEngine.UI;
 
 public class Scores : MonoBehaviour
 {
-    public GameObject item, holder;
-    float time;
-    public List<Color> teamColors;
-    public GameObject manageButton;
-    public Sprite[] ranks;
+    [SerializeField] private GameObject item, holder;
+    [SerializeField] private List<Color> teamColors;
+    [SerializeField] private GameObject manageButton;
+    [SerializeField] private Sprite[] ranks;
+    
+    private float time;
     public void Disconnect()
     {
-        GameManager.manager.Disconnect();
+        GameManager.Instance.Disconnect();
     }
     public void OpenClose(GameObject gameObject)
     {
@@ -23,7 +24,7 @@ public class Scores : MonoBehaviour
     }
     private void Update()
     {
-        manageButton.SetActive(Timer.timer_.end && PhotonNetwork.LocalPlayer.IsMasterClient);
+        manageButton.SetActive(Timer.Instance.end && PhotonNetwork.LocalPlayer.IsMasterClient);
         time += Time.deltaTime;
         if (time > 0.5f)
         {

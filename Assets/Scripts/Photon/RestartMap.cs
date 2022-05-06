@@ -7,10 +7,10 @@ using UnityEngine.UI;
 
 public class RestartMap : MonoBehaviour
 {
-    public int map;
-    public Image preview;
-    public Sprite[] maps;
-    public Slider sliderTime;
+    [SerializeField] private int map;
+    [SerializeField] private Image preview;
+    [SerializeField] private Sprite[] maps;
+    [SerializeField] private Slider sliderTime;
     public void ChangeMap()
     {
         map++;
@@ -34,7 +34,7 @@ public class RestartMap : MonoBehaviour
             rm.Add("RedKills", redK);
         }
         PhotonNetwork.CurrentRoom.SetCustomProperties(rm);
-        Timer.timer_.SetTimer();
+        Timer.Instance.SetTimer();
         object[] content = new object[] {};
         PhotonNetwork.RaiseEvent(0, content, new Photon.Realtime.RaiseEventOptions() { Receivers = Photon.Realtime.ReceiverGroup.All }, SendOptions.SendReliable);
     }

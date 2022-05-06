@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class WeaponRotate : MonoBehaviour
     public Transform shootCamera;
     public static Camera shootCam;
     public float rotateSpeed;
+
     public static bool IsVisible(GameObject gm)
     {
         try
@@ -29,7 +31,7 @@ public class WeaponRotate : MonoBehaviour
     }
     private void Update()
     {
-        transform.position = GetComponentInParent<Tank>().corpuses[GetComponentInParent<Tank>().tankOptions.corpus].weaponPoint.transform.position;
+        transform.position = tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position;
         transform.rotation = Quaternion.Lerp(transform.rotation, tank.cameraLook.transform.rotation, rotateSpeed * Time.deltaTime);
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
         shootCamera.transform.rotation = transform.rotation;

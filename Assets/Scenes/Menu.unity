@@ -8038,7 +8038,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2729a914efd0a84eb2e34b771541350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 416120120}
   windows:
   - posHide: {x: -563.3, y: 0}
     posOpen: {x: 0, y: 0}
@@ -16787,6 +16786,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
@@ -24801,30 +24801,13 @@ GameObject:
   m_Component:
   - component: {fileID: 749742598}
   - component: {fileID: 749742597}
-  - component: {fileID: 749742596}
   m_Layer: 0
-  m_Name: Manager
+  m_Name: Lobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &749742596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 749742595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7aab759d8c69c4046bc4022e0432aec4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  URL: https://terrtest.000webhostapp.com/LugTanks/logreg.php
-  error:
-    error: 
-    isError: 0
 --- !u!114 &749742597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26217,7 +26200,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 10.600098, y: 10.800049}
+  m_AnchoredPosition: {x: 10.600098, y: 10.800293}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &803112170
@@ -45698,6 +45681,92 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1512645571}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1516929822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1516929825}
+  - component: {fileID: 1516929824}
+  - component: {fileID: 1516929823}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1516929823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516929822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a01e01d549ad403438200592bf79ce79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  URL: https://terrtest.000webhostapp.com/LugTanks/calculateIP.php
+  userIP: 
+--- !u!114 &1516929824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516929822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aab759d8c69c4046bc4022e0432aec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serilizable:
+    playerData:
+      id: -1
+      name: 
+    tank:
+      id: 0
+      userid: 0
+      weapon: 0
+      corpus: 0
+      exp: 0
+      level: 0
+    statistics:
+      id: 0
+      userid: 0
+      lastSessionTime: 0
+      lastIP: 
+      lastEnter: 
+    userStatistics:
+      id: 0
+      userid: 0
+      kills: 0
+      deaths: 0
+      registerDate: 
+  URL: https://terrtest.000webhostapp.com/LugTanks/logreg.php
+  statistics: {fileID: 1516929823}
+  error:
+    error: 
+    isError: 0
+--- !u!4 &1516929825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516929822}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2154.4634, y: 745.5912, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1521043271
 GameObject:
   m_ObjectHideFlags: 0
@@ -47348,6 +47417,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2

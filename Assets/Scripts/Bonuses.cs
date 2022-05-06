@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Bonuses : MonoBehaviour
 {
-    public GameObject prefab;
-    public float time;
+    [SerializeField] private GameObject prefab;
+    [SerializeField] private float time;
 
     private void Update()
     {
@@ -28,16 +28,18 @@ public class Bonuses : MonoBehaviour
                         break;
                     }
                 }
+
                 if (spawn != null)
                 {
-                    if ((int)Random.Range(0, 5) == 3)
+                    if ((int) Random.Range(0, 5) == 3)
                     {
                         var n = PhotonNetwork.Instantiate(prefab.name, spawn.transform.position, Quaternion.identity);
-                        n.GetPhotonView().RPC("SetParent", RpcTarget.AllBuffered, id, (int)Random.Range(0, 4));
+                        n.GetPhotonView().RPC("SetParent", RpcTarget.AllBuffered, id, (int) Random.Range(0, 4));
                     }
                 }
+
                 time = 0;
             }
-        }    
+        }
     }
 }

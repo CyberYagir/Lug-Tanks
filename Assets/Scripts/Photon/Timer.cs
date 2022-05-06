@@ -4,23 +4,20 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Test {
-    public Vector3 pos;
-
-}
-
-
-
 public class Timer : MonoBehaviour
 {
-    public static Timer timer_;
-    bool startTimer = false;
-    double timerIncrementValue;
-    double startTime;
-    [SerializeField] double timer = 20;
-    ExitGames.Client.Photon.Hashtable CustomeValue;
-    public TMP_Text text;
+    public static Timer Instance;
     public bool end;
+    
+    
+    private bool startTimer = false;
+    private double timerIncrementValue;
+    private double startTime;
+    
+    [SerializeField] double timer = 20;
+    
+    ExitGames.Client.Photon.Hashtable CustomeValue;
+    [SerializeField] private TMP_Text text;
 
     void Start()
     {
@@ -29,7 +26,7 @@ public class Timer : MonoBehaviour
 
     public void SetTimer()
     {
-        timer_ = this;
+        Instance = this;
         end = false;
         timer = (int)PhotonNetwork.CurrentRoom.CustomProperties["Time"];
         if (PhotonNetwork.IsMasterClient)

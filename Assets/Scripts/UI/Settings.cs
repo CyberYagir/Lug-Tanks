@@ -9,9 +9,9 @@ using UnityStandardAssets.ImageEffects;
 
 public class Settings : MonoBehaviour
 {
-    public Slider shadowsS, senseS, audioS;
-    public Toggle toggleAmbient;
-    public RenderPipelineAsset normal, ambient;
+    [SerializeField] private Slider shadowsS, senseS, audioS;
+    [SerializeField] private Toggle toggleAmbient;
+    [SerializeField] private RenderPipelineAsset normal, ambient;
     private void Start()
     {
         shadowsS.value = PlayerPrefs.GetInt("Shadows", 90);

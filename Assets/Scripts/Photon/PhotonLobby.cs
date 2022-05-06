@@ -11,12 +11,12 @@ using ExitGames.Client.Photon;
 public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
 {
     public static PhotonLobby lobby;
-    public GameObject mainUI;
-    public TMP_Text errorText, lobbyText;
+    [SerializeField] private GameObject mainUI;
+    [SerializeField] private TMP_Text errorText, lobbyText;
+    [SerializeField] private int mapsCount = 1;
 
-    public List<RoomInfo> rooms;
+    public List<RoomInfo> rooms { get; private set; }
 
-    public int mapsCount = 1;
 
     private void OnApplicationQuit()
     {
@@ -27,7 +27,15 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         errorText.text = "";
+        
+        if (lobby != null)
+        {
+            Destroy(lobby.gameObject);
+        }
+
         lobby = this;
+        DontDestroyOnLoad(gameObject);
+
     }
     public void InitPUN()
     { 
@@ -35,7 +43,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
         {
             PhotonNetwork.GameVersion = Application.version;
             PhotonNetwork.ConnectUsingSettings();
-            PhotonNetwork.NickName = WebData.playerData.name;
+            PhotonNetwork.NickName = WebData.data.playerData.name;
         }
         else
         {
@@ -129,12 +137,12 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
     }
     public override void OnJoinedRoom()
     {
-        WebData.playerData.corpus = FindObjectOfType<Tank>().tankOptions.corpus;
-        WebData.playerData.weapon = FindObjectOfType<Tank>().tankOptions.weapon;
+        WebData.tankData.corpus = FindObjectOfType<Tank>().tankOptions.corpus;
+        WebData.tankData.weapon = FindObjectOfType<Tank>().tankOptions.weapon;
         ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
         h.Add("k", 0);
         h.Add("d", 0);
-        h.Add("Exp", WebData.playerData.exp);
+        h.Add("Exp", WebData.tankData.exp);
         h.Add("Team", 0);
         PhotonNetwork.LocalPlayer.SetCustomProperties(h);
         PhotonNetwork.LoadLevel(1);

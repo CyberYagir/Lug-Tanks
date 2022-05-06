@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MoveTracks : MonoBehaviour
 {
-    public int idLeft, idRight;
-    public Rigidbody rigidbody;
-    public MeshRenderer meshRenderer;
+    [SerializeField] private int idLeft, idRight;
+    [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private MeshRenderer meshRenderer;
     private void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
-           rigidbody = GetComponentInParent<Rigidbody>();
+        rigidbody = GetComponentInParent<Rigidbody>();
     }
     private void Update()
     {

@@ -5,31 +5,37 @@ using UnityEngine.UI;
 
 public class ChangeCorpusUI : MonoBehaviour
 {
-    public int corpusid;
-    public Color standard, selected;
-    Tank tank;
+    [SerializeField] private int corpusid;
+    [SerializeField] private Color standard, selected;
+    private Image image;
+    private Tank tank;
+
+    
+    
 
     private void Start()
     {
+        tank = FindObjectOfType<Tank>();
+        image = GetComponent<Image>();
         tank = FindObjectOfType<Tank>();
     }
     private void Update()
     {
         if (tank.tankOptions.corpus == corpusid)
         {
-            GetComponent<Image>().color = selected;
+            image.color = selected;
         }
         else
         {
-            GetComponent<Image>().color = standard;
+            image.color = standard;
         }
     }
 
 
     public void Click()
     {
-        FindObjectOfType<Tank>().tankOptions.corpus = corpusid;
-        WebData.playerData.corpus = corpusid;
+        tank.tankOptions.corpus = corpusid;
+        WebData.tankData.corpus = corpusid;
         WebData.SaveStart();
     }
 }

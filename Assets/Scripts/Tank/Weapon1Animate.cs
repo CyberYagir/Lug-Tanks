@@ -15,13 +15,15 @@ public class Weapon1Animate : WeaponAnimate
     public Transform decalPoint;
     public GameObject decal;
     public AudioSource audioSource;
+    private static readonly int IsShoot = Animator.StringToHash("IsShoot");
+
     private void Update()
     {
-        animator.SetBool("IsShoot", weapon.getTime() < weapon.getCooldown());
+        animator.SetBool(IsShoot, weapon.GetTime() < weapon.GetCooldown());
     }
     public void SpawnParticles()
     {
-        var p = Instantiate(GetComponent<Weapon1>().particles, particlesPoint.transform.position, Quaternion.identity);
+        var p = Instantiate(GetComponent<Weapon1>().GetParticles(), particlesPoint.transform.position, Quaternion.identity);
         p.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
         audioSource.Play();
         Destroy(p.gameObject, 1.5f);

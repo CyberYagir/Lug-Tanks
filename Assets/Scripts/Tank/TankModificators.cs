@@ -16,12 +16,13 @@ public class PlayerBonus {
 
 public class TankModificators : MonoBehaviour
 {
-    public List<PlayerBonus> playerBonus;
-    public Tank tank;
     public static TankModificators modificators;
     public static float defenceIncrease = 1;
     public static float fireRateIncrease = 1;
     public static float speedIncrease = 1;
+    
+    public List<PlayerBonus> playerBonus;
+    public Tank tank;
 
 
     private void Start()
