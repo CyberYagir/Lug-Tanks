@@ -8,8 +8,6 @@ public class Timer : MonoBehaviour
 {
     public static Timer Instance;
     public bool end;
-    
-    
     private bool startTimer = false;
     private double timerIncrementValue;
     private double startTime;

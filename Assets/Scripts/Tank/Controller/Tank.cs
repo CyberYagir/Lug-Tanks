@@ -4,28 +4,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[System.Serializable]
-public class TankOptions {
-    public float hp;
-    public int corpus;
-    public int weapon;
-    public int team = 0;
-    public Quaternion turretRotation;
-}
-[System.Serializable]
-public class Corpus
-{
-    public float hp;
-    public float speed;
-    public float rotSpeed;
-    public GameObject obj;
-    public Transform weaponPoint;
-    public Vector3 centerOfMass;
-    public Transform[] hitPoints;
-    public List<Track> tracks;
-}
 public class Tank : MonoBehaviour
 {
+    [System.Serializable]
+    public class TankOptions {
+        public float hp;
+        public int corpus;
+        public int weapon;
+        public int team = 0;
+        public Quaternion turretRotation;
+    }
+    [System.Serializable]
+    public class Corpus
+    {
+        public float hp;
+        public float speed;
+        public float rotSpeed;
+        public GameObject obj;
+        public Transform weaponPoint;
+        public Vector3 centerOfMass;
+        public Transform[] hitPoints;
+        public List<Track> tracks;
+    }
+    
     public static GameObject lastPlayer;
     public static float lastPlayerClearTime;
     
@@ -37,6 +38,8 @@ public class Tank : MonoBehaviour
     public Rigidbody rb;
     public Transform damageDisplayPoint;
     public List<Texture2D> teams;
+    private static readonly int MainTex = Shader.PropertyToID("_MainTex");
+
     private void Start()
     {
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Ignore Raycast"), LayerMask.NameToLayer("NoCollisions"));
@@ -44,11 +47,11 @@ public class Tank : MonoBehaviour
         {
             for (int i = 0; i < corpuses.Count; i++)
             {
-                corpuses[i].obj.GetComponent<Renderer>().material.SetTexture("_MainTex", teams[(int)gameObject.GetPhotonView().Owner.CustomProperties["Team"]]);
+                corpuses[i].obj.GetComponent<Renderer>().material.SetTexture(MainTex, teams[(int)gameObject.GetPhotonView().Owner.CustomProperties["Team"]]);
             }
             for (int i = 0; i < weapons.Count; i++)
             {
-                weapons[i].GetComponent<Renderer>().material.SetTexture("_MainTex", teams[(int)gameObject.GetPhotonView().Owner.CustomProperties["Team"]]);
+                weapons[i].GetComponent<Renderer>().material.SetTexture(MainTex, teams[(int)gameObject.GetPhotonView().Owner.CustomProperties["Team"]]);
             }
         }
     }
@@ -59,7 +62,7 @@ public class Tank : MonoBehaviour
     }
     
 
-   void SetEqup()
+   void SetEquip()
     {
         for (int i = 0; i < corpuses.Count; i++)
         {
@@ -87,13 +90,13 @@ public class Tank : MonoBehaviour
         if (gameObject.GetPhotonView() == null || gameObject.GetPhotonView().IsMine)
         {
             lastPlayerClearTime += Time.deltaTime;
-            SetEqup();
+            SetEquip();
         }
         else
         {
             if (tankOptions.corpus != -1)
             {
-                SetEqup();
+                SetEquip();
                 weapons[tankOptions.weapon].transform.position = corpuses[tankOptions.corpus].weaponPoint.transform.position;
             }
         }

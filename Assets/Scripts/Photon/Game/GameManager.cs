@@ -4,10 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using System.Linq;
-using TMPro;
 using ExitGames.Client.Photon;
 
 [System.Serializable]
@@ -48,7 +44,6 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEvent
 
         ChangeMap();
     }
-
     public void ChangeMap()
     {
         map = (int)PhotonNetwork.CurrentRoom.CustomProperties["Map"];
@@ -144,12 +139,10 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEvent
         Cursor.visible = true;
         SceneManager.LoadScene("Menu");
     }
-
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
     }
-
     public void RespawnAll(Photon.Realtime.Player otherPlayer)
     {
         if (PhotonNetwork.IsMasterClient)
@@ -196,17 +189,14 @@ public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEvent
             n.GetPhotonView().RPC("SetParent", RpcTarget.AllBuffered, item.bonus_id, item.box_type);
         }
     }
-
     private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
     }
-
     private void OnDisable()
     {
         PhotonNetwork.RemoveCallbackTarget(this);
     }
-
     public void OnEvent(EventData photonEvent)
     {
         if (photonEvent.Code == 0)

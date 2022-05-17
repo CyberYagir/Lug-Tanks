@@ -197,7 +197,7 @@ public class Player : MonoBehaviourPun, IPunObservable
         }
         else
         {
-            tank.tankOptions = JsonUtility.FromJson<TankOptions>((string)stream.ReceiveNext());
+            tank.tankOptions = JsonUtility.FromJson<Tank.TankOptions>((string)stream.ReceiveNext());
             tank.bonuses = ((int[])stream.ReceiveNext()).ToList();
         }
     }

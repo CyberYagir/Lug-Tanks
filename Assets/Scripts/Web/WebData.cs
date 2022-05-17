@@ -16,7 +16,6 @@ public class WebData : MonoBehaviour
     }
 
     public static Responce data = null;
-    public Responce serilizable = null;
     [SerializeField] private string URL;
     [SerializeField] private Statistics statistics;
     public Error error;
@@ -39,7 +38,6 @@ public class WebData : MonoBehaviour
 
     public void Update()
     {
-        serilizable = data; 
         if (!PhotonNetwork.InRoom)
         {
             if (tankData != null)

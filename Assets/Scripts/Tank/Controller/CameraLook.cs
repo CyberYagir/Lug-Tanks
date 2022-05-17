@@ -9,10 +9,8 @@ public class CameraLook : MonoBehaviour
     [SerializeField] private Camera camera;
     private Transform parent;
     private Tank tank;
-
-    public Camera GetCamera() => camera;
     
-    // Start is called before the first frame update
+    
     void Start()
     {
         parent = transform.parent;
@@ -27,8 +25,7 @@ public class CameraLook : MonoBehaviour
         sence = PlayerPrefs.GetFloat("Sens", 1);
         transform.parent = null;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         if (parent && !GameManager.pause)

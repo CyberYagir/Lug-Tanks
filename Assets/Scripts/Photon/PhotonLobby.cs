@@ -18,10 +18,6 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
     public List<RoomInfo> rooms { get; private set; }
 
 
-    private void OnApplicationQuit()
-    {
-        ClearErrorPrefs();
-    }
     private void Start()
     {
         Cursor.visible = true;
@@ -37,6 +33,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
         DontDestroyOnLoad(gameObject);
 
     }
+   
     public void InitPUN()
     { 
         if (PhotonNetwork.IsConnected == false)
@@ -74,22 +71,18 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
             lobbyText.text = PhotonNetwork.CurrentLobby.Name + " " + PhotonNetwork.CountOfRooms;
         }
     }
-
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby(new TypedLobby("DEFAULT", LobbyType.Default));
         mainUI.SetActive(true);
         base.OnConnectedToMaster();
     }
-
-
     public override void OnJoinedLobby()
     {
         lobbyText.text = PhotonNetwork.CurrentLobby.Name;
         //PhotonNetwork.GetCustomRoomList(PhotonNetwork.CurrentLobby, "C0");
         base.OnJoinedLobby();
     }
-
     public void ToBattle()
     {
         PhotonNetwork.JoinRandomRoom();
@@ -166,5 +159,10 @@ public class PhotonLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
     {
         errorText.text = "Failed to create room";
         base.OnCreateRoomFailed(returnCode, message);
+    }
+    
+    private void OnApplicationQuit()
+    {
+        ClearErrorPrefs();
     }
 }

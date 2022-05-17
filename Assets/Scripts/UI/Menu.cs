@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-[System.Serializable]
-public class Window
-{
-    public Vector2 posHide, posOpen;
-    public bool isOpen;
-    public RectTransform rectTransform;
 
-}
 
 public class Menu : MonoBehaviour
 {
+    [System.Serializable]
+    public class Window
+    {
+        public Vector2 posHide, posOpen;
+        public bool isOpen;
+        public RectTransform rectTransform;
+
+    }
     [SerializeField] private Window[] windows;
     [SerializeField] private PHPMenuManager menuManager;
 
