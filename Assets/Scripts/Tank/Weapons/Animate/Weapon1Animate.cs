@@ -4,9 +4,7 @@ using UnityEngine;
 
 
 public class WeaponAnimate: MonoBehaviour
-{
-
-}
+{ }
 public class Weapon1Animate : WeaponAnimate
 {
     public Weapon weapon;

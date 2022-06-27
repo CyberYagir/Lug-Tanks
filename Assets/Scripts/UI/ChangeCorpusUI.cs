@@ -9,10 +9,7 @@ public class ChangeCorpusUI : MonoBehaviour
     [SerializeField] private Color standard, selected;
     private Image image;
     private Tank tank;
-
     
-    
-
     private void Start()
     {
         tank = FindObjectOfType<Tank>();

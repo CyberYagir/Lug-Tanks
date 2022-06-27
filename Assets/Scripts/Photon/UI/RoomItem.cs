@@ -14,8 +14,8 @@ public class RoomItem : MonoBehaviour
 
     public void Init(string rname, string text, string count)
     {
-        roomname = rname;
-        r_name.text = text;
+        roomname = text;
+        r_name.text = rname;
         r_count.text = count;
     }
 }

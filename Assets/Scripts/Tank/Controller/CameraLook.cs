@@ -1,16 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraLook : MonoBehaviour
 {
+    public static CameraLook Instance;
     [SerializeField] private float sence;
     [SerializeField] private Transform maxpoint;
     [SerializeField] private Camera camera;
     private Transform parent;
     private Tank tank;
-    
-    
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         parent = transform.parent;
@@ -61,5 +68,10 @@ public class CameraLook : MonoBehaviour
     {
         if (parent != null)
             transform.position = new Vector3(tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position.x, parent.transform.position.y, tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position.z);
+    }
+
+    public Camera GetCamera()
+    {
+        return camera;
     }
 }
