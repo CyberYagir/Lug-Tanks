@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Photon.Game;
 using Photon.Pun;
 using UnityEngine;
 

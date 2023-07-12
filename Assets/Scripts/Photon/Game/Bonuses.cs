@@ -1,44 +1,50 @@
 ﻿using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Bonuses : MonoBehaviour
+namespace Photon.Game
 {
-    [SerializeField] private GameObject prefab;
-    [SerializeField] private float time;
-
-    private void Update()
+    public class Bonuses : MonoBehaviour
     {
-        if (PhotonNetwork.IsMasterClient)
+        [SerializeField] private GameObject prefab;
+
+        private void Update()
         {
-            time += Time.deltaTime;
-            if (time > 5f)
+            if (PhotonNetwork.IsMasterClient)
             {
-                var spawns = FindObjectOfType<BonusSpawns>();
-
-                GameObject spawn = null;
-                int id = -1;
-                for (int i = 0; i < 5; i++)
+                var time = (float) PhotonNetwork.CurrentRoom.CustomProperties["BonusDropTime"];
+                time += Time.deltaTime;
+                
+                
+                if (time > 5f)
                 {
-                    id = Random.Range(0, spawns.points.Length);
-                    if (spawns.points[id].childCount == 0)
-                    {
-                        spawn = spawns.points[id].gameObject;
-                        break;
-                    }
-                }
+                    var spawns = GameManager.Instance.ActiveMap.BonusSpawns;
 
-                if (spawn != null)
-                {
-                    if ((int) Random.Range(0, 5) == 3)
+                    GameObject spawn = null;
+                    int id = -1;
+                    for (int i = 0; i < 5; i++)
                     {
-                        var n = PhotonNetwork.Instantiate(prefab.name, spawn.transform.position, Quaternion.identity);
-                        n.GetPhotonView().RPC("SetParent", RpcTarget.AllBuffered, id, (int) Random.Range(0, 4));
+                        id = Random.Range(0, spawns.points.Length);
+                        if (spawns.points[id].childCount == 0)
+                        {
+                            spawn = spawns.points[id].gameObject;
+                            break;
+                        }
                     }
-                }
 
-                time = 0;
+                    if (spawn != null)
+                    {
+                        if ((int) Random.Range(0, 5) == 3)
+                        {
+                            var n = PhotonNetwork.Instantiate(prefab.name, spawn.transform.position, Quaternion.identity);
+                            n.GetPhotonView().RPC("SetParent", RpcTarget.AllBuffered, id, (int) Random.Range(0, 4));
+                        }
+                    }
+
+                    time = 0;
+                }
+                
+                
+                PhotonNetwork.CurrentRoom.CustomProperties["BonusDropTime"] = time;
             }
         }
     }

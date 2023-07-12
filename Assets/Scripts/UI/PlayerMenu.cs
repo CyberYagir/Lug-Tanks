@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Game;
 using UnityEngine;
 using Web;
 
@@ -14,7 +15,7 @@ public class PlayerMenu : MonoBehaviour
     }
 
     public void Suicide(){
-        GameManager.Instance.LocalPlayer.GetComponent<Tank.Controller.Tank>().tankOptions.hp = 0;
+        GameManager.Instance.GetPlayerTank().tankOptions.hp = 0;
     }
 
     public void Disconnect(){

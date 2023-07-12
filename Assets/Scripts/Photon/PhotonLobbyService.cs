@@ -94,9 +94,19 @@ namespace Photon
             int map = Random.Range(0, mapsCount);
             string name = "Room [" + (PhotonNetwork.CountOfRooms + 1) +  "]_"+ map;
             ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
+            
             h.Add("Map", map);
             h.Add("Time", 500);
-            RoomOptions roomOptions = new RoomOptions() {IsVisible = true, IsOpen = true, MaxPlayers = 16, CustomRoomProperties = h};
+            h.Add("BonusDropTime", 0f);
+            
+            RoomOptions roomOptions = new RoomOptions() 
+            {
+                IsVisible = true, 
+                IsOpen = true, 
+                MaxPlayers = 16, 
+                CustomRoomProperties = h,
+                CleanupCacheOnLeave = false
+            };
             PhotonNetwork.CreateRoom(name, roomOptions, PhotonNetwork.CurrentLobby);
         }
         public void CreateRoom(string name, bool visible, byte players, int time, int map = 0, string mode = "FFA")
@@ -111,15 +121,25 @@ namespace Photon
             }
 
             ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
+            
             h.Add("Map", map);
             h.Add("Time", time);
             h.Add("Mode", mode);
+            h.Add("BonusDropTime", 0f);
+            
             if (mode == "TDM")
             {
                 h.Add("RedKills", 0);
                 h.Add("BlueKills", 0);
             }
-            RoomOptions roomOptions = new RoomOptions() { IsVisible = visible, IsOpen = true, MaxPlayers = players, CustomRoomProperties = h };
+            RoomOptions roomOptions = new RoomOptions()
+            {
+                IsVisible = visible, 
+                IsOpen = true, 
+                MaxPlayers = players, 
+                CustomRoomProperties = h,
+                CleanupCacheOnLeave = false
+            };
             PhotonNetwork.CreateRoom(name, roomOptions);
         }
         public void JoinRoom(string nm)
@@ -132,8 +152,7 @@ namespace Photon
         }
         public override void OnJoinedRoom()
         {
-            WebDataService.tankData.corpus = FindObjectOfType<Tank.Controller.Tank>().tankOptions.corpus;
-            WebDataService.tankData.weapon = FindObjectOfType<Tank.Controller.Tank>().tankOptions.weapon;
+           
             ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
             h.Add("k", 0);
             h.Add("d", 0);

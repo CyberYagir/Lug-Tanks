@@ -42,8 +42,9 @@ public class Weapon2 : Weapon
 
     public void CreateLine(Vector3 pos1, Vector3 pos2)
     {
-        var l = PhotonNetwork.Instantiate(line.gameObject.name, Vector2.zero, Quaternion.identity);
-        l.GetComponent<PhotonView>().RPC("SetLinePoses", RpcTarget.All, pos1, pos2);
+        var l = PhotonNetwork.Instantiate(line.gameObject.name, Vector2.zero, Quaternion.identity).GetPhotonView();
+        l.TransferOwnership(PhotonNetwork.CurrentRoom.MasterClientId);
+        l.RPC("SetLinePoses", RpcTarget.All, pos1, pos2);
         l.GetComponent<LineScript>().Start_Destroy();
     }
 }
