@@ -1,9 +1,12 @@
-﻿[System.Serializable]
-public class ChildTable
+﻿namespace Web.Classes
 {
-    public int id, userid;
-    public ChildTable()
+    [System.Serializable]
+    public class ChildTable
     {
+        public int id, userid;
+        public ChildTable()
+        {
 
+        }
     }
 }

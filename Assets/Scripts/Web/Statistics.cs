@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Web;
 
 public class Statistics : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class Statistics : MonoBehaviour
     
     void Update()
     {
-        if (WebData.data != null)
+        if (WebDataService.data != null)
         {
             sessionTime += Time.deltaTime;
         }
@@ -37,7 +38,7 @@ public class Statistics : MonoBehaviour
 
     public PlayerStats GetStats()
     {
-        var lastStats = WebData.data.statistics;
+        var lastStats = WebDataService.data.statistics;
 
         lastStats.lastEnter = lastEnter.ToString("yyyy-MM-dd HH:mm:ss");
         lastStats.lastIP = userIP;

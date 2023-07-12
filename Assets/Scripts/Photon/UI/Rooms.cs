@@ -1,27 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Rooms : MonoBehaviour
+namespace Photon.UI
 {
-    [SerializeField] private Transform holder;
-    [SerializeField] private Transform item;
-    public void UpdateRooms()
+    public class Rooms : MonoBehaviour
     {
-        var r = PhotonLobby.lobby.rooms;
-        foreach (Transform item in holder)
+        [SerializeField] private Transform holder;
+        [SerializeField] private Transform item;
+        [SerializeField] private GameObject emptyText;
+        public void UpdateRooms()
         {
-            Destroy(item.gameObject);
-        }
-        for (int i = 0; i < r.Count; i++)
-        {
-            if (r[i].PlayerCount != r[i].MaxPlayers)
+            var r = PhotonLobbyService.Instance.rooms;
+            foreach (Transform item in holder)
             {
-                var n = Instantiate(item.gameObject, holder);
-                var k = n.GetComponent<RoomItem>();
-                k.Init(r[i].Name.Split('_')[0], r[i].Name, r[i].PlayerCount + "/" + r[i].MaxPlayers);
-                n.SetActive(true);
+                Destroy(item.gameObject);
             }
+            for (int i = 0; i < r.Count; i++)
+            {
+                if (r[i].PlayerCount != r[i].MaxPlayers)
+                {
+                    var n = Instantiate(item.gameObject, holder);
+                    var k = n.GetComponent<RoomItem>();
+                    k.Init(r[i].Name.Split('_')[0], r[i].Name, r[i].PlayerCount + "/" + r[i].MaxPlayers);
+                    n.SetActive(true);
+                }
+            }
+
+            emptyText.SetActive(r.Count == 0);
         }
     }
 }

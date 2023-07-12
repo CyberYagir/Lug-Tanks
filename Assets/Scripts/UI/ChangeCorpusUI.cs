@@ -1,38 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using Web;
 
-public class ChangeCorpusUI : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private int corpusid;
-    [SerializeField] private Color standard, selected;
-    private Image image;
-    private Tank tank;
-    
-    private void Start()
+    public class ChangeCorpusUI : ChangeButton
     {
-        tank = FindObjectOfType<Tank>();
-        image = GetComponent<Image>();
-        tank = FindObjectOfType<Tank>();
-    }
-    private void Update()
-    {
-        if (tank.tankOptions.corpus == corpusid)
+        public override void UpdateBtn()
         {
-            image.color = selected;
+            base.UpdateBtn();
+            if (tank.tankOptions.corpus == id)
+            {
+                image.color = selected;
+            }
+            else
+            {
+                image.color = standard;
+            }
         }
-        else
-        {
-            image.color = standard;
-        }
-    }
 
 
-    public void Click()
-    {
-        tank.tankOptions.corpus = corpusid;
-        WebData.tankData.corpus = corpusid;
-        WebData.SaveStart();
+        public override void Click()
+        {
+            base.Click();
+            WebDataService.data.tank.corpus = id;
+        }
     }
 }

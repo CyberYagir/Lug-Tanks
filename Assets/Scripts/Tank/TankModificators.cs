@@ -22,7 +22,7 @@ public class TankModificators : MonoBehaviour
     public static float speedIncrease = 1;
     
     public List<PlayerBonus> playerBonus;
-    public Tank tank;
+    public Tank.Controller.Tank tank;
 
 
     private void Start()

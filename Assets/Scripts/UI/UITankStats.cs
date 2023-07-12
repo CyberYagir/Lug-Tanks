@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UITankStats : MonoBehaviour
 {
-    [SerializeField] private Tank tank;
+    [SerializeField] private Tank.Controller.Tank tank;
     [SerializeField] private RectTransform hp, energy;
     [SerializeField] private GameObject[] bonuses;
     [SerializeField] private GameObject bonusesHolder;

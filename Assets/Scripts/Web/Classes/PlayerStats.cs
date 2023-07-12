@@ -1,4 +1,6 @@
-﻿[System.Serializable]
+﻿using Web.Classes;
+
+[System.Serializable]
 public class PlayerStats:ChildTable
 {
     public float lastSessionTime;

@@ -6,7 +6,7 @@ using UnityEngine;
 public class CrosshairUI : MonoBehaviour
 {
     [SerializeField] private GameObject crosshair;
-    [SerializeField] private Tank tank;
+    [SerializeField] private Tank.Controller.Tank tank;
     [SerializeField] private LayerMask layerMask;
 
     private Camera camera;
@@ -32,7 +32,7 @@ public class CrosshairUI : MonoBehaviour
             {
                 if (hit.transform == enemies[0].enemy.transform)
                 {
-                    if (Tank.lastPlayer == null || Tank.lastPlayerClearTime > 5f)
+                    if (Tank.Controller.Tank.lastPlayer == null || Tank.Controller.Tank.lastPlayerClearTime > 5f)
                     {
                         crosshair.SetActive(true);
                         crosshair.transform.position = camera.WorldToScreenPoint(enemies[0].enemy.transform.position, Camera.MonoOrStereoscopicEye.Mono);

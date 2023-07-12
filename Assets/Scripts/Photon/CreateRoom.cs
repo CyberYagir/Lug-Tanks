@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -31,7 +32,7 @@ public class CreateRoom : MonoBehaviour
 
     public void Create()
     {
-        PhotonLobby.lobby.CreateRoom(mapName.text, ispublic.isOn, (byte)players.value, (int)time.value, map, mode);
+        PhotonLobbyService.Instance.CreateRoom(mapName.text, ispublic.isOn, (byte)players.value, (int)time.value, map, mode);
     }
 
     public void Change()

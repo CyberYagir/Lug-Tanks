@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Web;
 
 public class Player : MonoBehaviourPun, IPunObservable
 {
     [SerializeField] private GameObject canvas;
     [SerializeField] private float timetosuicide;
-    Tank tank;
+    Tank.Controller.Tank tank;
 
 
     public float GetTime() => timetosuicide;
@@ -16,7 +17,7 @@ public class Player : MonoBehaviourPun, IPunObservable
     private void Awake()
     {
         GameManager.pause = false;
-        tank = GetComponent<Tank>();
+        tank = GetComponent<Tank.Controller.Tank>();
         tank.name = photonView.Owner.NickName;
         if (!photonView.IsMine)
         {
@@ -41,8 +42,8 @@ public class Player : MonoBehaviourPun, IPunObservable
         }
         else
         {
-            tank.tankOptions.weapon = WebData.tankData.weapon;
-            tank.tankOptions.corpus = WebData.tankData.corpus;
+            tank.tankOptions.weapon = WebDataService.tankData.weapon;
+            tank.tankOptions.corpus = WebDataService.tankData.corpus;
             tank.tankOptions.team = (int)PhotonNetwork.LocalPlayer.CustomProperties["Team"];
             tank.tankOptions.hp = tank.corpuses[tank.tankOptions.corpus].hp;
         }
@@ -142,17 +143,17 @@ public class Player : MonoBehaviourPun, IPunObservable
         photonView.Owner.SetCustomProperties(newC);
 
 
-        WebData.data.userStatistics.deaths++;
+        WebDataService.data.userStatistics.deaths++;
     }
     [PunRPC]
     public void KillRPC(string playerKiller, string playerKilled, int weapon)
     {
         if (PhotonNetwork.NickName == playerKiller)
         {
-            WebData.tankData.exp += 15;
-            WebData.data.userStatistics.kills++;
-            PhotonNetwork.LocalPlayer.CustomProperties["Exp"] = WebData.tankData.exp;
-            WebData.SaveStart();
+            WebDataService.tankData.exp += 15;
+            WebDataService.data.userStatistics.kills++;
+            PhotonNetwork.LocalPlayer.CustomProperties["Exp"] = WebDataService.tankData.exp;
+            WebDataService.SaveStart();
         }
         KillsList.Instance.Create(playerKiller, playerKilled, weapon);
     }
@@ -197,7 +198,7 @@ public class Player : MonoBehaviourPun, IPunObservable
         }
         else
         {
-            tank.tankOptions = JsonUtility.FromJson<Tank.TankOptions>((string)stream.ReceiveNext());
+            tank.tankOptions = JsonUtility.FromJson<Tank.Controller.Tank.TankOptions>((string)stream.ReceiveNext());
             tank.bonuses = ((int[])stream.ReceiveNext()).ToList();
         }
     }

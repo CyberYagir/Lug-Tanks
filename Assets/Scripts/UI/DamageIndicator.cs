@@ -23,17 +23,17 @@ public class DamageIndicator : MonoBehaviour
 
     private void Update()
     {
-        if (Tank.lastPlayer != null && Tank.lastPlayerClearTime < 10 && WeaponRotate.IsVisible(Tank.lastPlayer.gameObject))
+        if (Tank.Controller.Tank.lastPlayer != null && Tank.Controller.Tank.lastPlayerClearTime < 10 && WeaponRotate.IsVisible(Tank.Controller.Tank.lastPlayer.gameObject))
         {
             indicator.gameObject.SetActive(true);
-            hp.transform.localScale = new Vector3(Tank.lastPlayer.GetComponent<Tank>().tankOptions.hp / GetComponentInParent<Tank>().corpuses[Tank.lastPlayer.GetComponent<Tank>().tankOptions.corpus].hp, 1, 1);
-            pname.text = Tank.lastPlayer.name;
-            indicator.transform.position = Vector3.Lerp(indicator.transform.position, camera.WorldToScreenPoint(Tank.lastPlayer.GetComponent<Tank>().damageDisplayPoint.position, Camera.MonoOrStereoscopicEye.Mono), 10f * Time.deltaTime);
-            bonus.SetActive(Tank.lastPlayer.GetComponent<Tank>().bonuses.Count != 0);
+            hp.transform.localScale = new Vector3(Tank.Controller.Tank.lastPlayer.GetComponent<Tank.Controller.Tank>().tankOptions.hp / GetComponentInParent<Tank.Controller.Tank>().corpuses[Tank.Controller.Tank.lastPlayer.GetComponent<Tank.Controller.Tank>().tankOptions.corpus].hp, 1, 1);
+            pname.text = Tank.Controller.Tank.lastPlayer.name;
+            indicator.transform.position = Vector3.Lerp(indicator.transform.position, camera.WorldToScreenPoint(Tank.Controller.Tank.lastPlayer.GetComponent<Tank.Controller.Tank>().damageDisplayPoint.position, Camera.MonoOrStereoscopicEye.Mono), 10f * Time.deltaTime);
+            bonus.SetActive(Tank.Controller.Tank.lastPlayer.GetComponent<Tank.Controller.Tank>().bonuses.Count != 0);
             
             for (int i = 0; i < bonuses.Count; i++)
             {
-                bonuses[i].SetActive(Tank.lastPlayer.GetComponent<Tank>().bonuses.Contains(i));
+                bonuses[i].SetActive(Tank.Controller.Tank.lastPlayer.GetComponent<Tank.Controller.Tank>().bonuses.Contains(i));
             }
         }
         else

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private Tank tank;
+    [SerializeField] private Tank.Controller.Tank tank;
     [SerializeField] private float angle;
     private void FixedUpdate()
     {

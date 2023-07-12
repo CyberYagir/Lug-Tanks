@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Web;
 
 public class RankIcon : MonoBehaviour
 {
@@ -23,17 +24,17 @@ public class RankIcon : MonoBehaviour
 
     private void Update()
     {
-        if (WebData.tankData != null)
+        if (WebDataService.tankData != null)
         {
-            pName.text = WebData.data.playerData.name;
+            pName.text = WebDataService.data.playerData.name;
             var currentXp = (startMaxExp * (((currRank) + 1f) * (1.25f * (currRank))));
             var nextXp = (startMaxExp * (((currRank + 1) + 1f) * (1.25f * (currRank + 1))));
-            expLine.localScale = Vector3.Lerp(expLine.localScale, new Vector3((WebData.tankData.exp - currentXp) / (nextXp - currentXp), 1, 1), 6f * Time.deltaTime);
+            expLine.localScale = Vector3.Lerp(expLine.localScale, new Vector3((WebDataService.tankData.exp - currentXp) / (nextXp - currentXp), 1, 1), 6f * Time.deltaTime);
             currRank = 0;
-            exp_text.text = (int)(WebData.tankData.exp - currentXp) + "/" + (int)(nextXp - currentXp);
+            exp_text.text = (int)(WebDataService.tankData.exp - currentXp) + "/" + (int)(nextXp - currentXp);
             for (int i = 0; i < sprites.Length; i++)
             {
-                if (startMaxExp * ((i+1f) * (1.25f * i)) < WebData.tankData.exp)
+                if (startMaxExp * ((i+1f) * (1.25f * i)) < WebDataService.tankData.exp)
                 {
                     currRank = i;
                 }

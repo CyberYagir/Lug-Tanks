@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WeaponRotate : MonoBehaviour
 {
-    public Tank tank;
+    public Tank.Controller.Tank tank;
     public Transform shootCamera;
     public static Camera shootCam;
     public float rotateSpeed;

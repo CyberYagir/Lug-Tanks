@@ -6,7 +6,7 @@ namespace Misc
     [ExecuteInEditMode]
     public class ZonesDrawer : MonoBehaviour
     {
-        [SerializeField] private Color color;
+        [SerializeField] private Color color = Color.white;
 #if UNITY_EDITOR
         private Renderer[] renderer;
         private Bounds bounds;
@@ -26,8 +26,11 @@ namespace Misc
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = color;
-            Gizmos.DrawWireCube(bounds.center, bounds.size);
+            var col = color;
+            col.a *= 0.3f;
+            
+            Gizmos.color = col;
+            Gizmos.DrawCube(bounds.center, bounds.size + Vector3.one * 0.1f);
         }
 
 #endif

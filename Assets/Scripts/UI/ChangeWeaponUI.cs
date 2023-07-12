@@ -1,35 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using Web;
 
-public class ChangeWeaponUI : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private int weaponid;
-    [SerializeField] private Color standard, selected;
-    private Image image;
-    private Tank tank;
-    private void Start()
+    public class ChangeWeaponUI : ChangeButton
     {
-        tank = FindObjectOfType<Tank>();
-        image = GetComponent<Image>();
-    }
-    private void Update()
-    {
-        if (tank.tankOptions.weapon == weaponid)
-        {
-            image.color = selected;
-        }
-        else
-        {
-            image.color = standard;
-        }
-    }
 
-    public void Click()
-    {
-        tank.tankOptions.weapon = weaponid;
-        WebData.tankData.weapon = weaponid;
-        WebData.SaveStart();
+        public override void UpdateBtn()
+        {
+            base.UpdateBtn();
+            if (tank.tankOptions.weapon == id)
+            {
+                image.color = selected;
+            }
+            else
+            {
+                image.color = standard;
+            }
+        }
+        
+
+        public override void Click()
+        {
+            base.Click();
+            WebDataService.data.tank.weapon = id;
+        }
     }
 }

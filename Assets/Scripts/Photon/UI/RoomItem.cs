@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon;
 using TMPro;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class RoomItem : MonoBehaviour
     [SerializeField] private string roomname;
     public void Connect()
     {
-        PhotonLobby.lobby.JoinRoom(roomname);
+        PhotonLobbyService.Instance.JoinRoom(roomname);
     }
 
     public void Init(string rname, string text, string count)

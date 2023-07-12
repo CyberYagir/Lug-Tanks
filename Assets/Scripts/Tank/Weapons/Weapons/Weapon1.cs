@@ -20,7 +20,7 @@ public class Weapon1 : Weapon
                 {
                     if (hit.transform.CompareTag("Enemy") && TeamCheck(hit.transform.gameObject))
                     {
-                        hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float)damage, (string)PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.weapon);
+                        hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float)damage, (string)PhotonNetwork.NickName, GetComponentInParent<Tank.Controller.Tank>().tankOptions.weapon);
                     }
                     PhotonNetwork.Instantiate(particles.name, hit.point, Quaternion.identity).GetComponent<ParticleDestroy>().StartEnum();
                 }
@@ -30,8 +30,8 @@ public class Weapon1 : Weapon
                 RaycastHit hit;
                 if (Physics.Raycast(shootPoint.transform.position, targets[0].enemy.gameObject.transform.position - shootPoint.transform.position, out hit))
                 {
-                    Tank.SetLastPlayer(targets[0].enemy.gameObject);
-                    targets[0].enemy.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float)damage, (string)PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.weapon);
+                    Tank.Controller.Tank.SetLastPlayer(targets[0].enemy.gameObject);
+                    targets[0].enemy.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float)damage, (string)PhotonNetwork.NickName, GetComponentInParent<Tank.Controller.Tank>().tankOptions.weapon);
                     PhotonNetwork.Instantiate(particles.name, targets[0].enemy.gameObject.transform.position, Quaternion.identity).GetComponent<ParticleDestroy>().StartEnum();
                 }
             }

@@ -1,4 +1,6 @@
-﻿[System.Serializable]
+﻿using Web.Classes;
+
+[System.Serializable]
 public class UserStatistics : ChildTable
 {
     public int kills;

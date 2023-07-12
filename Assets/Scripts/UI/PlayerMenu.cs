@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Web;
 
 public class PlayerMenu : MonoBehaviour
 {
@@ -13,11 +14,11 @@ public class PlayerMenu : MonoBehaviour
     }
 
     public void Suicide(){
-        GameManager.Instance.LocalPlayer.GetComponent<Tank>().tankOptions.hp = 0;
+        GameManager.Instance.LocalPlayer.GetComponent<Tank.Controller.Tank>().tankOptions.hp = 0;
     }
 
     public void Disconnect(){
-        WebData.SaveStart();
+        WebDataService.SaveStart();
         GameManager.Instance.Disconnect();
     }
 
