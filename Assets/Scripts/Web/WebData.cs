@@ -82,6 +82,9 @@ public class WebData : MonoBehaviour
     IEnumerator Login(string name, string password)
     {
         WWWForm form = GetForm(name, password);
+        AddHeaders(form);
+
+
         WWW www = new WWW(URL, form);
         yield return www;
 
@@ -101,10 +104,22 @@ public class WebData : MonoBehaviour
             error = new Error() {error = "Connection lost", isError = true};
     }
 
+    private static void AddHeaders(WWWForm form)
+    {
+        form.headers.Add("Access-Control-Allow-Credentials", "true");
+        form.headers.Add("Access-Control-Expose-Headers", "Content-Length, Content-Encoding");
+        form.headers.Add("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time, Content-Type");
+        form.headers.Add("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+        form.headers.Add("Access-Control-Allow-Origin", "*");
+    }
+
     IEnumerator Register(string name, string password)
     {
         WWWForm form = GetForm(name, password);
         form.AddField("register", "");
+        
+        AddHeaders(form);
+        
         WWW www = new WWW(URL, form);
         yield return www;
 
@@ -132,7 +147,9 @@ public class WebData : MonoBehaviour
         form.AddField("fromUnity", "2003");
         form.AddField("save", "");
         form.AddField("response", JsonUtility.ToJson(data));
-
+        
+        AddHeaders(form);
+        
         WWW www = new WWW(URL, form);
         yield return www;
     }
@@ -146,7 +163,9 @@ public class WebData : MonoBehaviour
 
         data.statistics = statistics.GetStats();
         form.AddField("response", JsonUtility.ToJson(data));
-
+        AddHeaders(form);
+        
+        
         UnityWebRequest req = UnityWebRequest.Post(URL, form);
 
         req.SendWebRequest();

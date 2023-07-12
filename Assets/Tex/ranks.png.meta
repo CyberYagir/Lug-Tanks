@@ -75,7 +75,7 @@ TextureImporter:
       213: -3631902981680595205
     second: ranks_23
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -92,10 +92,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -134,6 +136,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -173,6 +177,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -574,9 +590,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      ranks_0: 485467868645187521
+      ranks_1: -4272772884846774697
+      ranks_10: -8153243899377662927
+      ranks_11: 202378679741443881
+      ranks_12: 7140566563834951408
+      ranks_13: -8588909568143252900
+      ranks_14: -5425275908934952861
+      ranks_15: -906522354689093526
+      ranks_16: 1819258921266040336
+      ranks_17: 4495864481821950397
+      ranks_2: -2519756342224268288
+      ranks_3: -114778915484264987
+      ranks_4: 6467022117129111502
+      ranks_5: -6901493180767577675
+      ranks_6: 2367643135695046940
+      ranks_7: -7697506277761936515
+      ranks_8: 5846704832320406589
+      ranks_9: 9005577021750668805
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

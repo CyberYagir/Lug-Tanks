@@ -20,19 +20,26 @@ public class SetResolution : MonoBehaviour
             transform.GetChild(0).GetComponent<Image>().sprite = fullscr;
         }
     }
+
+
+#if PLATFORM_STANDALONE_WIN
+    
     //Import the following.
     [DllImport("user32.dll", EntryPoint = "SetWindowText")]
     public static extern bool SetWindowText(System.IntPtr hwnd, System.String lpString);
     [DllImport("user32.dll", EntryPoint = "FindWindow")]
     public static extern System.IntPtr FindWindow(System.String className, System.String windowName);
-
+    
     //Get the window handle.
-    public static System.IntPtr windowPtr = FindWindow(null, "Tanks Of Donbass");
+    public static System.IntPtr windowPtr = FindWindow(null, "Lug-Tanks");
     //Set the title text using the window handle.
-
-
+#endif
+    
     public static void SetName(string newname)
     {
+        
+#if PLATFORM_STANDALONE_WIN
         SetWindowText(windowPtr, newname);
+#endif
     }
 }
