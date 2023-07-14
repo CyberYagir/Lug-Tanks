@@ -2,6 +2,7 @@ using ExitGames.Client.Photon;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Game;
 using UnityEngine;
 using UnityEngine.UI;
 

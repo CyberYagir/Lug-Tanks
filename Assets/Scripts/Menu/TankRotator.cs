@@ -8,11 +8,11 @@ public class TankRotator : MonoBehaviour
     [SerializeField] bool down;
     [SerializeField] float speed;
 
-    private Tank.Controller.Tank tank;
+    private Base.Controller.Tank tank;
     private Camera camera;
     private void Start()
     {
-        tank = GetComponent<Tank.Controller.Tank>();
+        tank = GetComponent<Base.Controller.Tank>();
         camera = Camera.main;
     }
 

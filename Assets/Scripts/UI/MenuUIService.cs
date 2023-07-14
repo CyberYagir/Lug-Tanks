@@ -23,9 +23,9 @@ namespace UI
         
         
         
-        private Tank.Controller.Tank tank;
+        private Base.Controller.Tank tank;
     
-        public void Init(Tank.Controller.Tank tank)
+        public void Init(Base.Controller.Tank tank)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

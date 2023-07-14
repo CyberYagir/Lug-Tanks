@@ -19,7 +19,7 @@ namespace Photon
 
    
 
-        public void Init(Tank.Controller.Tank tank)
+        public void Init(Base.Controller.Tank tank)
         {
             foreach (var item in tank.weapons)
             {

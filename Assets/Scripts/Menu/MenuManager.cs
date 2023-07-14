@@ -7,7 +7,7 @@ namespace Menu
 {
     public class MenuManager : MonoBehaviour
     {
-        [SerializeField] private Tank.Controller.Tank tankService;
+        [SerializeField] private Base.Controller.Tank tankService;
         [SerializeField] private UI.MenuUIService menuService;
         [SerializeField] private PHPMenuService phpMenuService;
         [SerializeField] private PhotonLobbyService lobbyService;

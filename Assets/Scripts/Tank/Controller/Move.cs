@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Base.Modifyers;
 using Photon.Game;
 using UnityEngine;
 
 public class Move : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private Tank.Controller.Tank tank;
+    [SerializeField] private Base.Controller.Tank tank;
     [SerializeField] private float angle;
     private void FixedUpdate()
     {

@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using Base.Modifyers;
 using Photon.Pun;
+using UI;
 using UnityEngine;
 using Web;
 
@@ -9,17 +11,17 @@ namespace Photon.Game
     {
         [SerializeField] private GameObject canvas;
         [SerializeField] private float timetosuicide;
-        Tank.Controller.Tank tank;
+        Base.Controller.Tank tank;
 
 
-        public Tank.Controller.Tank Tank => tank;
+        public Base.Controller.Tank Tank => tank;
 
         public float GetTime() => timetosuicide;
     
         private void Awake()
         {
             GameManager.pause = false;
-            tank = GetComponent<Tank.Controller.Tank>();
+            tank = GetComponent<Base.Controller.Tank>();
             tank.name = photonView.Owner.NickName;
             if (!photonView.IsMine)
             {
@@ -200,7 +202,7 @@ namespace Photon.Game
             }
             else
             {
-                tank.tankOptions = JsonUtility.FromJson<Tank.Controller.Tank.TankOptions>((string)stream.ReceiveNext());
+                tank.tankOptions = JsonUtility.FromJson<Base.Controller.Tank.TankOptions>((string)stream.ReceiveNext());
                 tank.bonuses = ((int[])stream.ReceiveNext()).ToList();
             }
         }

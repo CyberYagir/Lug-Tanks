@@ -22,8 +22,8 @@ public class Weapon3 : Weapon
                 var targets = Enemies(shootPoint);
                 if (targets.Count != 0)
                 {
-                    targets[0].enemy.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) damage * Time.deltaTime, (string) PhotonNetwork.NickName, GetComponentInParent<Tank.Controller.Tank>().tankOptions.weapon);
-                    Tank.Controller.Tank.SetLastPlayer(targets[0].enemy.gameObject);
+                    targets[0].enemy.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) damage * Time.deltaTime, (string) PhotonNetwork.NickName, GetComponentInParent<Base.Controller.Tank>().tankOptions.weapon);
+                    Base.Controller.Tank.SetLastPlayer(targets[0].enemy.gameObject);
                 }
             }
         };

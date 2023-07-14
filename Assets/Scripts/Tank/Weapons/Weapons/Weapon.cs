@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Base.Modifyers;
 using Photon.Game;
 using Photon.Pun;
 using UnityEngine;
@@ -143,7 +144,7 @@ public class Weapon : MonoBehaviour {
             if (WeaponRotate.IsVisible(enemies[i]))
             {
                 RaycastHit hit;
-                var t = enemies[i].GetComponent<Tank.Controller.Tank>();
+                var t = enemies[i].GetComponent<Base.Controller.Tank>();
                 if (t.tankOptions.team != 0 && (int)PhotonNetwork.LocalPlayer.CustomProperties["Team"] == t.tankOptions.team) continue;
                 bool finded = false;
                 for (int u = 0; u < t.corpuses[t.tankOptions.corpus].hitPoints.Length; u++)

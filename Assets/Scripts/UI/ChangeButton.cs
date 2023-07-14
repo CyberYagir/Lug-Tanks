@@ -11,10 +11,10 @@ namespace UI
         
         
         protected Image image;
-        protected Tank.Controller.Tank tank;
+        protected Base.Controller.Tank tank;
 
 
-        public virtual void Init(Tank.Controller.Tank tank)
+        public virtual void Init(Base.Controller.Tank tank)
         {
             image = GetComponent<Image>();
             this.tank = tank;

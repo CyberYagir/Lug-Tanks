@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Photon.Game;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Tank.Controller
+namespace Base.Controller
 {
     public class Tank : MonoBehaviour
     {
@@ -57,7 +58,7 @@ namespace Tank.Controller
         public List<Texture2D> teams;
 
         
-        private static readonly int MainTex = Shader.PropertyToID("_MainTex");
+        private static readonly int MainTex = Shader.PropertyToID("_BaseMap");
 
         private void Start()
         {
@@ -72,6 +73,11 @@ namespace Tank.Controller
                 {
                     weapons[i].GetComponent<Renderer>().material.SetTexture(MainTex, teams[(int)gameObject.GetPhotonView().Owner.CustomProperties["Team"]]);
                 }
+            }
+
+            if (GameManager.Instance != null)
+            {
+                transform.parent = GameManager.Instance.PlayersHolder;
             }
         }
         public static void SetLastPlayer(GameObject obj)

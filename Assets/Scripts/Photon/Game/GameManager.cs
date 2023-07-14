@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Base.Controller;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
@@ -21,12 +21,14 @@ namespace Photon.Game
         [SerializeField] private Player playerPrefab;
         [SerializeField] private float time;
         [SerializeField] private GameObject tabMenu;
+        [SerializeField] private Transform playersHolder;
         [SerializeField] private List<Map> maps;
-
-        private int map = 0;        
+        
+        private int map;        
         
         public List<Map> Maps => maps;
         public Map ActiveMap => Maps[map];
+        public Transform PlayersHolder => playersHolder;
 
         private void Awake()
         {
@@ -103,7 +105,7 @@ namespace Photon.Game
 
         private void ConfigurePlayerTDM()
         {
-                var newC = new ExitGames.Client.Photon.Hashtable();
+                var newC = new Hashtable();
                 newC.Add("k", 0);
                 newC.Add("d", 0);
 
@@ -152,7 +154,6 @@ namespace Photon.Game
                 PhotonNetwork.Destroy(localPlayer.gameObject);
             }
             PhotonNetwork.LeaveRoom();
-            Destroy(GameObject.Find("Manager"));
             Cursor.visible = true;
             SceneManager.LoadScene("Menu");
         }
@@ -160,11 +161,11 @@ namespace Photon.Game
         
         
         
-        public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+        public override void OnPlayerEnteredRoom(Realtime.Player newPlayer)
         {
             base.OnPlayerEnteredRoom(newPlayer);
         }
-        public void RespawnAll(Photon.Realtime.Player otherPlayer)
+        public void RespawnAll(Realtime.Player otherPlayer)
         {
             if (PhotonNetwork.IsMasterClient)
             {
@@ -189,7 +190,7 @@ namespace Photon.Game
                 }
             }
         }
-        public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+        public override void OnPlayerLeftRoom(Realtime.Player otherPlayer)
         {
             if (otherPlayer.IsLocal)
             {
@@ -197,11 +198,9 @@ namespace Photon.Game
             }
             else
             {
-                // RespawnAll(otherPlayer);
-
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    var tanks = FindObjectsByType<Tank.Controller.Tank>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+                    var tanks = PlayersHolder.GetComponentsInChildren<Tank>();
                     foreach (var tank in tanks)
                     {
                         if (tank.gameObject.GetPhotonView().Owner.ActorNumber == otherPlayer.ActorNumber)
@@ -214,7 +213,7 @@ namespace Photon.Game
             }
             base.OnPlayerLeftRoom(otherPlayer);
         }
-        void IInRoomCallbacks.OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
+        void IInRoomCallbacks.OnMasterClientSwitched(Realtime.Player newMasterClient)
         {
             // RespawnAll(PhotonNetwork.CurrentRoom.GetPlayer(PhotonNetwork.CurrentRoom.masterClientId));
             // foreach (var item in FindObjectsOfType<Bonus>())
@@ -240,7 +239,7 @@ namespace Photon.Game
         }
         
         
-        public Tank.Controller.Tank GetPlayerTank() => localPlayer.Tank;
+        public Tank GetPlayerTank() => localPlayer.Tank;
         public override void OnDisable() => PhotonNetwork.RemoveCallbackTarget(this);
         public override void OnEnable() => PhotonNetwork.AddCallbackTarget(this);
 

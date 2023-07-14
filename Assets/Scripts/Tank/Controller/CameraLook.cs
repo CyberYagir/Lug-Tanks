@@ -11,7 +11,7 @@ public class CameraLook : MonoBehaviour
     [SerializeField] private Transform maxpoint;
     [SerializeField] private Camera camera;
     private Transform parent;
-    private Tank.Controller.Tank tank;
+    private Base.Controller.Tank tank;
 
 
     private void Awake()
@@ -28,7 +28,7 @@ public class CameraLook : MonoBehaviour
         }
         if (parent)
         {
-            tank = parent.GetComponentInParent<Tank.Controller.Tank>();
+            tank = parent.GetComponentInParent<Base.Controller.Tank>();
         }
         sence = PlayerPrefs.GetFloat("Sens", 1);
         transform.parent = null;
