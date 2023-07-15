@@ -11,7 +11,7 @@ namespace Photon.Game
     public class GameManager : MonoBehaviourPunCallbacks, IInRoomCallbacks, IOnEventCallback
     {
         public static GameManager Instance;
-        public static bool pause;
+        public static bool IsOnPause;
 
 
 
@@ -19,12 +19,16 @@ namespace Photon.Game
 
 
         [SerializeField] private Player playerPrefab;
-        [SerializeField] private float time;
         [SerializeField] private GameObject tabMenu;
         [SerializeField] private Transform playersHolder;
+        [SerializeField] private GameObject mapCamera;
         [SerializeField] private List<Map> maps;
-        
+
+
+
+        private List<Tank> enemies = new List<Tank>(20);
         private int map;        
+        private float time;
         
         public List<Map> Maps => maps;
         public Map ActiveMap => Maps[map];
@@ -32,7 +36,7 @@ namespace Photon.Game
 
         private void Awake()
         {
-            pause = false;
+            IsOnPause = false;
             Instance = this;
             
             if (!PhotonNetwork.IsConnected)
@@ -65,7 +69,9 @@ namespace Photon.Game
                 }
             }
 
-            if (pause || Timer.Instance.end || tabMenu.active)
+            mapCamera.gameObject.SetActive(localPlayer == null);
+            
+            if (IsOnPause || Timer.Instance.end || tabMenu.active)
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
@@ -244,5 +250,23 @@ namespace Photon.Game
         public override void OnEnable() => PhotonNetwork.AddCallbackTarget(this);
 
 
+        public List<Tank> GetEnemies()
+        {
+            enemies.Clear();
+            foreach (Transform child in playersHolder)
+            {
+                var tank = child.GetComponent<Tank>();
+                if (tank)
+                {
+                    if (tank.Team == Tank.TankTeam.Enemy)
+                    {
+                        enemies.Add(tank);
+                    }
+                }
+            }
+
+
+            return enemies;
+        }
     }
 }

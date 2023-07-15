@@ -173,7 +173,7 @@ namespace Photon
         {
             base.OnRoomListUpdate(roomList);
             rooms = roomList;
-            FindObjectOfType<Rooms>().UpdateRooms();
+            FindObjectOfType<UIRooms>().UpdateRooms();
 //        print("ROOMS COUNT: " + rooms.Count);
         }
         public override void OnCreateRoomFailed(short returnCode, string message)

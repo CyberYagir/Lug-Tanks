@@ -1,36 +1,48 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using Base.Controller;
 using Base.Modifyers;
+using Base.Weapons;
+using Base.Weapons.Arms;
 using Photon.Pun;
 using UI;
 using UnityEngine;
 using Web;
+using Random = UnityEngine.Random;
 
 namespace Photon.Game
 {
     public class Player : MonoBehaviourPun, IPunObservable
     {
+
         [SerializeField] private GameObject canvas;
         [SerializeField] private float timetosuicide;
-        Base.Controller.Tank tank;
-
-
-        public Base.Controller.Tank Tank => tank;
+        private Tank tank;
+        
+        public Tank Tank => tank;
 
         public float GetTime() => timetosuicide;
     
         private void Awake()
         {
-            GameManager.pause = false;
-            tank = GetComponent<Base.Controller.Tank>();
-            tank.name = photonView.Owner.NickName;
+            GameManager.IsOnPause = false;
+            
+            
+            tank = GetComponent<Tank>();
+            
+            tank.name = "Player: " + photonView.Owner.NickName;
+            
             if (!photonView.IsMine)
             {
-                tank.transform.tag = "Enemy";
+
                 canvas.SetActive(false);
-                GetComponent<Move>().enabled = false;
                 tank.cameraLook.gameObject.SetActive(false);
+                GetComponent<Move>().enabled = false;
+                
                 Destroy(GetComponent<TankModificators>());
                 Destroy(GetComponentInChildren<WeaponRotate>());
+                
+                
                 foreach (var t in tank.weapons)
                 {
                     if (t.transform.GetComponent<WeaponAnimate>())
@@ -50,6 +62,17 @@ namespace Photon.Game
                 tank.tankOptions.corpus = WebDataService.tankData.corpus;
                 tank.tankOptions.team = (int)PhotonNetwork.LocalPlayer.CustomProperties["Team"];
                 tank.tankOptions.hp = tank.corpuses[tank.tankOptions.corpus].hp;
+            }
+        }
+
+        private void Start()
+        {
+            if (!photonView.IsMine)
+            {
+                if (Weapon.IsEnemyTeam(photonView))
+                {
+                    tank.ChangeTankLocalTeam(Tank.TankTeam.Enemy);
+                }
             }
         }
 
@@ -202,7 +225,7 @@ namespace Photon.Game
             }
             else
             {
-                tank.tankOptions = JsonUtility.FromJson<Base.Controller.Tank.TankOptions>((string)stream.ReceiveNext());
+                tank.tankOptions = JsonUtility.FromJson<Tank.TankOptions>((string)stream.ReceiveNext());
                 tank.bonuses = ((int[])stream.ReceiveNext()).ToList();
             }
         }

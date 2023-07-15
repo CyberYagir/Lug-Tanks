@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Base.Controller;
 using UnityEngine;
 
 public class Look : MonoBehaviour

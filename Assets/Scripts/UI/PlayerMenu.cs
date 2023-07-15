@@ -44,7 +44,7 @@ public class PlayerMenu : MonoBehaviour
         }
 
         open = !open;
-        GameManager.pause = open;
+        GameManager.IsOnPause = open;
         time = 0;
     }
 }
