@@ -1,4 +1,5 @@
 ﻿using Photon;
+using Photon.Game.UI;
 using Photon.Pun;
 using UnityEngine;
 using Web;
@@ -20,7 +21,7 @@ namespace UI
         [SerializeField] private Window[] windows;
         [SerializeField] private ChangeButton[] buttons;
         [SerializeField] private PHPMenuService menuManager;
-        
+        [SerializeField] private RankIcon rankIcon;
         
         
         private Base.Controller.Tank tank;
@@ -36,10 +37,14 @@ namespace UI
             {
                 buttons[i].Init(tank);
             }
+            
+            rankIcon.Init(null);
         }
         private void Update()
         {
             AnimateWindows();
+            
+            rankIcon.UpdateElement();
             
             if (WebDataService.tankData != null && PhotonNetwork.IsConnected)
             {
