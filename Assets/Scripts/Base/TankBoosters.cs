@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Base.Controller;
 using UnityEngine;
 
 namespace Base.Modifyers
@@ -16,21 +17,31 @@ namespace Base.Modifyers
     }
 
 
-    public class TankModificators : MonoBehaviour
+    public class TankBoosters : MonoBehaviour
     {
-        public static TankModificators modificators;
-        public static float defenceIncrease = 1;
-        public static float fireRateIncrease = 1;
-        public static float speedIncrease = 1;
+        
+        [SerializeField] private float defenceIncrease = 1;
+        [SerializeField] private float fireRateIncrease = 1;
+        [SerializeField] private float speedIncrease = 1;
     
-        public List<PlayerBonus> playerBonus;
-        public Base.Controller.Tank tank;
+        [SerializeField] private List<PlayerBonus> playerBonus;
+        
+        private Tank tank;
 
 
-        private void Start()
+        public float SpeedIncrease => speedIncrease;
+        public float FireRateIncrease => fireRateIncrease;
+        public float DefenceIncrease => defenceIncrease;
+
+
+        public List<PlayerBonus> ActiveBoosters => playerBonus;
+
+        public void Init(Tank tank)
         {
-            modificators = this;
+            this.tank = tank;
         }
+        
+        
         public void AddBonus(PlayerBonus plBonus)
         {
             if (playerBonus.Find(x => x.type == plBonus.type) != null)

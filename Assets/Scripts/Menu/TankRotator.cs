@@ -1,51 +1,55 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using Base.Controller;
+using Photon.Game;
 using UnityEngine;
 
-public class TankRotator : MonoBehaviour
+namespace Menu
 {
-    [SerializeField] bool down;
-    [SerializeField] float speed;
-
-    private Base.Controller.Tank tank;
-    private Camera camera;
-    private void Start()
+    public class TankRotator : MonoBehaviour
     {
-        tank = GetComponent<Base.Controller.Tank>();
-        camera = Camera.main;
-    }
+        [SerializeField] float speed;
+        [SerializeField] private Camera camera;
+        [SerializeField] private Tank tank;
+        
+        private bool down;
 
-    private void Update()
-    {
-        foreach (var t in tank.weapons)
+        private void Awake()
         {
-            if (t.transform.GetComponent<WeaponAnimate>())
+            foreach (var t in tank.weapons)
             {
-                t.transform.GetComponent<WeaponAnimate>().enabled = false;
+                var animations = t.transform.GetComponent<WeaponAnimate>();
+                if (animations)
+                {
+                    animations.enabled = false;
+                }
+                t.enabled = false;
             }
-            t.enabled = false;
         }
 
-        RaycastHit hit;
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out hit))
+        private void Update()
         {
-            if (hit.transform.CompareTag("Player"))
+
+            if (Input.GetKey(KeyCode.Mouse0))
             {
-                if (Input.GetKey(KeyCode.Mouse0))
-                    down = true;
+                Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out var hit))
+                {
+                    if (hit.transform.GetComponent<Player>())
+                    {
+                        down = true;
+                    }
+                }
+            }
+            else
+            {
+                down = false;
             }
             
-        }
-        if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            down = false;
-        }
-        if (down)
-        {
-            transform.Rotate(Vector3.up * speed * -Input.GetAxis("Mouse X") * Time.deltaTime);
+            if (down)
+            {
+                transform.Rotate(Vector3.up * speed * -Input.GetAxis("Mouse X") * Time.deltaTime);
+            }
         }
     }
 }

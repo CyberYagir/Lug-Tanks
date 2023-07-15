@@ -51,7 +51,7 @@ namespace Photon.Game
             {
                 if (other.GetComponentInParent<PhotonView>().IsMine)
                 {
-                    other.GetComponentInParent<TankModificators>().AddBonus(bonuses[BoxType]);
+                    other.GetComponentInParent<TankBoosters>().AddBonus(bonuses[BoxType]);
                     gameObject.GetPhotonView().RPC("DestroyObj", RpcTarget.MasterClient);
                 }
             }

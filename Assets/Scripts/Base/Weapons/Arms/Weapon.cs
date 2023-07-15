@@ -25,31 +25,21 @@ namespace Base.Weapons.Arms
         private bool wait;
         private WeaponRotate rotate;
         private Rigidbody rb;
-        public float GetRotSpeed()
-        {
-            return rotSpeed;
-        }
-        public float GetCooldown()
-        {
-            return cooldown;
-        }
-        public float GetEnergy()
-        {
-            return energy;
-        }
-        public float GetTime()
-        {
-            return time;
-        }
-        public float GetShotEnergy()
-        {
-            return shot_energy;
-        }
-
+        private Player player;
+        
+        public float GetRotSpeed() => rotSpeed;
+        public float GetCooldown() => cooldown;
+        public float GetEnergy() => energy;
+        public float GetTime() => time;
+        public float GetShotEnergy() => shot_energy;
+        
+        
+        
         private void Awake()
         {
             rotate = transform.parent.GetComponent<WeaponRotate>();
             rb = transform.GetComponentInParent<Rigidbody>();
+            player = GetComponentInParent<Player>();
         }
 
         public void Update()
@@ -63,7 +53,7 @@ namespace Base.Weapons.Arms
         
         
             if (addTime)
-                time += Time.deltaTime * TankModificators.fireRateIncrease;
+                time += Time.deltaTime * player.Boosters.FireRateIncrease;
 
 
             if (GameManager.IsOnPause) return;
@@ -137,7 +127,7 @@ namespace Base.Weapons.Arms
         {
             if (energy < 100)
             {
-                energy += energy_add * Time.deltaTime * TankModificators.fireRateIncrease;
+                energy += energy_add * Time.deltaTime * player.Boosters.FireRateIncrease;
             }
             else
                 energy = 100;
@@ -152,7 +142,6 @@ namespace Base.Weapons.Arms
         List<GameObject> ret = new List<GameObject>(20);
         public List<Target> Enemies(Transform shootPoint)
         {
-            // GameObject.FindGameObjectsWithTag("Enemy");
             ret.Clear();
             var enemies = GameManager.Instance.GetEnemies();
             if (WeaponRotate.CameraInstance == null) return new List<Target>();

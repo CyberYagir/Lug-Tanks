@@ -1,4 +1,5 @@
-﻿using Base.Controller;
+﻿using System;
+using Base.Controller;
 using Photon.Pun;
 using UnityEngine;
 
@@ -33,6 +34,12 @@ namespace Base.Weapons.Arms
                 }
             };
             notShootAction += () => { animator.SetBool(IsShoot, false); };
+        }
+
+
+        private void OnDestroy()
+        {
+            Debug.LogError("1");
         }
     }
 }

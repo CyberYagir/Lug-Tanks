@@ -137,6 +137,9 @@ namespace Photon.Pun
                 return;
             }
 
+            if (this.photonView == null) return;
+            
+            
             if (this.photonView.IsMine == true)
             {
                 this.SerializeDataContinuously();

@@ -5,8 +5,10 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 using Photon.Game;
+using Photon.Game.UI;
 using Photon.UI;
 using TMPro;
+using UI;
 using UnityEngine.UI;
 
 public class Scores : MonoBehaviour

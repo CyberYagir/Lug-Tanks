@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Base.Weapons.Arms;
 using Photon.Game;
 using Photon.Pun;
+using Scriptable;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -55,44 +56,57 @@ namespace Base.Controller
         public static GameObject lastPlayer;
         public static float lastPlayerClearTime;
     
-        public CameraLook cameraLook;
         public TankOptions tankOptions;
         public List<Corpus> corpuses;
         public List<Weapon> weapons;
         public List<int> bonuses;
         public Rigidbody rb;
         public Transform damageDisplayPoint;
-        public List<Texture2D> teams;
+        
 
         [SerializeField] private TankTeam tankTeam = TankTeam.Player;
-        
+        private Player player;
         
         private static readonly int MainTex = Shader.PropertyToID("_BaseMap");
 
         public TankTeam Team => tankTeam;
 
-        public void ChangeTankLocalTeam(TankTeam team) => tankTeam = team;
         
-        private void Start()
+        public void Init(Player player)
         {
+            this.player = player;
+            
             Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Ignore Raycast"), LayerMask.NameToLayer("NoCollisions"));
-            if (PhotonNetwork.InRoom)
-            {
-                for (int i = 0; i < corpuses.Count; i++)
-                {
-                    corpuses[i].obj.GetComponent<Renderer>().material.SetTexture(MainTex, teams[(int)gameObject.GetPhotonView().Owner.CustomProperties["Team"]]);
-                }
-                for (int i = 0; i < weapons.Count; i++)
-                {
-                    weapons[i].GetComponent<Renderer>().material.SetTexture(MainTex, teams[(int)gameObject.GetPhotonView().Owner.CustomProperties["Team"]]);
-                }
-            }
+            
+            SetTeamsColors();
 
             if (GameManager.Instance != null)
             {
                 transform.parent = GameManager.Instance.PlayersHolder;
             }
         }
+
+        private void SetTeamsColors()
+        {
+            if (PhotonNetwork.InRoom)
+            {
+                var team = (int) gameObject.GetPhotonView().Owner.CustomProperties["Team"];
+                var teamsData = player.GameData.TeamsData;
+                
+                for (int i = 0; i < corpuses.Count; i++)
+                {
+                    corpuses[i].obj.GetComponent<Renderer>().material.SetTexture(MainTex, teamsData.GetTeam(team).Texture);
+                }
+
+                for (int i = 0; i < weapons.Count; i++)
+                {
+                    weapons[i].GetComponent<Renderer>().material.SetTexture(MainTex, teamsData.GetTeam(team).Texture);
+                }
+            }
+        }
+        
+        public void ChangeTankLocalTeam(TankTeam team) => tankTeam = team;
+
         public static void SetLastPlayer(GameObject obj)
         {
             lastPlayer = obj;
