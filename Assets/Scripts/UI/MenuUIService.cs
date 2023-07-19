@@ -53,10 +53,13 @@ namespace UI
                 ChangeCorpusWeapon();
 
                 if (PhotonNetwork.InLobby)
+                {
                     windows[0].isOpen = true;
+                }
             }
             else
             {
+                windows[0].rectTransform.anchoredPosition = windows[0].posHide;
                 windows[0].isOpen = false;
                 menuManager.gameObject.SetActive(true);
             }

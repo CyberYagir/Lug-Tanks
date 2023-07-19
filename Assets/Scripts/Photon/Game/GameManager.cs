@@ -45,6 +45,12 @@ namespace Photon.Game
                 return;
             }
 
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.CurrentRoom.SetPropertiesListedInLobby(new[] {"Map", "Mode"});
+            }
+            
+
             ChangeMap();
             SwitchModes();
         }

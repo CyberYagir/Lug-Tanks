@@ -132,6 +132,7 @@ namespace Photon
                 h.Add("RedKills", 0);
                 h.Add("BlueKills", 0);
             }
+            
             RoomOptions roomOptions = new RoomOptions()
             {
                 IsVisible = visible, 
@@ -140,6 +141,7 @@ namespace Photon
                 CustomRoomProperties = h,
                 CleanupCacheOnLeave = false
             };
+            
             PhotonNetwork.CreateRoom(name, roomOptions);
         }
         public void JoinRoom(string nm)

@@ -27,9 +27,64 @@ namespace Scriptable
                 return teams.Find(x => x.ID == id);
             }
         }
+        [System.Serializable]
+        public class Maps
+        {
+            [System.Serializable]
+            public class Map
+            {
+                [SerializeField] private string mapName;
+                [SerializeField] private Sprite mapIcon;
 
+                public Sprite MapIcon => mapIcon;
+                public string MapName => mapName;
+            }
+            [SerializeField] private List<Map> maps;
+            public int Count => maps.Count;
+
+            public Sprite GetMapSprite(int map)
+            {
+                return maps[Mathf.Clamp(map, 0, maps.Count - 1)].MapIcon;
+            }
+        }
+        public enum GameMode
+        {
+            FFA = 0, TDM = 1
+        }
+        [System.Serializable]
+        public class GameModes
+        {
+
+            [System.Serializable]
+            public class Mode
+            {
+                [SerializeField] private GameMode gameMode;
+                [SerializeField] private Sprite sprite;
+
+                public Sprite Sprite => sprite;
+
+                public GameMode GameMode => gameMode;
+            }
+
+            [SerializeField] private List<Mode> modes;
+
+
+            public Sprite GetModeSprite(GameMode mode)
+            {
+                return modes.Find(x => x.GameMode == mode).Sprite;
+            }
+
+            public Mode StringToMode(string mode)
+            {
+                return modes.Find(x => x.GameMode.ToString().ToLower() == mode.ToLower());
+            }
+        }
+        
         [SerializeField] private Teams teamsData;
-
+        [SerializeField] private Maps maps;
+        [SerializeField] private GameModes gameModes;
         public Teams TeamsData => teamsData;
+        public Maps MapsData => maps;
+        public GameModes GameModesData => gameModes;
     }
 }

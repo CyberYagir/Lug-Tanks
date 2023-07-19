@@ -1,22 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Photon;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class RoomItem : MonoBehaviour
+namespace Photon.UI
 {
-    [SerializeField] private TMP_Text r_name, r_count;
-    [SerializeField] private string roomname;
-    public void Connect()
+    public class RoomItem : MonoBehaviour
     {
-        PhotonLobbyService.Instance.JoinRoom(roomname);
-    }
+        [SerializeField] private TMP_Text roomName, playersCount;
+        [SerializeField] private Image icon, modeIcon;
+        [SerializeField] private string roomsStringName;
+        public void Connect()
+        {
+            PhotonLobbyService.Instance.JoinRoom(roomsStringName);
+        }
 
-    public void Init(string rname, string text, string count)
-    {
-        roomname = text;
-        r_name.text = rname;
-        r_count.text = count;
+        public void Init(string rname, string text, string count, Sprite mapIcon, Sprite modeIcon)
+        {
+            this.roomsStringName = text;
+            this.roomName.text = rname;
+            this.playersCount.text = count;
+            this.icon.sprite = mapIcon;
+            this.modeIcon.sprite = modeIcon;
+        }
     }
 }
