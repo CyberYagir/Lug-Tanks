@@ -2,6 +2,7 @@
 using System.Collections;
 using Photon;
 using Photon.Pun;
+using UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;

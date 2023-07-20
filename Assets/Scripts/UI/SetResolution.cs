@@ -1,27 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SetResolution : MonoBehaviour
+namespace UI
 {
-    public Sprite minScr, fullscr;
-    public void Full()
+    public class SetResolution : MonoBehaviour
     {
-        if (!Screen.fullScreen)
+        public Sprite minScr, fullscr;
+        public void Full()
         {
-            Screen.SetResolution(Display.main.systemWidth, Display.main.systemHeight, true, 60);
-            transform.GetChild(0).GetComponent<Image>().sprite = minScr;
+            if (!Screen.fullScreen)
+            {
+                Screen.SetResolution(Display.main.systemWidth, Display.main.systemHeight, true, 60);
+                transform.GetChild(0).GetComponent<Image>().sprite = minScr;
+            }
+            else
+            {
+                Screen.SetResolution(Screen.width, Screen.height, false, 60);
+                transform.GetChild(0).GetComponent<Image>().sprite = fullscr;
+            }
         }
-        else
-        {
-            Screen.SetResolution(Screen.width, Screen.height, false, 60);
-            transform.GetChild(0).GetComponent<Image>().sprite = fullscr;
-        }
-    }
     
-    public static void SetName(string newname)
-    {
+        public static void SetName(string newname)
+        {
+        }
     }
 }
