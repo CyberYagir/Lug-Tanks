@@ -2265,6 +2265,7 @@ MonoBehaviour:
   mainUI: {fileID: 238928860}
   errorText: {fileID: 1277096563}
   lobbyText: {fileID: 1277096563}
+  rooms: {fileID: 1722405202}
   mapsCount: 1
 --- !u!4 &749742598
 Transform:
@@ -3844,6 +3845,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1348535565 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3953777425790988464, guid: b49ff5d4a93195e44837cdadd99f702b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3595195363385874771}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1368825332
 GameObject:
   m_ObjectHideFlags: 0
@@ -4021,6 +4034,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1722405202 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1266386232119870884, guid: b49ff5d4a93195e44837cdadd99f702b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3595195363385874771}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5254d9be4b63f3a4fa6bb7bcfe757a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1818506845
@@ -5143,6 +5168,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1957172723}
     m_Modifications:
+    - target: {fileID: 3178560528302162859, guid: b49ff5d4a93195e44837cdadd99f702b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1348535565}
+    - target: {fileID: 3178560528302162859, guid: b49ff5d4a93195e44837cdadd99f702b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TMPro.TMP_InputField, Unity.TextMeshPro
+      objectReference: {fileID: 0}
     - target: {fileID: 6228627915552923514, guid: b49ff5d4a93195e44837cdadd99f702b,
         type: 3}
       propertyPath: m_Name

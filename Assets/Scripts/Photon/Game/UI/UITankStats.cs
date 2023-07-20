@@ -6,12 +6,12 @@ namespace Photon.Game.UI
 {
     public class UITankStats : TankUIElement
     {
-        [SerializeField] private Tank tank;
         [SerializeField] private RectTransform hp, energy;
         [SerializeField] private GameObject[] bonuses;
         [SerializeField] private GameObject bonusesHolder;
         [SerializeField] private Vector2 pos;
 
+        private Tank tank;
         private Camera camera;
 
         public override void Init(Player player)
@@ -19,6 +19,7 @@ namespace Photon.Game.UI
             base.Init(player);
 
             camera = player.CameraLook.GetCamera();
+            tank = player.Tank;
         }
 
 

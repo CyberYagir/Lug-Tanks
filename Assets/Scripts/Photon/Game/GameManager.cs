@@ -47,7 +47,7 @@ namespace Photon.Game
 
             if (PhotonNetwork.IsMasterClient)
             {
-                PhotonNetwork.CurrentRoom.SetPropertiesListedInLobby(new[] {"Map", "Mode"});
+                PhotonNetwork.CurrentRoom.SetPropertiesListedInLobby(new[] {"Map", "Mode", "RoomName"});
             }
             
 
@@ -171,12 +171,6 @@ namespace Photon.Game
         }
         
         
-        
-        
-        public override void OnPlayerEnteredRoom(Realtime.Player newPlayer)
-        {
-            base.OnPlayerEnteredRoom(newPlayer);
-        }
         public void RespawnAll(Realtime.Player otherPlayer)
         {
             if (PhotonNetwork.IsMasterClient)

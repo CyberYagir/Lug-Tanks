@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using Photon.UI;
 using TMPro;
 using UnityEngine;
 using Web;
+using Random = UnityEngine.Random;
 
 namespace Photon
 {
@@ -15,9 +18,8 @@ namespace Photon
         
         [SerializeField] private GameObject mainUI;
         [SerializeField] private TMP_Text errorText, lobbyText;
+        [SerializeField] private UIRooms rooms;
         [SerializeField] private int mapsCount = 1;
-
-        public List<RoomInfo> rooms { get; private set; }
 
 
         public void Init()
@@ -77,13 +79,10 @@ namespace Photon
         {
             PhotonNetwork.JoinLobby(new TypedLobby("DEFAULT", LobbyType.Default));
             mainUI.SetActive(true);
-            base.OnConnectedToMaster();
         }
         public override void OnJoinedLobby()
         {
             lobbyText.text = PhotonNetwork.CurrentLobby.Name;
-            //PhotonNetwork.GetCustomRoomList(PhotonNetwork.CurrentLobby, "C0");
-            base.OnJoinedLobby();
         }
         public void ToBattle()
         {
@@ -92,96 +91,104 @@ namespace Photon
         public void CreateRoom()
         {
             int map = Random.Range(0, mapsCount);
-            string name = "Room [" + (PhotonNetwork.CountOfRooms + 1) +  "]_"+ map;
-            ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
+            string name = "Room [" + (PhotonNetwork.CountOfRooms + 1) + "]";
             
-            h.Add("Map", map);
-            h.Add("Time", 500);
-            h.Add("BonusDropTime", 0f);
+            var h = CreateBaseHashtable(name, 500, map, "FFA");
+            var roomOptions = CreateRoomOptions(h);
             
-            RoomOptions roomOptions = new RoomOptions() 
-            {
-                IsVisible = true, 
-                IsOpen = true, 
-                MaxPlayers = 16, 
-                CustomRoomProperties = h,
-                CleanupCacheOnLeave = false
-            };
-            PhotonNetwork.CreateRoom(name, roomOptions, PhotonNetwork.CurrentLobby);
+            
+            PhotonNetwork.CreateRoom(GenerateUniqName(), roomOptions);
         }
+
+        public override void OnRoomListUpdate(List<RoomInfo> roomList)
+        {
+            base.OnRoomListUpdate(roomList);
+            rooms.UpdateRooms(roomList);
+        }
+
         public void CreateRoom(string name, bool visible, byte players, int time, int map = 0, string mode = "FFA")
         {
             if (name.Replace(" ", "") == "")
             {
-                name = "Room [" + (PhotonNetwork.CountOfRooms + 1) +  "]_"+ map;
-            }
-            else
-            {
-                name = name + "_" + map;
+                name = $"Room [{PhotonNetwork.CountOfRooms + 1}]";
             }
 
-            ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
-            
-            h.Add("Map", map);
-            h.Add("Time", time);
-            h.Add("Mode", mode);
-            h.Add("BonusDropTime", 0f);
-            
+            var h = CreateBaseHashtable(name, time, map, mode);
+
             if (mode == "TDM")
             {
                 h.Add("RedKills", 0);
                 h.Add("BlueKills", 0);
             }
-            
+
+            var roomOptions = CreateRoomOptions(h);
+
+            roomOptions.IsVisible = visible;
+            roomOptions.MaxPlayers = players;
+
+
+            PhotonNetwork.CreateRoom(GenerateUniqName(), roomOptions);
+        }
+
+        public string GenerateUniqName()
+        {
+            var guid = Guid.NewGuid().ToString();
+            Debug.LogError(guid);
+            return guid;
+        }
+        
+        private RoomOptions CreateRoomOptions(Hashtable h)
+        {
             RoomOptions roomOptions = new RoomOptions()
             {
-                IsVisible = visible, 
-                IsOpen = true, 
-                MaxPlayers = players, 
+                IsVisible = true,
+                IsOpen = true,
+                MaxPlayers = 16,
                 CustomRoomProperties = h,
                 CleanupCacheOnLeave = false
             };
-            
-            PhotonNetwork.CreateRoom(name, roomOptions);
+            return roomOptions;
         }
+        private Hashtable CreateBaseHashtable(string name, int time, int map, string mode)
+        {
+            Hashtable h = new Hashtable();
+            h.Add("RoomName", name);
+            h.Add("Map", map);
+            h.Add("Time", time);
+            h.Add("Mode", mode);
+            h.Add("BonusDropTime", 0f);
+            return h;
+        }
+
         public void JoinRoom(string nm)
         {
-            PhotonNetwork.JoinRoom(nm);
+            PhotonNetwork.JoinRoom(nm.Replace("\t", "").Replace("\n", "").Replace("\r", ""));
         }
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
             base.OnJoinRoomFailed(returnCode, message);
+            print(message);
         }
         public override void OnJoinedRoom()
         {
            
-            ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
+            Hashtable h = new Hashtable();
             h.Add("k", 0);
             h.Add("d", 0);
             h.Add("Exp", WebDataService.tankData.exp);
             h.Add("Team", 0);
             PhotonNetwork.LocalPlayer.SetCustomProperties(h);
             PhotonNetwork.LoadLevel(1);
-            base.OnJoinedRoom();
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
             errorText.text = "Join room Error";
             CreateRoom();
-            base.OnJoinRandomFailed(returnCode, message);
-        }
-        public override void OnRoomListUpdate(List<RoomInfo> roomList)
-        {
-            base.OnRoomListUpdate(roomList);
-            rooms = roomList;
-            FindObjectOfType<UIRooms>().UpdateRooms();
-//        print("ROOMS COUNT: " + rooms.Count);
         }
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
             errorText.text = "Failed to create room";
-            base.OnCreateRoomFailed(returnCode, message);
         }
     
         private void OnApplicationQuit()

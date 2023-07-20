@@ -21,6 +21,9 @@ namespace Photon.UI
             this.playersCount.text = count;
             this.icon.sprite = mapIcon;
             this.modeIcon.sprite = modeIcon;
+            
+            
+            Debug.LogError(roomsStringName);
         }
     }
 }

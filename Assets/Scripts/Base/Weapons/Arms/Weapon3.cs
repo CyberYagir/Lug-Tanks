@@ -35,11 +35,5 @@ namespace Base.Weapons.Arms
             };
             notShootAction += () => { animator.SetBool(IsShoot, false); };
         }
-
-
-        private void OnDestroy()
-        {
-            Debug.LogError("1");
-        }
     }
 }
