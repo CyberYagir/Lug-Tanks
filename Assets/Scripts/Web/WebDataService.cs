@@ -112,7 +112,7 @@ namespace Web
                 }
             }
             else
-                error = new Error() {error = "Connection lost", isError = true};
+                error = new Error() {error = "error_web05", isError = true};
         }
 
         private static void AddHeaders(WWWForm form)
@@ -144,7 +144,7 @@ namespace Web
                     PHPMenuService.Instance.Change(true);
             }
             else
-                error = new Error() {error = "Connection lost", isError = true};
+                error = new Error() {error = "error_web05", isError = true};
         }
 
         public static void SaveStart()

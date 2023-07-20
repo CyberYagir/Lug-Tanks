@@ -68,10 +68,14 @@ namespace Localization
         public static event Action<int> OnChangeLanguage;
         public static int CurrentLanguage => Instance.currentLanguage;
         public static List<string> LanguagesList => Instance.langs;
-        
+
         public static string GetWorld(string key)
         {
-            return Instance.worldHolders[key].GetWord(Instance.currentLanguage);
+            if (Instance.worldHolders.ContainsKey(key))
+            {
+                return Instance.worldHolders[key].GetWord(Instance.currentLanguage);
+            }
+            return String.Empty;
         }
     }
 }

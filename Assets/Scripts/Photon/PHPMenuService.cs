@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Localization;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Web;
@@ -48,7 +49,7 @@ namespace Photon
             if (WebDataService.Instance.ErrorData.isError)
             {
                 error.transform.parent.gameObject.SetActive(true);
-                error.text = WebDataService.Instance.ErrorData.error;
+                error.text = LocalizationService.GetWorld(WebDataService.Instance.ErrorData.error);
             }
             else
             {
@@ -76,30 +77,28 @@ namespace Photon
         public bool CanSendData(out Error errorOut, bool checkRepeatPassword = false)
         {
             errorOut = new Error() { isError = false};
-            if (login.text.Length <= login.characterLimit)
+            if (login.text.Length > login.characterLimit)
             {
-                if (login.text.Length >= 4)
-                {
-                    if (pass.text.Length >= 4)
-                    {
-                        if (pass.text != passr.text && checkRepeatPassword)
-                        {
-                            errorOut = new Error() {error = "Passwords not equal", isError = true};
-                        }
-                    }
-                    else
-                    {
-                        errorOut = new Error() {error = "Password is so short..", isError = true};
-                    }
-                }
-                else
-                {
-                    errorOut = new Error() {error = "Login is so short..", isError = true};
-                }
+                errorOut = new Error() {error = "error_web01", isError = true};
+                return errorOut.isError;
             }
-            else
+
+            if (login.text.Length < 4)
             {
-                errorOut = new Error() {error = "Login is so big..", isError = true};
+                errorOut = new Error() {error = "error_web02", isError = true};
+                return errorOut.isError;
+            }
+
+            if (pass.text.Length < 4)
+            {
+                errorOut = new Error() {error = "error_web03", isError = true};
+                return errorOut.isError;
+            }
+
+            if (pass.text != passr.text && checkRepeatPassword)
+            {
+                errorOut = new Error() {error = "error_web04", isError = true};
+                return errorOut.isError;
             }
 
             return errorOut.isError;
