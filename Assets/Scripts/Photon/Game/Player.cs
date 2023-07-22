@@ -124,27 +124,36 @@ namespace Photon.Game
             }
             else
             {
-                if (Input.GetKey(KeyCode.Delete))
-                {
-                    timeToDestroy += Time.deltaTime;
-                    if (timeToDestroy > 2f)
-                    {
-                        tank.tankOptions.hp = 0;
+                SuicideUpdate();
+                FallUpdate();
+                
+                tank.tankOptions.turretRotation = tank.weapons[tank.tankOptions.weapon].transform.rotation;
+                
+                CheckDeath();
+            }
+        }
 
-                    }
-                }
-                else
-                {
-                    timeToDestroy = 0;
-                }
+        private void FallUpdate()
+        {
+            if (transform.position.y < -20)
+            {
+                tank.tankOptions.hp = 0;
+            }
+        }
 
-                if (transform.position.y < -20)
+        private void SuicideUpdate()
+        {
+            if (Input.GetKey(KeyCode.Delete))
+            {
+                timeToDestroy += Time.deltaTime;
+                if (timeToDestroy > 2f)
                 {
                     tank.tankOptions.hp = 0;
                 }
-
-                Dead();
-                tank.tankOptions.turretRotation = tank.weapons[tank.tankOptions.weapon].transform.rotation;
+            }
+            else
+            {
+                timeToDestroy = 0;
             }
         }
 
@@ -232,15 +241,19 @@ namespace Photon.Game
             KillsList.Instance.Create(playerKiller, playerKilled, weapon);
         }
 
-        public void Dead()
+        public void CheckDeath()
         {
             if (photonView.IsMine)
             {
                 if (tank.tankOptions.hp <= 0)
                 {
                     AddDeath();
+                    
+                    if (tank.tankOptions.weapon == -1 || tank.tankOptions.corpus == -1) return;
+                    
                     var dead = PhotonNetwork.Instantiate("TankDead", transform.position, transform.rotation);
-                    dead.GetPhotonView().RPC("Set", RpcTarget.All, tank.tankOptions.weapon, tank.tankOptions.corpus, tank.tankOptions.turretRotation, GetComponent<Rigidbody>().velocity, GetComponent<Rigidbody>().mass, GetComponent<Rigidbody>().drag, new Vector3(Random.Range(-5, 5), Random.Range(5, 20), Random.Range(-5, 10)), new Vector3(Random.Range(-100, 100), Random.Range(-100, 100), Random.Range(-100, 100)), true);
+                    var rb = GetComponent<Rigidbody>();
+                    dead.GetPhotonView().RPC("Set", RpcTarget.All, tank.tankOptions.weapon, tank.tankOptions.corpus, tank.tankOptions.turretRotation, rb.velocity, rb.mass, rb.drag, new Vector3(Random.Range(-5, 5), Random.Range(5, 20), Random.Range(-5, 10)), new Vector3(Random.Range(-100, 100), Random.Range(-100, 100), Random.Range(-100, 100)), true);
                     dead.GetComponent<DeadTank>().StartDestroy();
                     PhotonNetwork.Destroy(gameObject);
                 }

@@ -6,12 +6,13 @@ using Photon.Realtime;
 using Photon.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using Web;
 using Random = UnityEngine.Random;
 
 namespace Photon
 {
-    public class PhotonLobbyService : MonoBehaviourPunCallbacks, ILobbyCallbacks
+    public class PhotonLobbyService : MonoBehaviourPunCallbacks
     {
         public static PhotonLobbyService Instance;
         
@@ -21,6 +22,12 @@ namespace Photon
         [SerializeField] private UIRooms rooms;
         [SerializeField] private int mapsCount = 1;
 
+        private string autoRegion;
+
+        public string AutoRegion => autoRegion;
+
+
+        public UnityEvent OnConnectToMaster = new UnityEvent();
 
         public void Init()
         {
@@ -37,7 +44,8 @@ namespace Photon
             DontDestroyOnLoad(gameObject);
 
         }
-   
+        
+
         public void InitPUN()
         { 
             if (PhotonNetwork.IsConnected == false)
@@ -45,6 +53,7 @@ namespace Photon
                 PhotonNetwork.GameVersion = Application.version;
                 PhotonNetwork.ConnectUsingSettings();
                 PhotonNetwork.NickName = WebDataService.data.playerData.name;
+
             }
             else
             {
@@ -79,6 +88,10 @@ namespace Photon
         {
             PhotonNetwork.JoinLobby(new TypedLobby("DEFAULT", LobbyType.Default));
             mainUI.SetActive(true);
+            autoRegion = PhotonNetwork.NetworkingClient.CloudRegion;
+            
+            
+            OnConnectToMaster.Invoke();
         }
         public override void OnJoinedLobby()
         {

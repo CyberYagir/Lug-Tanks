@@ -67,12 +67,7 @@ namespace Base.Weapons.Arms
                     {
                         if (energy >= shot_energy)
                         {
-                            shootAction.Invoke();
-                        
-                            rb.AddTorque(-rotate.transform.right * upForce);
-                            rb.AddForce(-rotate.transform.forward * upForce * 2);
-                            time = 0;
-                            energy -= shot_energy;
+                            ShootProcess();
                         }
                     }
                 }
@@ -99,8 +94,8 @@ namespace Base.Weapons.Arms
                     {
                         if (energy >= shot_energy && !wait)
                         {
-                            rb.AddTorque(-rotate.transform.right * upForce);
-                            rb.AddForce(-rotate.transform.forward * upForce * 2);
+                            AddPhysics();
+                            
                             shootAction.Invoke();
                             time = 0;
                             energy -= shot_energy * (multiplyDeltaTime ?  Time.deltaTime : 1);
@@ -123,14 +118,33 @@ namespace Base.Weapons.Arms
                 updateAction.Invoke();
         }
 
-        private void ClampMaxEnergy()
+        protected void AddPhysics()
+        {
+            rb.AddTorque(-rotate.transform.right * upForce);
+            rb.AddForce(-rotate.transform.forward * upForce * 2);
+        }
+
+        protected virtual void ShootProcess()
+        {
+            AddPhysics();
+            shootAction.Invoke();
+            time = 0;
+            energy -= shot_energy;
+        }
+
+        protected virtual void ClampMaxEnergy()
         {
             if (energy < 100)
             {
-                energy += energy_add * Time.deltaTime * player.Boosters.FireRateIncrease;
+                AddEnergy();
             }
             else
                 energy = 100;
+        }
+
+        protected void AddEnergy()
+        {
+            energy += energy_add * Time.deltaTime * player.Boosters.FireRateIncrease;
         }
 
         [System.Serializable]

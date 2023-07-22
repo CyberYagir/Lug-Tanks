@@ -236,6 +236,7 @@ namespace Photon.Game
             {
                 var objs = (object[])photonEvent.CustomData;
                 
+                time = 0;
                 ChangeMap();
                 SwitchModes();
                 

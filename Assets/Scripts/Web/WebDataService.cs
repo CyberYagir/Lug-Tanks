@@ -161,7 +161,8 @@ namespace Web
         
             AddHeaders(form);
         
-            WWW www = new WWW(URL, form);
+            UnityWebRequest www = UnityWebRequest.Post(URL, form);
+            www.timeout = 1;
             yield return www;
         }
 

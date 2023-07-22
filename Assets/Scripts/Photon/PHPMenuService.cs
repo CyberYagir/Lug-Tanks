@@ -45,11 +45,19 @@ namespace Photon
             {
                 Instance.gameObject.SetActive(false);
             }
-        
+
             if (WebDataService.Instance.ErrorData.isError)
             {
                 error.transform.parent.gameObject.SetActive(true);
-                error.text = LocalizationService.GetWorld(WebDataService.Instance.ErrorData.error);
+                var localizedError = LocalizationService.GetWorld(WebDataService.Instance.ErrorData.error);
+                if (localizedError == "")
+                {
+                    error.text = WebDataService.Instance.ErrorData.error;
+                }
+                else
+                {
+                    error.text = localizedError;
+                }
             }
             else
             {
