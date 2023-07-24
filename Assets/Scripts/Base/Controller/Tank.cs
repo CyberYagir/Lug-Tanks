@@ -66,7 +66,7 @@ namespace Base.Controller
 
         [SerializeField] private TankTeam tankTeam = TankTeam.Player;
         private Player player;
-        
+
         private static readonly int MainTex = Shader.PropertyToID("_BaseMap");
 
         public TankTeam Team => tankTeam;

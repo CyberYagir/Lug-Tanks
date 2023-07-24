@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Base.Controller;
 using ExitGames.Client.Photon;
 using Photon.Pun;
@@ -199,10 +200,10 @@ namespace Photon.Game
             if (PhotonNetwork.IsMasterClient)
             {
                 var tanks = PlayersHolder.GetComponentsInChildren<Tank>();
+                var players = PhotonNetwork.PlayerList.ToList();
                 foreach (var tank in tanks)
                 {
-                    print(tank.gameObject.GetPhotonView().Owner.ActorNumber + " " +  otherPlayer.ActorNumber);
-                    if (tank.gameObject.GetPhotonView().Owner.ActorNumber == otherPlayer.ActorNumber)
+                    if (players.Find(x=>x.NickName == tank.gameObject.transform.name) == null)
                     {
                         PhotonNetwork.Destroy(tank.gameObject);
                     }
