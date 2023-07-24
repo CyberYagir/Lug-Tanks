@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BonusSpawns : MonoBehaviour
+namespace Photon
 {
-    public Transform[] points;
+    public class BonusSpawns : MonoBehaviour
+    {
+        public Transform[] points;
+    }
 }

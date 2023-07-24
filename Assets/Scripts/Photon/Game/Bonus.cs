@@ -12,18 +12,27 @@ namespace Photon.Game
         public Color color;
     }
 
+    public enum BonusType
+    {
+        FireRate = 0,
+        SpeedBoost = 1,
+        Defence = 2,
+        Repair = 3
+    }
+    
     public class Bonus : MonoBehaviour
     {
-        [SerializeField] private int bonus_id, box_type;
+        [SerializeField] private int bonus_id;
+        [SerializeField] private BonusType box_type;
         [SerializeField] private List<BonusBox> bonuses;
 
         public int BonusID => bonus_id;
-        public int BoxType => box_type;
+        public BonusType BoxType => box_type;
 
         [PunRPC]
         public void SetParent(int id, int type = 0)
         {
-            box_type = type;
+            box_type = (BonusType)Mathf.Clamp(type, 0, bonuses.Count - 1);
             bonus_id = id;
             transform.GetChild(0).GetComponent<Renderer>().material.color = bonuses[type].color;
             transform.parent = GameManager.Instance.ActiveMap.BonusSpawns.points[id];
@@ -40,7 +49,7 @@ namespace Photon.Game
         [PunRPC]
         public void DestroyObj()
         {
-            gameObject.GetPhotonView().RPC("SpawnAnimated", RpcTarget.All, transform.position, transform.rotation, BoxType);
+            gameObject.GetPhotonView().RPC("SpawnAnimated", RpcTarget.All, transform.position, transform.rotation, (int)BoxType);
             PhotonNetwork.Destroy(gameObject);
             Destroy(gameObject);
         }
@@ -51,7 +60,7 @@ namespace Photon.Game
             {
                 if (other.GetComponentInParent<PhotonView>().IsMine)
                 {
-                    other.GetComponentInParent<TankBoosters>().AddBonus(bonuses[BoxType]);
+                    other.GetComponentInParent<TankBoosters>().AddBonus(bonuses[(int)BoxType]);
                     gameObject.GetPhotonView().RPC("DestroyObj", RpcTarget.MasterClient);
                 }
             }

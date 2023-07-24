@@ -161,10 +161,6 @@ namespace Photon.Game
 
         public void Disconnect()
         {
-            if (localPlayer != null)
-            {
-                PhotonNetwork.Destroy(localPlayer.gameObject);
-            }
             PhotonNetwork.LeaveRoom();
             Cursor.visible = true;
             SceneManager.LoadScene("Menu");
@@ -196,28 +192,22 @@ namespace Photon.Game
                 }
             }
         }
+        
+        
         public override void OnPlayerLeftRoom(Realtime.Player otherPlayer)
         {
-            if (otherPlayer.IsLocal)
+            if (PhotonNetwork.IsMasterClient)
             {
-                Disconnect();
-            }
-            else
-            {
-                if (PhotonNetwork.IsMasterClient)
+                var tanks = PlayersHolder.GetComponentsInChildren<Tank>();
+                foreach (var tank in tanks)
                 {
-                    var tanks = PlayersHolder.GetComponentsInChildren<Tank>();
-                    foreach (var tank in tanks)
+                    print(tank.gameObject.GetPhotonView().Owner.ActorNumber + " " +  otherPlayer.ActorNumber);
+                    if (tank.gameObject.GetPhotonView().Owner.ActorNumber == otherPlayer.ActorNumber)
                     {
-                        if (tank.gameObject.GetPhotonView().Owner.ActorNumber == otherPlayer.ActorNumber)
-                        {
-                            PhotonNetwork.Destroy(tank.gameObject);
-                            break;
-                        }
+                        PhotonNetwork.Destroy(tank.gameObject);
                     }
                 }
             }
-            base.OnPlayerLeftRoom(otherPlayer);
         }
         void IInRoomCallbacks.OnMasterClientSwitched(Realtime.Player newMasterClient)
         {

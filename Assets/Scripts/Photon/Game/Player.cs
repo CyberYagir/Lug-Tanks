@@ -96,7 +96,10 @@ namespace Photon.Game
                 Destroy(tankMove);
                 Destroy(tankBoosters);
                 Destroy(weaponRotate);
-                Destroy(cameraLook.gameObject);
+                if (cameraLook != null)
+                {
+                    Destroy(cameraLook.gameObject);
+                }
 
                 return true;
             }

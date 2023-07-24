@@ -34,6 +34,7 @@ namespace Base.Weapons
             if (player.photonView.IsMine)
             {
                 CameraInstance = shootCamera.GetComponent<Camera>();
+                
             }
         }
         private void Update()
@@ -41,7 +42,7 @@ namespace Base.Weapons
             transform.position = tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position;
             transform.rotation = Quaternion.Lerp(transform.rotation, player.CameraLook.transform.rotation, rotateSpeed * Time.deltaTime);
             transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
-            shootCamera.transform.rotation = transform.rotation;
+            shootCamera.transform.position = tank.weapons[tank.tankOptions.weapon].shootPoint.position;
         }
 
     }

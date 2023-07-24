@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Photon.Game
@@ -6,7 +7,7 @@ namespace Photon.Game
     public class Bonuses : MonoBehaviour
     {
         [SerializeField] private GameObject prefab;
-
+        [SerializeField] private List<BonusType> chances;
         private void Update()
         {
             if (PhotonNetwork.IsMasterClient)
@@ -36,7 +37,7 @@ namespace Photon.Game
                         if ((int) Random.Range(0, 5) == 3)
                         {
                             var n = PhotonNetwork.Instantiate(prefab.name, spawn.transform.position, Quaternion.identity);
-                            n.GetPhotonView().RPC("SetParent", RpcTarget.AllBuffered, id, (int) Random.Range(0, 4));
+                            n.GetPhotonView().RPC("SetParent", RpcTarget.AllBuffered, id, (int)chances[Random.Range(0, chances.Count)]);
                         }
                     }
 
