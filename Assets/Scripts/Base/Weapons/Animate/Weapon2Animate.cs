@@ -1,5 +1,6 @@
 ﻿using System;
 using Base.Weapons.Arms;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Base.Weapons.Animate
@@ -14,13 +15,11 @@ namespace Base.Weapons.Animate
         private static readonly int IsShoot = Animator.StringToHash("IsShoot");
         private static readonly int IsCharge = Animator.StringToHash("IsCharge");
 
-        private void Awake()
-        {
-        }
 
         private void Update()
         {
-            animator.SetBool(IsCharge, !weapon.canShoot && weapon.GetEnergy() < 100);
+            var isCharge = !weapon.canShoot && weapon.GetEnergy() < 100;
+            animator.SetBool(IsCharge, isCharge);
             animator.SetBool(IsShoot, weapon.playAnimation);
         }
 

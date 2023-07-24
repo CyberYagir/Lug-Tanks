@@ -45,10 +45,13 @@ namespace Base.Weapons.Arms
         public void Update()
         {
             rotate.rotateSpeed = rotSpeed;
-            if (WeaponRotate.CameraInstance != null)
-                WeaponRotate.CameraInstance.fieldOfView = fov;
-            WeaponRotate.CameraInstance.rect = cameraRect;
-        
+            var cam = WeaponRotate.CameraInstance;
+            if (cam != null)
+            {
+                cam.fieldOfView = fov;
+                cam.rect = cameraRect;
+            }
+
             ClampMaxEnergy();
         
         

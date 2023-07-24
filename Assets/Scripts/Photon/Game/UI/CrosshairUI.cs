@@ -14,6 +14,7 @@ namespace Photon.Game.UI
         {
             base.Init(player);
             
+            crosshair.gameObject.SetActive(false);
             camera = Player.CameraLook.GetCamera();
             tank = player.Tank;
         }

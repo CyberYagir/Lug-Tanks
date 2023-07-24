@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Base.Controller;
 using Photon.Pun;
 using UnityEngine;
@@ -74,6 +75,7 @@ namespace Base.Weapons.Arms
                     if (tank.Team == Tank.TankTeam.Enemy)
                         hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) damage, (string) PhotonNetwork.NickName, tank.tankOptions.weapon);
                     CreateLine(shootPoint.transform.position, hit.point);
+                    
                 }
                 else
                 {
@@ -94,6 +96,7 @@ namespace Base.Weapons.Arms
 
         public void CreateLine(Vector3 pos1, Vector3 pos2)
         {
+            Debug.DrawLine(shootPoint.transform.position, shootPoint.transform.position + shootPoint.forward * 1000, Color.magenta, Single.MaxValue);
             var l = PhotonNetwork.Instantiate(line.gameObject.name, Vector2.zero, Quaternion.identity).GetPhotonView();
             l.TransferOwnership(PhotonNetwork.CurrentRoom.MasterClientId);
             l.RPC("SetLinePoses", RpcTarget.All, pos1, pos2);
