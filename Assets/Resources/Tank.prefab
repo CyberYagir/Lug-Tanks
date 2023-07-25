@@ -1192,11 +1192,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5422511294310978455, guid: 251b40887e9b6e248b2ad03e21c43a06,
-        type: 3}
-      propertyPath: minPoint
-      value: 
-      objectReference: {fileID: 8352311916343895009}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1846,18 +1841,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6037d3ee05d1bdd4cacbec5781ad815c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &8352311916343895009 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5634252559817386373, guid: 1786acff31e112b458dfbecc2dfbc176,
-    type: 3}
-  m_PrefabInstance: {fileID: 4456801893362993764}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &9032749442383685075 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4648691696535842743, guid: 1786acff31e112b458dfbecc2dfbc176,
-    type: 3}
-  m_PrefabInstance: {fileID: 4456801893362993764}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5672340953611530915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1921,16 +1904,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1394832772575082557, guid: 96c37e01e5999f948b03508ec8d383a5,
-        type: 3}
-      propertyPath: minPoint
-      value: 
-      objectReference: {fileID: 8352311916343895009}
-    - target: {fileID: 1394832772575082557, guid: 96c37e01e5999f948b03508ec8d383a5,
-        type: 3}
-      propertyPath: shootPoint
-      value: 
-      objectReference: {fileID: 9032749442383685075}
     - target: {fileID: 6981178108109716371, guid: 96c37e01e5999f948b03508ec8d383a5,
         type: 3}
       propertyPath: m_Name

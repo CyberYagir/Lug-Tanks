@@ -4,6 +4,7 @@ using Base.Controller;
 using Base.Modifyers;
 using Base.Weapons;
 using Base.Weapons.Arms;
+using CrazyGames;
 using Photon.Game.UI;
 using Photon.Pun;
 using Scriptable;
@@ -79,8 +80,15 @@ namespace Photon.Game
                 tankMove.Init(this);
                 canvas.Init(this);
                 tankBoosters.Init(tank);
-                
-                
+                try
+                {
+                    CrazyEvents.Instance.GameplayStart();
+                }
+                catch (Exception e)
+                {
+                    // ignored
+                }
+
                 tank.tankOptions.weapon = WebDataService.tankData.weapon;
                 tank.tankOptions.corpus = WebDataService.tankData.corpus;
                 tank.tankOptions.team = (int) PhotonNetwork.LocalPlayer.CustomProperties["Team"];
@@ -225,7 +233,16 @@ namespace Photon.Game
             newC.Add("d", d + 1);
             newC.Add("Team", (int) photonView.Owner.CustomProperties["Team"]);
             photonView.Owner.SetCustomProperties(newC);
-
+            
+            
+            try
+            {
+                CrazyEvents.Instance.GameplayStop();
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
 
             WebDataService.data.userStatistics.deaths++;
         }
@@ -251,7 +268,6 @@ namespace Photon.Game
                 if (tank.tankOptions.hp <= 0)
                 {
                     AddDeath();
-                    
                     if (tank.tankOptions.weapon == -1 || tank.tankOptions.corpus == -1) return;
                     
                     var dead = PhotonNetwork.Instantiate("TankDead", transform.position, transform.rotation);
@@ -262,7 +278,7 @@ namespace Photon.Game
                 }
             }
         }
-
+        
         public static void RefreshInstance(ref Player player, Player playerPrefab, bool withMasterClient = false)
         {
             if (PhotonNetwork.IsMasterClient == false || withMasterClient == true)

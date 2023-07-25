@@ -40,6 +40,7 @@ namespace Photon
                 rm.Add("RedKills", redK);
             }
             PhotonNetwork.CurrentRoom.SetCustomProperties(rm);
+            GameManager.Instance.SetTime(0f);
             Timer.Instance.SetTimer();
             object[] content = new object[] {};
             PhotonNetwork.RaiseEvent(0, content, new Photon.Realtime.RaiseEventOptions() { Receivers = Photon.Realtime.ReceiverGroup.All }, SendOptions.SendReliable);

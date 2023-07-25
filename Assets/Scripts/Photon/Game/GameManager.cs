@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Base.Controller;
+using CrazyGames;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
@@ -51,7 +52,6 @@ namespace Photon.Game
                 PhotonNetwork.CurrentRoom.SetPropertiesListedInLobby(new[] {"Map", "Mode", "RoomName"});
             }
             
-
             ChangeMap();
             SwitchModes();
         }
@@ -259,6 +259,11 @@ namespace Photon.Game
 
 
             return enemies;
+        }
+
+        public void SetTime(float i)
+        {
+            time = i;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using CrazyGames;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Web;
@@ -13,8 +14,9 @@ namespace Photon.Game.UI
         [Space] 
         [SerializeField] private Sprite[] sprites;
         [SerializeField] private int currRank;
-        [SerializeField] private int startMaxExp = 200;
+        [SerializeField] private int startMaxExp = 50;
 
+        private int oldRank = -1;
 
 
         public override void UpdateElement()
@@ -35,6 +37,14 @@ namespace Photon.Game.UI
                     }
                 }
                 rankIcon.sprite = sprites[currRank];
+
+                if (oldRank == -1)
+                {
+                    oldRank = currRank;
+                }else if (oldRank != currRank)
+                {
+                    CrazyEvents.Instance.HappyTime();
+                }
             }
         }
 

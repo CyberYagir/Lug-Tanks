@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using CrazyGames;
 using Photon;
 using Photon.Pun;
 using UI;
@@ -141,7 +142,9 @@ namespace Web
                 ErrorData.isError = false;
                 error = JsonUtility.FromJson<Error>(www.text);
                 if (!ErrorData.isError)
+                {
                     PHPMenuService.Instance.Change(true);
+                }
             }
             else
                 error = new Error() {error = "error_web05", isError = true};
