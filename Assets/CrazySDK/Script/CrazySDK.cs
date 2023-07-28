@@ -83,6 +83,7 @@ namespace CrazyGames
 
         public void Awake()
         {
+            DontDestroyOnLoad(gameObject);
             if (SiteLock.IsSiteLocked)
             {
                 // when the SiteLock will call the crash method from here, prevent SDK initialization

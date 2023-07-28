@@ -191,7 +191,7 @@ namespace Photon
             h.Add("Exp", WebDataService.tankData.exp);
             h.Add("Team", 0);
             PhotonNetwork.LocalPlayer.SetCustomProperties(h);
-            PhotonNetwork.LoadLevel(1);
+            PhotonNetwork.LoadLevel("BaseGame");
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)

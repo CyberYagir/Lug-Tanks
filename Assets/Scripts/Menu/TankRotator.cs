@@ -2,6 +2,7 @@
 using Base.Controller;
 using Photon.Game;
 using UnityEngine;
+using Web;
 
 namespace Menu
 {
@@ -10,7 +11,7 @@ namespace Menu
         [SerializeField] float speed;
         [SerializeField] private Camera camera;
         [SerializeField] private Tank tank;
-        
+
         private bool down;
 
         private void Awake()
@@ -22,13 +23,14 @@ namespace Menu
                 {
                     animations.enabled = false;
                 }
+
                 t.enabled = false;
             }
         }
 
         private void Update()
         {
-
+            if (WebDataService.data == null) return;
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 Ray ray = camera.ScreenPointToRay(Input.mousePosition);
@@ -45,7 +47,7 @@ namespace Menu
             {
                 down = false;
             }
-            
+
             if (down)
             {
                 transform.Rotate(Vector3.up * speed * -Input.GetAxis("Mouse X") * Time.deltaTime);

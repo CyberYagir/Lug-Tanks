@@ -15,7 +15,7 @@ D:/Unity/Projects/Lug-Tanks
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-60640
+53484
 Successfully changed project path to: D:/Unity/Projects/Lug-Tanks
 D:/Unity/Projects/Lug-Tanks
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,11 +47,11 @@ D:/Unity/Projects/Lug-Tanks
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [5252] Host "[IP] 100.103.230.158 [Port] 0 [Flags] 2 [Guid] 4054114164 [EditorId] 4054114164 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-VH8M8RJ) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [12520] Host "[IP] 100.103.234.3 [Port] 0 [Flags] 2 [Guid] 2363842144 [EditorId] 2363842144 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-VH8M8RJ) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [5252] Host "[IP] 100.103.230.158 [Port] 0 [Flags] 2 [Guid] 4054114164 [EditorId] 4054114164 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-VH8M8RJ) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [12520] Host "[IP] 100.103.234.3 [Port] 0 [Flags] 2 [Guid] 2363842144 [EditorId] 2363842144 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-VH8M8RJ) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 4.46 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 3.97 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.2.10f1 (bcebec703747)
 [Subsystems] Discovering subsystems at path D:/Unity/Editors/2022.2.10f1/Editor/Data/Resources/UnitySubsystems
@@ -67,46 +67,46 @@ Initialize mono
 Mono path[0] = 'D:/Unity/Editors/2022.2.10f1/Editor/Data/Managed'
 Mono path[1] = 'D:/Unity/Editors/2022.2.10f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'D:/Unity/Editors/2022.2.10f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56600
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56768
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: D:/Unity/Editors/2022.2.10f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: D:/Unity/Editors/2022.2.10f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: D:/Unity/Editors/2022.2.10f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.005179 seconds.
-- Loaded All Assemblies, in  0.290 seconds
+Registered in 0.006286 seconds.
+- Loaded All Assemblies, in  0.257 seconds
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Android Extension - Scanning For ADB Devices 221 ms
+Android Extension - Scanning For ADB Devices 2204 ms
 Native extension for WebGL target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.484 seconds
+- Finished resetting the current domain, in  2.447 seconds
 Domain Reload Profiling:
-	ReloadAssembly (157ms)
-		BeginReloadAssembly (72ms)
+	ReloadAssembly (144ms)
+		BeginReloadAssembly (64ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
 		LoadAllAssembliesAndSetupDomain (0ms)
-			LoadAssemblies (72ms)
+			LoadAssemblies (64ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (128ms)
-				TypeCache.Initialize (127ms)
-					TypeCache.ScanAssembly (124ms)
-				ResolveRequiredComponents (1ms)
+			SetupTypeCache (109ms)
+				TypeCache.Initialize (109ms)
+					TypeCache.ScanAssembly (107ms)
+				ResolveRequiredComponents (0ms)
 		FinalizeReload (0ms)
 			ReleaseScriptCaches (0ms)
 			RebuildScriptCaches (0ms)
-			SetupLoadedEditorAssemblies (432ms)
+			SetupLoadedEditorAssemblies (2401ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (294ms)
-				SetLoadedEditorAssemblies (10ms)
+				InitializePlatformSupportModulesInManaged (2277ms)
+				SetLoadedEditorAssemblies (4ms)
 				RefreshPlugins (0ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (89ms)
-				ProcessInitializeOnLoadMethodAttributes (38ms)
+				ProcessInitializeOnLoadAttributes (84ms)
+				ProcessInitializeOnLoadMethodAttributes (36ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
@@ -114,50 +114,51 @@ Domain Reload Profiling:
 ========================================================================
 Worker process is ready to serve import requests
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.543 seconds
-Refreshing native plugins compatible for Editor in 1.50 ms, found 0 plugins.
+- Loaded All Assemblies, in  0.467 seconds
+Refreshing native plugins compatible for Editor in 1.37 ms, found 0 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Native extension for WebGL target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.546 seconds
+- Finished resetting the current domain, in  0.416 seconds
 Domain Reload Profiling:
-	ReloadAssembly (177ms)
-		BeginReloadAssembly (113ms)
+	ReloadAssembly (173ms)
+		BeginReloadAssembly (104ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (22ms)
-		LoadAllAssembliesAndSetupDomain (366ms)
-			LoadAssemblies (200ms)
+			CreateAndSetChildDomain (21ms)
+		LoadAllAssembliesAndSetupDomain (293ms)
+			LoadAssemblies (157ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (223ms)
-				TypeCache.Initialize (189ms)
-					TypeCache.ScanAssembly (184ms)
-				ResolveRequiredComponents (12ms)
+			SetupTypeCache (184ms)
+				TypeCache.Initialize (161ms)
+					TypeCache.ScanAssembly (158ms)
+				ResolveRequiredComponents (8ms)
 		FinalizeReload (0ms)
 			ReleaseScriptCaches (0ms)
 			RebuildScriptCaches (0ms)
-			SetupLoadedEditorAssemblies (323ms)
+			SetupLoadedEditorAssemblies (286ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (17ms)
-				SetLoadedEditorAssemblies (2ms)
+				InitializePlatformSupportModulesInManaged (16ms)
+				SetLoadedEditorAssemblies (3ms)
 				RefreshPlugins (0ms)
-				BeforeProcessingInitializeOnLoad (55ms)
-				ProcessInitializeOnLoadAttributes (174ms)
-				ProcessInitializeOnLoadMethodAttributes (72ms)
+				BeforeProcessingInitializeOnLoad (47ms)
+				ProcessInitializeOnLoadAttributes (154ms)
+				ProcessInitializeOnLoadMethodAttributes (64ms)
 				AfterProcessingInitializeOnLoad (3ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (7ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Switching render pipeline 2a0764d4e4cd4f646878205f3a7a9fbc -> 63de8dfdf1f692147a8cd5a72080483e
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 1.83 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 1.37 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3584 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 70 unused Assets / (1.7 MB). Loaded Objects now: 4044.
+Unloading 3608 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 80 unused Assets / (327.0 KB). Loaded Objects now: 4058.
 Memory consumption went from 0.60 GB to 0.60 GB.
-Total: 3.816000 ms (FindLiveObjects: 0.433400 ms CreateObjectMapping: 0.105300 ms MarkObjects: 2.785200 ms  DeleteObjects: 0.489700 ms)
+Total: 3.546600 ms (FindLiveObjects: 0.294100 ms CreateObjectMapping: 0.225400 ms MarkObjects: 2.507600 ms  DeleteObjects: 0.518200 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
@@ -173,350 +174,21 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 21455.543933 seconds.
-  path: Assets/CrazyOptimizer/Editor/WindowComponents/ExportOptimizations.cs
-  artifactKey: Guid(27d3fd72c46640efb9cc5fd9f3159473) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazyOptimizer/Editor/WindowComponents/ExportOptimizations.cs using Guid(27d3fd72c46640efb9cc5fd9f3159473) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '1bfdb995b050ebc9aafae0024a8a7e91') in 0.169787 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000035 seconds.
-  path: Assets/CrazySDK/CrazyAds/Scripts/CrazyAds.cs
-  artifactKey: Guid(6e222287080d0674b98de382fe47db7c) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/CrazyAds/Scripts/CrazyAds.cs using Guid(6e222287080d0674b98de382fe47db7c) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'c32f38fa299f616674261722ecefdbd6') in 0.003787 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/CrazySDK/Script/CrazySDKInit.cs
-  artifactKey: Guid(251d8e31d235f23468bd500eda95d0ed) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/Script/CrazySDKInit.cs using Guid(251d8e31d235f23468bd500eda95d0ed) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '3a7d0d051bea5d99116e9de6d03ae0d0') in 0.004156 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/WebGLTemplates/Crazy_2020/thumbnail.png
-  artifactKey: Guid(3b1a16c5ad6eccc4597df5ff1abd348c) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/WebGLTemplates/Crazy_2020/thumbnail.png using Guid(3b1a16c5ad6eccc4597df5ff1abd348c) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '22e423127c2c70ea06679310f8def163') in 0.002833 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000019 seconds.
-  path: Assets/CrazySDK/Script/CrazySettings.cs
-  artifactKey: Guid(1ed6a1d62cfa34a408e1069998dc6696) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/Script/CrazySettings.cs using Guid(1ed6a1d62cfa34a408e1069998dc6696) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'b9fc9f1dcade49e540e302a82dfd5599') in 0.003055 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000020 seconds.
-  path: Assets/CrazySDK/CrazyEvents/CrazyEventsDemo/DemoAssets
-  artifactKey: Guid(ebf5696a650f06f4e96250e106b3d655) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/CrazyEvents/CrazyEventsDemo/DemoAssets using Guid(ebf5696a650f06f4e96250e106b3d655) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '3a1ea987a9c947ebd2c8f7b423a261a8') in 0.002285 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000053 seconds.
-  path: Assets/CrazySDK/Script/CrazySDK.cs
-  artifactKey: Guid(abfd4d87a6c5cc0478692f666a924f1f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/Script/CrazySDK.cs using Guid(abfd4d87a6c5cc0478692f666a924f1f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '568c2431415dc3af88015d65de830c25') in 0.003813 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/CrazyOptimizer/Editor/WindowComponents/AudioOptimizations/AudioTreeItem.cs
-  artifactKey: Guid(5c7517f8438a4b8d993918e682581d10) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazyOptimizer/Editor/WindowComponents/AudioOptimizations/AudioTreeItem.cs using Guid(5c7517f8438a4b8d993918e682581d10) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '9d6280f4973ef6dfc917ae65c52324e6') in 0.003801 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/Plugins/crazySDK.jslib
-  artifactKey: Guid(26b233990c270164e8131ee3bcd179d4) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/Plugins/crazySDK.jslib using Guid(26b233990c270164e8131ee3bcd179d4) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '4387f23dabde5e1c4e4eec79f46a4f0b') in 0.009343 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000028 seconds.
-  path: Assets/CrazySDK/CrazyAds/CrazyBannersDemo
-  artifactKey: Guid(5eb4f3a41b13d4f4491ba5452e545b0b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/CrazyAds/CrazyBannersDemo using Guid(5eb4f3a41b13d4f4491ba5452e545b0b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'ff93426524d3307c013ad511d852cebc') in 0.012909 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000040 seconds.
-  path: Assets/CrazyOptimizer/Editor/WindowComponents/ModelOptimizations/ModelOptimization.cs
-  artifactKey: Guid(2cae1da0927e7e443a16423ca0a50c75) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazyOptimizer/Editor/WindowComponents/ModelOptimizations/ModelOptimization.cs using Guid(2cae1da0927e7e443a16423ca0a50c75) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '9579e8626fd9dd2779ff07ec7dfcfd1a') in 0.002873 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/CrazyOptimizer/Editor/WindowComponents/TextureOptimizations/TextureTree.cs
-  artifactKey: Guid(d19b07e358614a55849170717c3cb8c7) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazyOptimizer/Editor/WindowComponents/TextureOptimizations/TextureTree.cs using Guid(d19b07e358614a55849170717c3cb8c7) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'ac33a1d012d81599a12652af81f33b7c') in 0.004197 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000031 seconds.
-  path: Assets/CrazySDK/CrazyAds/Scripts/CrazyAdPreview.cs
-  artifactKey: Guid(3c270cce8d9346e469dd9c6432239fe2) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/CrazyAds/Scripts/CrazyAdPreview.cs using Guid(3c270cce8d9346e469dd9c6432239fe2) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'c26e61abbaf4122338477f53ae43132c') in 0.004077 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000014 seconds.
-  path: Assets/CrazySDK/Script/CrazyJsonHelper.cs
-  artifactKey: Guid(ccf8f03b09fef3741b11f2ef907dd134) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/Script/CrazyJsonHelper.cs using Guid(ccf8f03b09fef3741b11f2ef907dd134) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '57666548f47bdade20b74f39876d8a1c') in 0.003598 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000013 seconds.
-  path: Assets/WebGLTemplates/Crazy_2020
-  artifactKey: Guid(a911a50e67cbeb84ba3811ada8c864b0) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/WebGLTemplates/Crazy_2020 using Guid(a911a50e67cbeb84ba3811ada8c864b0) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '3cf120b9169231429c24c8fb64d50aec') in 0.002867 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000013 seconds.
-  path: Assets/WebGLTemplates/Crazy_2020/index.html
-  artifactKey: Guid(9b055bbce97f671419bb48caa1f53907) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/WebGLTemplates/Crazy_2020/index.html using Guid(9b055bbce97f671419bb48caa1f53907) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '950265007c932e9f851f5c93ee21f17d') in 0.002891 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000051 seconds.
-  path: Assets/CrazySDK/CrazyAds/Scripts/Editor
-  artifactKey: Guid(5a4dac050ec459b49bb20be150fc1b07) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/CrazyAds/Scripts/Editor using Guid(5a4dac050ec459b49bb20be150fc1b07) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'd99c828d039a805b37fc09d3d23a4adb') in 0.002196 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000016 seconds.
-  path: Assets/CrazyOptimizer/Editor/Resources
-  artifactKey: Guid(33b4c988bc0702d4381e32dbd4958370) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazyOptimizer/Editor/Resources using Guid(33b4c988bc0702d4381e32dbd4958370) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'a427b2c5f28c6f286583fa5bf9978ca8') in 0.002741 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/CrazyOptimizer/Editor/OptimizerUtils.cs
-  artifactKey: Guid(90b9592ccf6445089ce864d52024deff) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazyOptimizer/Editor/OptimizerUtils.cs using Guid(90b9592ccf6445089ce864d52024deff) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '705dabfb22cfd4f0aa845764574d113e') in 0.003072 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000016 seconds.
-  path: Assets/CrazySDK/Demo/DemoAssets
-  artifactKey: Guid(037a3238da5354859a76712cb8d1a137) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/Demo/DemoAssets using Guid(037a3238da5354859a76712cb8d1a137) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'e18a74dffd983624d0be75a54bd8a87c') in 0.003244 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000050 seconds.
-  path: Assets/CrazySDK/Demo/DemoAssets/DemoController.cs
-  artifactKey: Guid(c9f4d129b657b404ea099230fe0b9e32) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/Demo/DemoAssets/DemoController.cs using Guid(c9f4d129b657b404ea099230fe0b9e32) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '7afe163acf18b5ff835c509c8af3eb31') in 0.002961 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000020 seconds.
-  path: Assets/CrazySDK/CrazyAds/CrazyAdsDemo/CrazyAdsDemoSettings.lighting
-  artifactKey: Guid(988cced0b29734a088444a3f4e92cb55) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/CrazyAds/CrazyAdsDemo/CrazyAdsDemoSettings.lighting using Guid(988cced0b29734a088444a3f4e92cb55) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'f2909f5dfcf0863c25fcd4c085e42e9c') in 0.013890 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/CrazyOptimizer/Editor/TreeLib/TreeModel.cs
-  artifactKey: Guid(f9b0de14aec56214a968a364a17bd725) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazyOptimizer/Editor/TreeLib/TreeModel.cs using Guid(f9b0de14aec56214a968a364a17bd725) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'b93e88fd439f664cb2ac364c312cc79d') in 0.003145 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000026 seconds.
-  path: Assets/CrazyOptimizer/Editor
-  artifactKey: Guid(73acb8f311aa9ff4c82e6a2da840344c) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazyOptimizer/Editor using Guid(73acb8f311aa9ff4c82e6a2da840344c) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '6a74b7276974df20be2c0508e0072f7b') in 0.002369 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000036 seconds.
-  path: Assets/CrazySDK/CrazyEvents/Scripts/CrazyEvents.cs
-  artifactKey: Guid(cd65121356a815f4cb1c72e4dafdb62d) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/CrazyEvents/Scripts/CrazyEvents.cs using Guid(cd65121356a815f4cb1c72e4dafdb62d) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'e855d34cbe313b84654f88e0e1f701af') in 0.003632 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000016 seconds.
-  path: Assets/CrazyOptimizer/Editor/WindowComponents
-  artifactKey: Guid(5007f95dfeb34a1cab83f8a15ead0978) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazyOptimizer/Editor/WindowComponents using Guid(5007f95dfeb34a1cab83f8a15ead0978) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'cbdb56091dc8cc82daceb3e670cf9712') in 0.013441 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000023 seconds.
-  path: Assets/CrazySDK/Demo/PlayerPrefsAPS
-  artifactKey: Guid(460c297ce3e77bd4f8d495dba87255f8) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/Demo/PlayerPrefsAPS using Guid(460c297ce3e77bd4f8d495dba87255f8) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'db01f2d1dc24782b9fbdfa1651081c38') in 0.003172 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000039 seconds.
-  path: Assets/CrazySDK/SiteLock/SiteLock.cs
-  artifactKey: Guid(31cd2d66318a2fe48a70bfded5701b8b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/SiteLock/SiteLock.cs using Guid(31cd2d66318a2fe48a70bfded5701b8b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '83a4a25d0c4fc5532ae171d462b4f832') in 0.003047 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000015 seconds.
-  path: Assets/CrazySDK/Demo/PlayerPrefsAPS/PlayerPrefsAPS.cs
-  artifactKey: Guid(6d0ddc39dfee3d14882d50b4db7d59eb) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/Demo/PlayerPrefsAPS/PlayerPrefsAPS.cs using Guid(6d0ddc39dfee3d14882d50b4db7d59eb) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'd2b60532c536cf7dbf4d793823d0c7bb') in 0.003086 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000019 seconds.
-  path: Assets/CrazyOptimizer/Editor/TreeLib
-  artifactKey: Guid(5c728e696b9f4a04bb1546d790125563) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazyOptimizer/Editor/TreeLib using Guid(5c728e696b9f4a04bb1546d790125563) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'ac37b0e67376fdd455697f7d3181262f') in 0.002705 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000032 seconds.
-  path: Assets/CrazySDK
-  artifactKey: Guid(499b5b9a9c8f06444a5ab21eada7d5bf) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK using Guid(499b5b9a9c8f06444a5ab21eada7d5bf) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'b5fe00701bc807d3a6a40d03e10fc27e') in 0.002528 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000033 seconds.
-  path: Assets/CrazySDK/CrazyAds/CrazyAdsDemo/DemoAssets/CrazyAdsDemoPlayer.cs
-  artifactKey: Guid(06c4a9e07de64d742a03e56ec8f33458) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/CrazyAds/CrazyAdsDemo/DemoAssets/CrazyAdsDemoPlayer.cs using Guid(06c4a9e07de64d742a03e56ec8f33458) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '130470e3c6d00baf40cfdf1ccf9ba836') in 0.003416 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000023 seconds.
-  path: Assets/WebGLTemplates/Crazy_5_6+/template.html
-  artifactKey: Guid(9bdffb71fe124264fb3069ffb5039154) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/WebGLTemplates/Crazy_5_6+/template.html using Guid(9bdffb71fe124264fb3069ffb5039154) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '7f04ecb03d94f41898c1e8d91c38131c') in 0.002333 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000040 seconds.
-  path: Assets/CrazySDK/CrazyEvents/Scripts
-  artifactKey: Guid(9e514e6e0de19444e816ec323c5b3933) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/CrazyEvents/Scripts using Guid(9e514e6e0de19444e816ec323c5b3933) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '9d5465623622c4bc109225468981e1a1') in 0.003212 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000068 seconds.
-  path: Assets/CrazySDK/CrazyEvents/CrazyEventsDemo/CrazyEventsDemoSettings.lighting
-  artifactKey: Guid(021ee7c858bfd4061af0cafe6eabf031) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/CrazySDK/CrazyEvents/CrazyEventsDemo/CrazyEventsDemoSettings.lighting using Guid(021ee7c858bfd4061af0cafe6eabf031) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) LightingSettings: switching bake backend from 1 to 0.
-Generated GUIDs only implemented for interfaces!
- -> (artifact id: '43d0283b1d059b3ff32b6f37e5da5554') in 0.007746 seconds 
+  Time since last request: 758.660218 seconds.
+  path: Assets/Scripts/Photon/PHPMenuService.cs
+  artifactKey: Guid(9646d23ab895d8645be64409fb91faff) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Scripts/Photon/PHPMenuService.cs using Guid(9646d23ab895d8645be64409fb91faff) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '2ae6cae8e99f9d1cd234eaaf4b8bba6d') in 0.127533 seconds 
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 1
 ========================================================================
 Received Prepare
-Refreshing native plugins compatible for Editor in 1.56 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 1.32 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 15 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 15 unused Assets / (270.8 KB). Loaded Objects now: 4044.
-Memory consumption went from 103.9 MB to 103.6 MB.
-Total: 3.612700 ms (FindLiveObjects: 0.324100 ms CreateObjectMapping: 0.248800 ms MarkObjects: 2.959400 ms  DeleteObjects: 0.079700 ms)
-
-Prepare: number of updated asset objects reloaded= 127
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Refreshing native plugins compatible for Editor in 1.48 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 15 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 15 unused Assets / (270.7 KB). Loaded Objects now: 4044.
-Memory consumption went from 102.7 MB to 102.5 MB.
-Total: 3.650500 ms (FindLiveObjects: 0.355000 ms CreateObjectMapping: 0.386300 ms MarkObjects: 2.823800 ms  DeleteObjects: 0.084600 ms)
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 17 unused Assets / (271.7 KB). Loaded Objects now: 4068.
+Memory consumption went from 105.9 MB to 105.7 MB.
+Total: 2.814100 ms (FindLiveObjects: 0.277000 ms CreateObjectMapping: 0.095600 ms MarkObjects: 2.352600 ms  DeleteObjects: 0.088200 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
@@ -532,87 +204,51 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
-Received Import Request.
-  Time since last request: 292.403784 seconds.
-  path: Assets/Sprites/Old/5.png
-  artifactKey: Guid(decf01cfcdd90d04f96d78b03301f146) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/Sprites/Old/5.png using Guid(decf01cfcdd90d04f96d78b03301f146) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '6d5ec230c3df0a4e8e6dbbdad9b22a19') in 0.061369 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 3
-========================================================================
-Received Import Request.
-  Time since last request: 0.000023 seconds.
-  path: Assets/Models/Texture/TanksTex3.jpg
-  artifactKey: Guid(762200b4b7fcdc047aca4bdfca676a14) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/Models/Texture/TanksTex3.jpg using Guid(762200b4b7fcdc047aca4bdfca676a14) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '4ca2d69c79c8a4b4a8e412b302874d70') in 0.018600 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000065 seconds.
-  path: Assets/Packages/Standard Assets/Effects/MotionBlur/Editor/FrameBlendingIcon.png
-  artifactKey: Guid(d99d70716ed2e4735ba36a13b42f8e4f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/Packages/Standard Assets/Effects/MotionBlur/Editor/FrameBlendingIcon.png using Guid(d99d70716ed2e4735ba36a13b42f8e4f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '9158d5593d4e9bc0772da1a0216200cd') in 0.027059 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Assets/Sprites/Old/fullscreenexit.png
-  artifactKey: Guid(287578607ff7895459041c294ac8a242) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/Sprites/Old/fullscreenexit.png using Guid(287578607ff7895459041c294ac8a242) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'b7fb19434605fe8cb477bd5b2430745f') in 0.014233 seconds 
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 3
-========================================================================
 Received Prepare
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.560 seconds
-Refreshing native plugins compatible for Editor in 2.19 ms, found 0 plugins.
+- Loaded All Assemblies, in  0.459 seconds
+Refreshing native plugins compatible for Editor in 1.34 ms, found 0 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Native extension for WebGL target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.688 seconds
+- Finished resetting the current domain, in  0.607 seconds
 Domain Reload Profiling:
-	ReloadAssembly (218ms)
-		BeginReloadAssembly (144ms)
+	ReloadAssembly (194ms)
+		BeginReloadAssembly (131ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (5ms)
+			DisableScriptedObjects (4ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (55ms)
-		LoadAllAssembliesAndSetupDomain (341ms)
-			LoadAssemblies (185ms)
+			CreateAndSetChildDomain (46ms)
+		LoadAllAssembliesAndSetupDomain (264ms)
+			LoadAssemblies (152ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (214ms)
-				TypeCache.Initialize (188ms)
-					TypeCache.ScanAssembly (184ms)
-				ResolveRequiredComponents (12ms)
+			SetupTypeCache (167ms)
+				TypeCache.Initialize (158ms)
+					TypeCache.ScanAssembly (155ms)
+				ResolveRequiredComponents (9ms)
 		FinalizeReload (0ms)
 			ReleaseScriptCaches (0ms)
 			RebuildScriptCaches (0ms)
-			SetupLoadedEditorAssemblies (348ms)
+			SetupLoadedEditorAssemblies (288ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (17ms)
-				SetLoadedEditorAssemblies (3ms)
+				InitializePlatformSupportModulesInManaged (18ms)
+				SetLoadedEditorAssemblies (4ms)
 				RefreshPlugins (0ms)
-				BeforeProcessingInitializeOnLoad (56ms)
-				ProcessInitializeOnLoadAttributes (196ms)
-				ProcessInitializeOnLoadMethodAttributes (73ms)
-				AfterProcessingInitializeOnLoad (2ms)
+				BeforeProcessingInitializeOnLoad (53ms)
+				ProcessInitializeOnLoadAttributes (143ms)
+				ProcessInitializeOnLoadMethodAttributes (68ms)
+				AfterProcessingInitializeOnLoad (3ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (14ms)
-Refreshing native plugins compatible for Editor in 1.37 ms, found 0 plugins.
+			AwakeInstancesAfterBackupRestoration (13ms)
+Refreshing native plugins compatible for Editor in 1.30 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3319 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 46 unused Assets / (277.7 KB). Loaded Objects now: 4049.
+Unloading 3341 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 46 unused Assets / (277.5 KB). Loaded Objects now: 4073.
 Memory consumption went from 0.54 GB to 0.54 GB.
-Total: 3.721700 ms (FindLiveObjects: 0.275900 ms CreateObjectMapping: 0.244000 ms MarkObjects: 3.084100 ms  DeleteObjects: 0.116500 ms)
+Total: 2.870900 ms (FindLiveObjects: 0.253200 ms CreateObjectMapping: 0.101500 ms MarkObjects: 2.406100 ms  DeleteObjects: 0.108700 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
@@ -627,8 +263,3 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
-TcpMessagingSession - receive error: operation aborted. errorcode: 995, details: Операция ввода/вывода была прервана из-за завершения потока команд или по запросу приложения.
-AssetImportWorker is now disconnected from the server
-Process exiting
-Exiting without the bug reporter. Application will terminate with return code 0

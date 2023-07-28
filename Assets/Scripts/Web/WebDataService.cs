@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
 using Web.Classes;
+using Random = UnityEngine.Random;
 
 namespace Web
 {
@@ -29,8 +30,8 @@ namespace Web
 
         public Error ErrorData => error;
         public UnityEvent OnLogin;
-        
-        
+
+
         public void Init()
         {
             if (Instance == null)
@@ -64,6 +65,7 @@ namespace Web
 
         public void LoginStart()
         {
+            if (data != null && data.playerData.id < 0) return;
             if (!PHPMenuService.Instance.CanSendData(out error, false))
             {
                 StartCoroutine(Login(PHPMenuService.Instance.GetLogin(), PHPMenuService.Instance.GetPass()));
@@ -73,6 +75,7 @@ namespace Web
 
         public void RegStart()
         {
+            if (data != null && data.playerData.id < 0) return;
             if (!PHPMenuService.Instance.CanSendData(out error, true))
             {
                 StartCoroutine(Register(PHPMenuService.Instance.GetLogin(), PHPMenuService.Instance.GetPass()));
@@ -108,6 +111,8 @@ namespace Web
                 if (!ErrorData.isError)
                 {
                     data = JsonUtility.FromJson<Responce>(www.text);
+                    print(JsonUtility.ToJson(data));
+
                     PhotonLobbyService.Instance.InitPUN();
                     OnLogin.Invoke();
                 }
@@ -129,9 +134,9 @@ namespace Web
         {
             WWWForm form = GetForm(name, password);
             form.AddField("register", "");
-        
+
             AddHeaders(form);
-        
+
             WWW www = new WWW(URL, form);
             yield return www;
 
@@ -152,6 +157,12 @@ namespace Web
 
         public static void SaveStart()
         {
+            if (data != null && data.playerData.id < 0)
+            {
+                PlayerPrefs.SetString(guestKey, JsonUtility.ToJson(data));
+                return;
+            }
+            
             Instance.StartCoroutine(Instance.Save());
         }
 
@@ -161,9 +172,9 @@ namespace Web
             form.AddField("fromUnity", "2003");
             form.AddField("save", "");
             form.AddField("response", JsonUtility.ToJson(data));
-        
+
             AddHeaders(form);
-        
+
             UnityWebRequest www = UnityWebRequest.Post(URL, form);
             www.timeout = 1;
             yield return www;
@@ -171,6 +182,8 @@ namespace Web
 
         private async void OnApplicationQuit()
         {
+            if (data != null && data.playerData.id < 0) return;
+            
             WWWForm form = new WWWForm();
             form.AddField("fromUnity", "2003");
             form.AddField("statisticsAdd", "");
@@ -179,8 +192,8 @@ namespace Web
             data.statistics = statistics.GetStats();
             form.AddField("response", JsonUtility.ToJson(data));
             AddHeaders(form);
-        
-        
+
+
             UnityWebRequest req = UnityWebRequest.Post(URL, form);
 
             req.SendWebRequest();
@@ -188,6 +201,50 @@ namespace Web
             {
                 System.Threading.Thread.Sleep(100);
             }
+        }
+
+        public const string guestKey = "GuestData";
+        public void CreateGuestAccount()
+        {
+            if (PlayerPrefs.HasKey(guestKey))
+            {
+                data = JsonUtility.FromJson<Responce>(PlayerPrefs.GetString(guestKey));
+            }
+            else
+            {
+                var userID = -Random.Range(10000, 99999);
+                data = new Responce()
+                {
+                    playerData = new PlayerData()
+                    {
+                        id = userID,
+                        name = $"Guest-{Random.Range(100, 999)}"
+                    },
+                    userStatistics = new UserStatistics()
+                    {
+                        id = -1,
+                        deaths = 0,
+                        kills = 0,
+                        registerDate = DateTime.Now.ToString("yyyy-MM-dd"),
+                        userid = userID
+                    },
+                    statistics = null,
+                    tank = new PlayerTankData()
+                    {
+                        corpus = 0,
+                        weapon = 0,
+                        exp = 0,
+                        id = 0,
+                        level = 0,
+                        userid = userID
+                    }
+                };
+
+                SaveStart();
+            }
+
+            PhotonLobbyService.Instance.InitPUN();
+            OnLogin.Invoke();
         }
     }
 }

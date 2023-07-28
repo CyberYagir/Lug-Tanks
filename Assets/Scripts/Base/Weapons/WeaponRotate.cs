@@ -31,18 +31,22 @@ namespace Base.Weapons
             player = GetComponentInParent<Player>();
             tank = player.Tank;
             
-            if (player.photonView.IsMine)
+            if (player.photonView != null && player.photonView.IsMine)
             {
                 CameraInstance = shootCamera.GetComponent<Camera>();
-                
             }
         }
         private void Update()
         {
             transform.position = tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position;
-            transform.rotation = Quaternion.Lerp(transform.rotation, player.CameraLook.transform.rotation, rotateSpeed * Time.deltaTime);
             transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
             shootCamera.transform.position = tank.weapons[tank.tankOptions.weapon].shootPoint.position;
+
+            if (player.CameraLook != null)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, player.CameraLook.transform.rotation, rotateSpeed * Time.deltaTime);
+            }
+
         }
 
     }

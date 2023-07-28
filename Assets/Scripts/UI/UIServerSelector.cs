@@ -72,8 +72,16 @@ namespace UI
             {
                 yield return null;
             }
-            
-            PhotonNetwork.ConnectToRegion(rg);
+
+            try
+            {
+                PhotonNetwork.ConnectToRegion(rg);
+            }
+            catch (Exception e)
+            {
+                PhotonNetwork.ConnectToRegion(PhotonLobbyService.Instance.AutoRegion);
+                yield break;
+            }
         }
     }
 }

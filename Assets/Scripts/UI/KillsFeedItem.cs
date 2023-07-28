@@ -14,6 +14,9 @@ namespace UI
             player1T.text = player1;
             player2T.text = player2;
             image.sprite = weapon;
+
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
         }
     }
 }
