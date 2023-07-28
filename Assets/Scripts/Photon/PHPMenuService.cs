@@ -83,12 +83,6 @@ namespace Photon
 
         private void Update()
         {
-            if (WebDataService.tankData != null)
-            {
-                gameObject.SetActive(false);
-                return;
-            }
-
             if (WebDataService.Instance.ErrorData.isError)
             {
                 error.transform.parent.gameObject.SetActive(true);
