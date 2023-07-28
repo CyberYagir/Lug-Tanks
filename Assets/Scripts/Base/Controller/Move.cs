@@ -32,19 +32,19 @@ namespace Base.Controller
             bool canRot = false;
             var crp = tank.corpuses[tank.tankOptions.corpus];
             bool isFly = true;
-            for (int i = 0; i < crp.tracks.Count; i++)
+            for (int i = 0; i < crp.Tracks.Count; i++)
             {
-                if (crp.tracks[i].GetCount() != 0)
+                if (crp.Tracks[i].GetCount() != 0)
                 {
                     canRot = true;
                     isFly = false;
-                    rb.AddForce((crp.tracks[i].transform.forward * boosters.SpeedIncrease * ((tank.corpuses[tank.tankOptions.corpus].speed + (angle * 0.5f)) / crp.tracks.Count) * Input.GetAxisRaw("Vertical")) + (new Vector3(0, 0.02f * Input.GetAxis("Vertical"))) * Time.fixedDeltaTime, ForceMode.Acceleration);
+                    rb.AddForce((crp.Tracks[i].transform.forward * boosters.SpeedIncrease * ((crp.Speed + (angle * 0.5f)) / crp.Tracks.Count) * Input.GetAxisRaw("Vertical")) + (new Vector3(0, 0.02f * Input.GetAxis("Vertical"))) * Time.fixedDeltaTime, ForceMode.Acceleration);
                 }
             }
             rb.drag = isFly ? 0.1f : 1.5f; 
 
             if (canRot)
-                rb.MoveRotation(Quaternion.Euler(transform.localEulerAngles + (new Vector3(0, Input.GetAxisRaw("Horizontal"), 0) * tank.corpuses[tank.tankOptions.corpus].rotSpeed) * boosters.SpeedIncrease * Time.fixedDeltaTime));
+                rb.MoveRotation(Quaternion.Euler(transform.localEulerAngles + (new Vector3(0, Input.GetAxis("Horizontal"), 0) * crp.RotSpeed) * boosters.SpeedIncrease * Time.fixedDeltaTime));
         }
     }
 }

@@ -3,7 +3,7 @@ using Base.Weapons;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Base.Controller;
 namespace Photon.Game.UI
 {
     public class DamageIndicator : TankUIElement
@@ -27,17 +27,18 @@ namespace Photon.Game.UI
 
         public override void UpdateElement()
         {
-            if (Base.Controller.Tank.lastPlayer != null && Base.Controller.Tank.lastPlayerClearTime < 10 && WeaponRotate.IsVisible(Base.Controller.Tank.lastPlayer.gameObject))
+            if (Tank.lastPlayer != null && Tank.lastPlayerClearTime < 10 && WeaponRotate.IsVisible(Tank.lastPlayer.gameObject))
             {
+                var tank = Tank.lastPlayer.GetComponent<Tank>();
                 indicator.gameObject.SetActive(true);
-                hp.transform.localScale = new Vector3(Base.Controller.Tank.lastPlayer.GetComponent<Base.Controller.Tank>().tankOptions.hp / GetComponentInParent<Base.Controller.Tank>().corpuses[Base.Controller.Tank.lastPlayer.GetComponent<Base.Controller.Tank>().tankOptions.corpus].hp, 1, 1);
-                pname.text = Base.Controller.Tank.lastPlayer.name;
-                indicator.transform.position = Vector3.Lerp(indicator.transform.position, camera.WorldToScreenPoint(Base.Controller.Tank.lastPlayer.GetComponent<Base.Controller.Tank>().damageDisplayPoint.position, Camera.MonoOrStereoscopicEye.Mono), 10f * Time.deltaTime);
-                bonus.SetActive(Base.Controller.Tank.lastPlayer.GetComponent<Base.Controller.Tank>().bonuses.Count != 0);
-            
+                hp.transform.localScale = new Vector3(tank.tankOptions.hp / tank.corpuses[tank.tankOptions.corpus].Hp, 1, 1);
+                pname.text = Tank.lastPlayer.name;
+                indicator.transform.position = Vector3.Lerp(indicator.transform.position, camera.WorldToScreenPoint(tank.damageDisplayPoint.position, Camera.MonoOrStereoscopicEye.Mono), 10f * Time.deltaTime);
+                bonus.SetActive(tank.bonuses.Count != 0);
+
                 for (int i = 0; i < bonuses.Count; i++)
                 {
-                    bonuses[i].SetActive(Base.Controller.Tank.lastPlayer.GetComponent<Base.Controller.Tank>().bonuses.Contains(i));
+                    bonuses[i].SetActive(tank.bonuses.Contains(i));
                 }
             }
             else

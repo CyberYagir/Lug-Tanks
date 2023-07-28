@@ -1,26 +1,83 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using Misc;
 using UnityEngine;
 
-public class Track : MonoBehaviour
+namespace Base.Controller
 {
-    [SerializeField] private List<GameObject> objects;
-
-    private void OnTriggerEnter(Collider other)
+    public class Track : MonoBehaviour
     {
-        if (other.transform.CompareTag("Ground") || other.transform.CompareTag("Enemy"))
+        [SerializeField] private List<GameObject> objects;
+        private ParticleSystem particles;
+        private ParticleSystem.MinMaxGradient particlesStartColor;
+        
+        
+        private void Awake()
         {
-            objects.Add(other.gameObject);
+            particles = GetComponentInChildren<ParticleSystem>();
+            particlesStartColor = particles.main.startColor;
+            DisableParticles();
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (objects.Contains(other.gameObject))
+        private void OnTriggerEnter(Collider other)
         {
-            objects.Remove(other.gameObject);
-        }
-    }
+            var isGround = other.transform.CompareTag("Ground");
+            if (isGround || other.transform.CompareTag("Enemy"))
+            {
+                objects.Add(other.gameObject);
 
-    public int GetCount() => objects.Count;
+                UpdateParticlesColor();
+            }
+        }
+
+        private void UpdateParticlesColor()
+        {
+            var emission = particles.emission;
+            emission.enabled = true;
+            var main = particles.main;
+            var rn = objects[objects.Count - 1].GetComponent<GroundColor>();
+            if (rn)
+            {
+                var cl1 = rn.Color;
+                cl1.a = 0.5f;
+                var cl2 = cl1 * 0.75f;
+                cl2.a = 0.5f;
+
+                var color = main.startColor;
+                color.colorMax = cl1;
+                color.colorMin = cl2;
+
+                main.startColor = color;
+            }
+            else
+            {
+                main.startColor = particlesStartColor;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (objects.Contains(other.gameObject))
+            {
+                objects.Remove(other.gameObject);
+            }
+
+            if (GetCount() == 0)
+            {
+                DisableParticles();
+            }
+            else
+            {
+                UpdateParticlesColor();
+            }
+        }
+
+        private void DisableParticles()
+        {
+            var emission = particles.emission;
+            emission.enabled = false;
+        }
+
+        public int GetCount() => objects.Count;
+    }
 }

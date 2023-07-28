@@ -70,9 +70,9 @@ namespace Base.Modifyers
                 defenceIncrease *= playerBonus[i].defenceIncrease;
 
                 tank.tankOptions.hp += playerBonus[i].heathAdd * Time.deltaTime;
-                if (tank.tankOptions.hp > tank.corpuses[tank.tankOptions.corpus].hp)
+                if (tank.tankOptions.hp > tank.corpuses[tank.tankOptions.corpus].Hp)
                 {
-                    tank.tankOptions.hp = tank.corpuses[tank.tankOptions.corpus].hp;
+                    tank.tankOptions.hp = tank.corpuses[tank.tankOptions.corpus].Hp;
                     playerBonus.RemoveAt(i);
                     return;
                 }

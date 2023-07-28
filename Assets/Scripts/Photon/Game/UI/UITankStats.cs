@@ -40,7 +40,7 @@ namespace Photon.Game.UI
             }
 
             transform.position = Vector3.Lerp(transform.position, camera.WorldToScreenPoint(tank.transform.position, Camera.MonoOrStereoscopicEye.Mono) + (Vector3) pos, 5 * Time.deltaTime);
-            hp.localScale = new Vector3((float) tank.tankOptions.hp / tank.corpuses[tank.tankOptions.corpus].hp, 1, 1);
+            hp.localScale = new Vector3((float) tank.tankOptions.hp / tank.corpuses[tank.tankOptions.corpus].Hp, 1, 1);
             if (!tank.weapons[tank.tankOptions.weapon].waitTofull)
             {
                 energy.localScale = new Vector3(tank.weapons[tank.tankOptions.weapon].GetEnergy() / 100f, 1, 1);

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3483909329233512747}
   - component: {fileID: 984052044533821343}
   - component: {fileID: 8234285015469389242}
+  - component: {fileID: 8570748449887932706}
   m_Layer: 0
   m_Name: Crate
   m_TagString: Ground
@@ -105,3 +106,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8570748449887932706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7000543676755568168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2316e2d1b3da26b48ace49cf583f111c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0.40000004, g: 0.38431376, b: 0.30980393, a: 1}

@@ -28,7 +28,8 @@ namespace Photon.Game
 
 
         private float timeToDestroy;
-
+        private CorpusRotator corpusRotator;
+        
         public GameDataObject GameData => gameData;
         public Tank Tank => tank;
         public TankBoosters Boosters => tankBoosters;
@@ -53,7 +54,6 @@ namespace Photon.Game
             {
                 CameraLook.gameObject.SetActive(false);
 
-
                 Destroy(tankMove);
                 Destroy(tankBoosters);
                 Destroy(weaponRotate);
@@ -69,10 +69,10 @@ namespace Photon.Game
 
                     t.enabled = false;
                 }
-
+                
                 foreach (var t in tank.corpuses)
                 {
-                    t.obj.layer = LayerMask.NameToLayer("Default");
+                    t.SetLayer(LayerMask.NameToLayer("Default"));
                 }
             }
             else
@@ -92,7 +92,7 @@ namespace Photon.Game
                 tank.tankOptions.weapon = WebDataService.tankData.weapon;
                 tank.tankOptions.corpus = WebDataService.tankData.corpus;
                 tank.tankOptions.team = (int) PhotonNetwork.LocalPlayer.CustomProperties["Team"];
-                tank.tankOptions.hp = tank.corpuses[tank.tankOptions.corpus].hp;
+                tank.tankOptions.hp = tank.corpuses[tank.tankOptions.corpus].Hp;
             }
         }
 
@@ -296,18 +296,19 @@ namespace Photon.Game
                 player = PhotonNetwork.Instantiate(playerPrefab.gameObject.name, pos, rot).GetComponent<Player>();
             }
         }
-
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             if (stream.IsWriting)
             {
                 stream.SendNext(JsonUtility.ToJson(tank.tankOptions, true));
                 stream.SendNext(tank.bonuses.ToArray());
+                stream.SendNext(tank.corpuses[tank.tankOptions.corpus].RotatorData.CorpusRotator.GetTagetAngle());
             }
             else
             {
                 tank.tankOptions = JsonUtility.FromJson<Tank.TankOptions>((string) stream.ReceiveNext());
                 tank.bonuses = ((int[]) stream.ReceiveNext()).ToList();
+                tank.corpuses[tank.tankOptions.corpus].RotatorData.CorpusRotator.RotateCorpus((float)stream.ReceiveNext());
             }
         }
     }

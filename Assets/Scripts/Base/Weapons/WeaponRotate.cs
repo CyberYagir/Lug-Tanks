@@ -13,6 +13,8 @@ namespace Base.Weapons
 
         private Tank tank;
         private Player player;
+        private float lastAngle;
+        
         
         public static bool IsVisible(GameObject gm)
         {
@@ -36,18 +38,23 @@ namespace Base.Weapons
                 CameraInstance = shootCamera.GetComponent<Camera>();
             }
         }
-        private void Update()
+        private void FixedUpdate()
         {
-            transform.position = tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position;
-            transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+            var crp = tank.corpuses[tank.tankOptions.corpus];
+            var angle = crp.RotatorData.CorpusRotator.GetTagetAngle();
+
+            lastAngle = Mathf.Lerp(lastAngle, angle, 10 * Time.fixedDeltaTime);
+            
+            transform.position = crp.WeaponPoint.transform.position;
             shootCamera.transform.position = tank.weapons[tank.tankOptions.weapon].shootPoint.position;
 
             if (player.CameraLook != null)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, player.CameraLook.transform.rotation, rotateSpeed * Time.deltaTime);
+                transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0) + transform.InverseTransformDirection(tank.transform.right * lastAngle);
+                transform.rotation = Quaternion.Lerp(transform.rotation, player.CameraLook.transform.rotation, rotateSpeed * Time.fixedDeltaTime);
             }
 
+            shootCamera.localEulerAngles = new Vector3(lastAngle * 2f, 0, 0);
         }
-
     }
 }

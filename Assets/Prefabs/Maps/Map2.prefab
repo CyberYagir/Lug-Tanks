@@ -6513,6 +6513,7 @@ GameObject:
   - component: {fileID: 463423580344479425}
   - component: {fileID: 6242950016804335529}
   - component: {fileID: 4498861403074929812}
+  - component: {fileID: 7291086025227750097}
   m_Layer: 0
   m_Name: Sand
   m_TagString: Ground
@@ -6607,6 +6608,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5577429918001518612, guid: 11a8dbd2747266743b0f353d571881b6, type: 3}
+--- !u!114 &7291086025227750097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6757437088472691739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2316e2d1b3da26b48ace49cf583f111c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0.73333335, g: 0.59607846, b: 0.4039216, a: 1}
 --- !u!1 &6762881741610320292
 GameObject:
   m_ObjectHideFlags: 0

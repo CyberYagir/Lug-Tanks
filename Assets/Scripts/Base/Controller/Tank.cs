@@ -35,19 +35,7 @@ namespace Base.Controller
             }
             
         }
-        [System.Serializable]
-        public class Corpus
-        {
-            public float hp;
-            public float speed;
-            public float rotSpeed;
-            public GameObject obj;
-            public Transform weaponPoint;
-            public Vector3 centerOfMass;
-            public Transform[] hitPoints;
-            public List<Track> tracks;
-        }
-    
+
         public enum TankTeam
         {
             Player, Enemy   
@@ -95,7 +83,7 @@ namespace Base.Controller
                 
                 for (int i = 0; i < corpuses.Count; i++)
                 {
-                    corpuses[i].obj.GetComponent<Renderer>().material.SetTexture(MainTex, teamsData.GetTeam(team).Texture);
+                    corpuses[i].SetTexture(teamsData.GetTeam(team).Texture);
                 }
 
                 for (int i = 0; i < weapons.Count; i++)
@@ -118,10 +106,10 @@ namespace Base.Controller
         {
             for (int i = 0; i < corpuses.Count; i++)
             {
-                corpuses[i].obj.SetActive(i == tankOptions.corpus);
+                corpuses[i].ActiveCorpus(i == tankOptions.corpus);
                 if (i == tankOptions.corpus)
                 {
-                    rb.centerOfMass = corpuses[i].centerOfMass;
+                    rb.centerOfMass = corpuses[i].CenterOfMass;
                 }
             }
             for (int i = 0; i < weapons.Count; i++)
@@ -129,7 +117,7 @@ namespace Base.Controller
                 weapons[i].gameObject.SetActive(i == tankOptions.weapon);
                 if (i == tankOptions.weapon)
                 {
-                    weapons[i].transform.position = corpuses[tankOptions.corpus].weaponPoint.transform.position;
+                    weapons[i].transform.position = corpuses[tankOptions.corpus].WeaponPoint.transform.position;
                 }
             }
         }
@@ -147,7 +135,7 @@ namespace Base.Controller
                 if (tankOptions.corpus != -1)
                 {
                     SetEquip();
-                    weapons[tankOptions.weapon].transform.position = corpuses[tankOptions.corpus].weaponPoint.transform.position;
+                    weapons[tankOptions.weapon].transform.position = corpuses[tankOptions.corpus].WeaponPoint.transform.position;
                 }
             }
         }
@@ -164,14 +152,14 @@ namespace Base.Controller
         {
             for (int i = 0; i < corpuses.Count; i++)
             {
-                if (corpuses[i].obj.active)
+                if (corpuses[i].IsActive)
                 {
-                    if (corpuses[i].weaponPoint != null)
+                    if (corpuses[i].WeaponPoint != null)
                     {
-                        Gizmos.DrawWireSphere(corpuses[i].weaponPoint.position, .2f);
+                        Gizmos.DrawWireSphere(corpuses[i].WeaponPoint.position, .2f);
                     }
                     Gizmos.color = Color.green;
-                    Gizmos.DrawWireSphere(transform.TransformPoint(corpuses[i].centerOfMass), .2f);
+                    Gizmos.DrawWireSphere(transform.TransformPoint(corpuses[i].CenterOfMass), .2f);
                 }
             }
         }

@@ -1,37 +1,55 @@
-﻿using Base.Controller;
+﻿using System.Collections.Generic;
+using Base.Controller;
 using UnityEngine;
 
-public class Look : MonoBehaviour
+namespace Base
 {
-    private SpriteRenderer renderer;
-    private float transp;
-    private Collider col;
-
-    private Camera camera;
-    private void Start()
+    public class Look : MonoBehaviour
     {
-        col = GetComponent<Collider>();
-        renderer = GetComponent<SpriteRenderer>();
-        camera = Camera.main;
-    }
-    void Update()
-    {
-        var lookCamera = CameraLook.Instance != null ? CameraLook.Instance.GetCamera() : camera;
+        [SerializeField] private List<Renderer> renderers;
+        [SerializeField] private Transform collider;
+        private float transp;
+        private Collider col;
+        private Material mat;
+        private float alpha = 1;
         
-        if (lookCamera != null)
-        {
-            renderer.color = Color.Lerp(renderer.color, new Color(1, 1, 1, transp), 5f * Time.deltaTime);
-            transform.LookAt(new Vector3(lookCamera.transform.position.x, transform.position.y, lookCamera.transform.position.z));
-            if (Vector3.Distance(transform.position, lookCamera.transform.parent.position) < 4f)
-            {
-                col.enabled = false;
-                transp = 0.5f;
+        private Camera camera;
+        private static readonly int AlphaHash = Shader.PropertyToID("_Alpha");
 
-            }
-            else
+        private void Start()
+        {
+            col = collider.GetComponent<Collider>();
+            mat = renderers[0].material;
+
+            foreach (var rn in renderers)
             {
-                col.enabled = true;
-                transp = 1f;
+                rn.material = mat;
+                rn.transform.localEulerAngles += Random.insideUnitSphere * 5f;
+            }
+        }
+        void Update()
+        {
+            var lookCamera = CameraLook.Instance != null ? CameraLook.Instance.GetCamera() : camera;
+        
+            if (lookCamera != null)
+            {
+                alpha = Mathf.Lerp(alpha, transp, 5f * Time.deltaTime);
+                
+                mat.SetFloat(AlphaHash, alpha);
+                
+                
+                collider.LookAt(new Vector3(lookCamera.transform.position.x, transform.position.y, lookCamera.transform.position.z));
+                if (Vector3.Distance(transform.position, lookCamera.transform.parent.position) < 4f)
+                {
+                    col.enabled = false;
+                    transp = 0.5f;
+
+                }
+                else
+                {
+                    col.enabled = true;
+                    transp = 1f;
+                }
             }
         }
     }

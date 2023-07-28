@@ -69,7 +69,10 @@ namespace Base.Controller
         private void FixedUpdate()
         {
             if (parent != null)
-                transform.position = new Vector3(tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position.x, parent.transform.position.y, tank.corpuses[tank.tankOptions.corpus].weaponPoint.transform.position.z);
+            {
+                var pos = tank.corpuses[tank.tankOptions.corpus].WeaponPoint.transform.position;
+                transform.position = new Vector3(pos.x, parent.transform.position.y, pos.z);
+            }
         }
 
         public Camera GetCamera() => camera;
