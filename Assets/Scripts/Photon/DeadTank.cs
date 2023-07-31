@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
@@ -7,13 +8,42 @@ public class DeadTank : MonoBehaviour
     [SerializeField] private GameObject[] weapons, corpuses;
     [SerializeField] private Quaternion rot;
     [SerializeField] private GameObject particles;
+    [SerializeField] private List<Renderer> renderers;
+    [SerializeField] private Material material;
+    [SerializeField] private Material clonedMat;
+
+
+    private float emission = 1;
+    private static readonly int ProgressHash = Shader.PropertyToID("_Progress");
 
     public int weapon { get; private set; }
     public int corpus { get; private set; }
     
     
-    public Quaternion GetRot() => rot; 
-    
+    public Quaternion GetRot() => rot;
+
+    private void Awake()
+    {
+        clonedMat = Instantiate(material);
+
+        foreach (var rn in renderers)
+        {
+            var mats = rn.materials;
+            for (int i = 0; i < mats.Length; i++)
+            {
+                mats[i] = clonedMat;
+            }
+            rn.materials = mats;
+        }
+    }
+
+    private void Update()
+    {
+        emission -= Time.deltaTime;
+        clonedMat.SetFloat(ProgressHash, Mathf.Clamp01(emission));
+
+    }
+
     public void StartDestroy()
     {
         StartCoroutine(wait());
