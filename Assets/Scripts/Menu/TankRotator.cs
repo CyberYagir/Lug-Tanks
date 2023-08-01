@@ -12,6 +12,8 @@ namespace Menu
         [SerializeField] private Camera camera;
         [SerializeField] private Tank tank;
 
+
+        private float velocity;
         private bool down;
 
         private void Awake()
@@ -42,15 +44,31 @@ namespace Menu
                         down = true;
                     }
                 }
+
+                if (Mathf.Abs(Input.GetAxis("Mouse X")) > 0.5f)
+                {
+                    velocity = speed * -Input.GetAxis("Mouse X");
+                }
+                else
+                {
+                    velocity = 0;
+                }
             }
             else
             {
                 down = false;
+
+                velocity = Mathf.Lerp(velocity, 0, Time.deltaTime * 5f);
             }
 
             if (down)
             {
                 transform.Rotate(Vector3.up * speed * -Input.GetAxis("Mouse X") * Time.deltaTime);
+            }
+            else
+            {
+                
+                transform.Rotate(Vector3.up * velocity * Time.deltaTime);
             }
         }
     }
