@@ -45,19 +45,16 @@ namespace Menu
                     }
                 }
 
-                if (Mathf.Abs(Input.GetAxis("Mouse X")) > 0.5f)
-                {
-                    velocity = speed * -Input.GetAxis("Mouse X");
-                }
-                else
-                {
-                    velocity = 0;
-                }
+                velocity = speed * -Input.GetAxis("Mouse X");
             }
             else
             {
                 down = false;
-
+                
+                if (Mathf.Abs(velocity) < 5f)
+                {
+                    velocity = 0;
+                }
                 velocity = Mathf.Lerp(velocity, 0, Time.deltaTime * 5f);
             }
 

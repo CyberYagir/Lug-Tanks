@@ -71,7 +71,7 @@ namespace Base.Weapons.Arms
                 RaycastHit hit;
                 if (Physics.Raycast(shootPoint.transform.position, shootPoint.forward, out hit))
                 {
-                    var tank = GetComponentInParent<Base.Controller.Tank>();
+                    var tank = GetComponentInParent<Tank>();
                     if (tank.Team == Tank.TankTeam.Enemy)
                         hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) damage, (string) PhotonNetwork.NickName, tank.tankOptions.weapon);
                     CreateLine(shootPoint.transform.position, hit.point);
@@ -79,7 +79,7 @@ namespace Base.Weapons.Arms
                 }
                 else
                 {
-                    CreateLine(shootPoint.transform.position, shootPoint.forward * 1000f);
+                    CreateLine(shootPoint.transform.position, shootPoint.transform.position + shootPoint.forward * 1000f);
                 }
             }
             else
@@ -87,8 +87,8 @@ namespace Base.Weapons.Arms
                 RaycastHit hit;
                 if (Physics.Raycast(shootPoint.transform.position, targets[0].enemy.gameObject.transform.position - shootPoint.transform.position, out hit))
                 {
-                    targets[0].enemy.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) damage, (string) PhotonNetwork.NickName, GetComponentInParent<Base.Controller.Tank>().tankOptions.weapon);
-                    Base.Controller.Tank.SetLastPlayer(targets[0].enemy.gameObject);
+                    targets[0].enemy.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) damage, (string) PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.weapon);
+                    Tank.SetLastPlayer(targets[0].enemy.gameObject);
                     CreateLine(shootPoint.transform.position, targets[0].enemy.transform.position);
                 }
             }

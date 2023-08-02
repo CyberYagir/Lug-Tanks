@@ -2908,6 +2908,7 @@ GameObject:
   - component: {fileID: 4867329141583152009}
   - component: {fileID: 2158227181705072157}
   - component: {fileID: 5241863657589425467}
+  - component: {fileID: 4443735003909519519}
   m_Layer: 0
   m_Name: Map1
   m_TagString: Untagged
@@ -2976,6 +2977,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   haveZeroPos: 0
+--- !u!114 &4443735003909519519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8499766320841833093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c63a2e4ac786d934fa6fa097c02665c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skybox: {fileID: 2100000, guid: 8c3f43ee91260904f948501aff174185, type: 2}
+  fogColor: {r: 1, g: 1, b: 1, a: 0}
+  fogDest: 0.007
+  fog: 1
 --- !u!1 &8505369223032872723
 GameObject:
   m_ObjectHideFlags: 0
