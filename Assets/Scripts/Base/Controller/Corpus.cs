@@ -44,9 +44,17 @@ namespace Base.Controller
 
         public Rotator RotatorData => rotator;
 
-        public void ActiveCorpus(bool state)
+        public void ActiveCorpus(bool state, bool isMine)
         {
             gameObject.SetActive(state);
+
+            if (!isMine)
+            {
+                foreach (var tr in tracks)
+                {
+                    tr.DecreaseParticlesCount();
+                }
+            }
         }
 
 

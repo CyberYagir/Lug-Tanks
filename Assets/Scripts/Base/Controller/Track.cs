@@ -10,13 +10,29 @@ namespace Base.Controller
         [SerializeField] private List<GameObject> objects;
         private ParticleSystem particles;
         private ParticleSystem.MinMaxGradient particlesStartColor;
-        
+        private bool particlesDecreased = false;
         
         private void Awake()
         {
             particles = GetComponentInChildren<ParticleSystem>();
             particlesStartColor = particles.main.startColor;
             DisableParticles();
+        }
+
+        public void DecreaseParticlesCount()
+        {
+            if (!particlesDecreased)
+            {
+                if (particles == null)
+                {
+                    particles = GetComponentInChildren<ParticleSystem>();
+                }
+
+                var em = particles.emission;
+                em.rateOverDistanceMultiplier /= 3f;
+
+                particlesDecreased = true;
+            }
         }
 
         private void OnTriggerEnter(Collider other)

@@ -3,6 +3,7 @@ using Photon.Game.UI;
 using Photon.Pun;
 using UnityEngine;
 using Web;
+using Base.Controller;
 
 namespace UI
 {
@@ -24,9 +25,9 @@ namespace UI
         [SerializeField] private RankIcon rankIcon;
         
         
-        private Base.Controller.Tank tank;
+        private Tank tank;
     
-        public void Init(Base.Controller.Tank tank)
+        public void Init(Tank tank)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

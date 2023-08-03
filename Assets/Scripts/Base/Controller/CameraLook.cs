@@ -71,7 +71,7 @@ namespace Base.Controller
             if (parent != null)
             {
                 var pos = tank.corpuses[tank.tankOptions.corpus].WeaponPoint.transform.position;
-                transform.position = new Vector3(pos.x, parent.transform.position.y, pos.z);
+                transform.position = Vector3.Lerp(transform.position, new Vector3(pos.x, parent.transform.position.y, pos.z), 10f * Time.fixedDeltaTime);
             }
         }
 

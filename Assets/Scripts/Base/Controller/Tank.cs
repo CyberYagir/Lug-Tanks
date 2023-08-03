@@ -106,7 +106,7 @@ namespace Base.Controller
         {
             for (int i = 0; i < corpuses.Count; i++)
             {
-                corpuses[i].ActiveCorpus(i == tankOptions.corpus);
+                corpuses[i].ActiveCorpus(i == tankOptions.corpus, player.photonView == null || player.photonView.IsMine);
                 if (i == tankOptions.corpus)
                 {
                     rb.centerOfMass = corpuses[i].CenterOfMass;
