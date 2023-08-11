@@ -47,12 +47,7 @@ namespace Base.Controller
 
             if (canRot)
             {
-                var mult = 1;
-                if (Input.GetAxis("Vertical") < 0)
-                {
-                    mult = -1;
-                }
-                rb.MoveRotation(Quaternion.Euler(transform.localEulerAngles + (new Vector3(0, Input.GetAxis("Horizontal") * mult, 0) * crp.RotSpeed) * boosters.SpeedIncrease * Time.fixedDeltaTime));
+                rb.MoveRotation(Quaternion.Euler(transform.localEulerAngles + (new Vector3(0, Input.GetAxis("Horizontal"), 0) * crp.RotSpeed) * boosters.SpeedIncrease * Time.fixedDeltaTime));
             }
         }
     }
