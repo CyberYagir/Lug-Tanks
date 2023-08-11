@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Content.Scripts.Anticheat;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
@@ -52,7 +53,7 @@ namespace Photon
             {
                 PhotonNetwork.GameVersion = Application.version;
                 PhotonNetwork.ConnectUsingSettings();
-                PhotonNetwork.NickName = WebDataService.data.playerData.name;
+                PhotonNetwork.NickName = WebDataService.data.playerData.name.ObfUn();
 
             }
             else
@@ -188,7 +189,7 @@ namespace Photon
             Hashtable h = new Hashtable();
             h.Add("k", 0);
             h.Add("d", 0);
-            h.Add("Exp", WebDataService.tankData.exp);
+            h.Add("Exp", WebDataService.tankData.exp.ObfUn());
             h.Add("Team", 0);
             PhotonNetwork.LocalPlayer.SetCustomProperties(h);
             PhotonNetwork.LoadLevel("BaseGame");

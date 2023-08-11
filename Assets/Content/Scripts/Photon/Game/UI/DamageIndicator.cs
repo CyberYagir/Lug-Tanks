@@ -31,7 +31,7 @@ namespace Photon.Game.UI
             {
                 var tank = Tank.lastPlayer.GetComponent<Tank>();
                 indicator.gameObject.SetActive(true);
-                hp.transform.localScale = new Vector3(tank.tankOptions.hp / tank.corpuses[tank.tankOptions.corpus].Hp, 1, 1);
+                hp.transform.localScale = new Vector3(tank.tankOptions.Hp / tank.corpuses[tank.tankOptions.Corpus].Hp, 1, 1);
                 pname.text = Tank.lastPlayer.name;
                 indicator.transform.position = Vector3.Lerp(indicator.transform.position, camera.WorldToScreenPoint(tank.damageDisplayPoint.position, Camera.MonoOrStereoscopicEye.Mono), 10f * Time.deltaTime);
                 bonus.SetActive(tank.bonuses.Count != 0);

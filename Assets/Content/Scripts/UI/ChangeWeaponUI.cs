@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Content.Scripts.Anticheat;
+using UnityEngine;
 using UnityEngine.UI;
 using Web;
 
@@ -10,7 +11,7 @@ namespace UI
         public override void UpdateBtn()
         {
             base.UpdateBtn();
-            if (tank.tankOptions.weapon == id)
+            if (tank.tankOptions.Weapon == id)
             {
                 image.color = selected;
             }
@@ -24,7 +25,7 @@ namespace UI
         public override void Click()
         {
             base.Click();
-            WebDataService.data.tank.weapon = id;
+            WebDataService.data.tank.weapon = id.Obf();
         }
     }
 }

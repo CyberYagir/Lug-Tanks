@@ -1,4 +1,5 @@
-﻿using Web;
+﻿using Content.Scripts.Anticheat;
+using Web;
 
 namespace UI
 {
@@ -7,7 +8,7 @@ namespace UI
         public override void UpdateBtn()
         {
             base.UpdateBtn();
-            if (tank.tankOptions.corpus == id)
+            if (tank.tankOptions.Corpus == id)
             {
                 image.color = selected;
             }
@@ -21,7 +22,7 @@ namespace UI
         public override void Click()
         {
             base.Click();
-            WebDataService.data.tank.corpus = id;
+            WebDataService.data.tank.corpus = id.Obf();
         }
     }
 }

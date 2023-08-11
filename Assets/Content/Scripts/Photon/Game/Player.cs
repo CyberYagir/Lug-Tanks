@@ -4,6 +4,7 @@ using Base.Controller;
 using Base.Modifyers;
 using Base.Weapons;
 using Base.Weapons.Arms;
+using Content.Scripts.Anticheat;
 using CrazyGames;
 using Photon.Game.UI;
 using Photon.Pun;
@@ -91,8 +92,8 @@ namespace Photon.Game
 
                 tank.tankOptions.weapon = WebDataService.tankData.weapon;
                 tank.tankOptions.corpus = WebDataService.tankData.corpus;
-                tank.tankOptions.team = (int) PhotonNetwork.LocalPlayer.CustomProperties["Team"];
-                tank.tankOptions.hp = tank.corpuses[tank.tankOptions.corpus].Hp;
+                tank.tankOptions.team = ((int) PhotonNetwork.LocalPlayer.CustomProperties["Team"]).Obf();
+                tank.tankOptions.hp = tank.corpuses[tank.tankOptions.Corpus].Hp.Obf();
             }
         }
 
@@ -130,15 +131,15 @@ namespace Photon.Game
         {
             if (!photonView.IsMine)
             {
-                if (tank.tankOptions.weapon != -1)
-                    tank.weapons[tank.tankOptions.weapon].transform.rotation = Quaternion.Lerp(tank.weapons[tank.tankOptions.weapon].transform.rotation, tank.tankOptions.turretRotation, tank.weapons[tank.tankOptions.weapon].GetRotSpeed() * 2f * Time.deltaTime);
+                if (tank.tankOptions.Weapon != -1)
+                    tank.weapons[tank.tankOptions.Weapon].transform.rotation = Quaternion.Lerp(tank.weapons[tank.tankOptions.Weapon].transform.rotation, tank.tankOptions.turretRotation, tank.weapons[tank.tankOptions.Weapon].GetRotSpeed() * 2f * Time.deltaTime);
             }
             else
             {
                 SuicideUpdate();
                 FallUpdate();
                 
-                tank.tankOptions.turretRotation = tank.weapons[tank.tankOptions.weapon].transform.rotation;
+                tank.tankOptions.turretRotation = tank.weapons[tank.tankOptions.Weapon].transform.rotation;
                 
                 CheckDeath();
             }
@@ -148,7 +149,7 @@ namespace Photon.Game
         {
             if (transform.position.y < -20)
             {
-                tank.tankOptions.hp = 0;
+                tank.tankOptions.hp = 0.Obf();
             }
         }
 
@@ -159,7 +160,7 @@ namespace Photon.Game
                 timeToDestroy += Time.deltaTime;
                 if (timeToDestroy > 2f)
                 {
-                    tank.tankOptions.hp = 0;
+                    tank.tankOptions.hp = 0.Obf();
                 }
             }
             else
@@ -173,10 +174,11 @@ namespace Photon.Game
         {
             if (photonView.IsMine)
             {
-                if (tank.tankOptions.hp > 0)
+                if (tank.tankOptions.Hp > 0)
                 {
-                    tank.tankOptions.hp -= damage / Boosters.DefenceIncrease;
-                    if (tank.tankOptions.hp <= 0)
+                    tank.tankOptions.hp.ObfAdd(-(damage / Boosters.DefenceIncrease));
+
+                    if (tank.tankOptions.Hp <= 0)
                     {
                         photonView.RPC("KillRPC", RpcTarget.All, actorName, photonView.Owner.NickName, weapon);
                         AddDeath();
@@ -244,7 +246,7 @@ namespace Photon.Game
                 // ignored
             }
 
-            WebDataService.data.userStatistics.deaths++;
+            WebDataService.data.userStatistics.deaths.ObfAdd(1);
         }
 
         [PunRPC]
@@ -252,9 +254,13 @@ namespace Photon.Game
         {
             if (PhotonNetwork.NickName == playerKiller)
             {
-                WebDataService.tankData.exp += 15;
-                WebDataService.data.userStatistics.kills++;
-                PhotonNetwork.LocalPlayer.CustomProperties["Exp"] = WebDataService.tankData.exp;
+                WebDataService.tankData.exp.ObfAdd(15);
+                WebDataService.data.userStatistics.kills.ObfAdd(1);
+
+
+                PhotonNetwork.LocalPlayer.CustomProperties["Exp"] = WebDataService.tankData.exp.ObfUn();
+
+
                 WebDataService.SaveStart();
             }
 
@@ -265,14 +271,14 @@ namespace Photon.Game
         {
             if (photonView.IsMine)
             {
-                if (tank.tankOptions.hp <= 0)
+                if (tank.tankOptions.Hp <= 0)
                 {
                     AddDeath();
-                    if (tank.tankOptions.weapon == -1 || tank.tankOptions.corpus == -1) return;
+                    if (tank.tankOptions.Weapon == -1 || tank.tankOptions.Corpus == -1) return;
                     
                     var dead = PhotonNetwork.Instantiate("TankDead", transform.position, transform.rotation);
                     var rb = GetComponent<Rigidbody>();
-                    dead.GetPhotonView().RPC("Set", RpcTarget.All, tank.tankOptions.weapon, tank.tankOptions.corpus, tank.tankOptions.turretRotation, rb.velocity, rb.mass, rb.drag, new Vector3(Random.Range(-5, 5), Random.Range(5, 20), Random.Range(-5, 10)), new Vector3(Random.Range(-100, 100), Random.Range(-100, 100), Random.Range(-100, 100)), true);
+                    dead.GetPhotonView().RPC("Set", RpcTarget.All, tank.tankOptions.Weapon, tank.tankOptions.Corpus, tank.tankOptions.turretRotation, rb.velocity, rb.mass, rb.drag, new Vector3(Random.Range(-5, 5), Random.Range(5, 20), Random.Range(-5, 10)), new Vector3(Random.Range(-100, 100), Random.Range(-100, 100), Random.Range(-100, 100)), true);
                     dead.GetComponent<DeadTank>().StartDestroy();
                     PhotonNetwork.Destroy(gameObject);
                 }
@@ -300,15 +306,15 @@ namespace Photon.Game
         {
             if (stream.IsWriting)
             {
-                stream.SendNext(JsonUtility.ToJson(tank.tankOptions, true));
+                stream.SendNext(JsonUtility.ToJson(tank.tankOptions.UnObfuscate(), true));
                 stream.SendNext(tank.bonuses.ToArray());
-                stream.SendNext(tank.corpuses[tank.tankOptions.corpus].RotatorData.CorpusRotator.GetTagetAngle());
+                stream.SendNext(tank.corpuses[tank.tankOptions.Corpus].RotatorData.CorpusRotator.GetTagetAngle());
             }
             else
             {
-                tank.tankOptions = JsonUtility.FromJson<Tank.TankOptions>((string) stream.ReceiveNext());
+                tank.tankOptions = JsonUtility.FromJson<Tank.TankOptions>((string) stream.ReceiveNext()).Obfuscate();
                 tank.bonuses = ((int[]) stream.ReceiveNext()).ToList();
-                tank.corpuses[tank.tankOptions.corpus].RotatorData.CorpusRotator.RotateCorpus((float)stream.ReceiveNext());
+                tank.corpuses[tank.tankOptions.Corpus].RotatorData.CorpusRotator.RotateCorpus((float)stream.ReceiveNext());
             }
         }
     }

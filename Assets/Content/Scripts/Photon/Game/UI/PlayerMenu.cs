@@ -1,3 +1,4 @@
+using Content.Scripts.Anticheat;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
@@ -36,7 +37,7 @@ namespace Photon.Game.UI
         }
 
         public void Suicide(){
-            GameManager.Instance.GetPlayerTank().tankOptions.hp = 0;
+            GameManager.Instance.GetPlayerTank().tankOptions.hp = 0.Obf();
         }
 
         public void Disconnect(){

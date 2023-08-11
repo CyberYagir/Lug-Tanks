@@ -22,7 +22,7 @@ namespace Photon.Game.UI
 
         public override void UpdateElement()
         {
-            var enemies = tank.weapons[tank.tankOptions.weapon].Enemies(tank.weapons[tank.tankOptions.weapon].shootPoint);
+            var enemies = tank.weapons[tank.tankOptions.Weapon].Enemies(tank.weapons[tank.tankOptions.Weapon].shootPoint);
 
             if (enemies.Count == 0)
             {
@@ -32,7 +32,7 @@ namespace Photon.Game.UI
             {
                 RaycastHit hit;
 
-                if (Physics.Raycast(tank.weapons[tank.tankOptions.weapon].shootPoint.position, enemies[0].enemy.transform.position - tank.weapons[tank.tankOptions.weapon].shootPoint.position, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Collide))
+                if (Physics.Raycast(tank.weapons[tank.tankOptions.Weapon].shootPoint.position, enemies[0].enemy.transform.position - tank.weapons[tank.tankOptions.Weapon].shootPoint.position, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Collide))
                 {
                     if (hit.transform == enemies[0].enemy.transform)
                     {

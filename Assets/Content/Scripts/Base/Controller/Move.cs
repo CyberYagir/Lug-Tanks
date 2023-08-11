@@ -1,4 +1,5 @@
 ﻿using Base.Modifyers;
+using Content.Scripts.Anticheat;
 using Photon.Game;
 using UnityEngine;
 
@@ -14,12 +15,12 @@ namespace Base.Controller
         {
             this.player = player;
         }
-        
+
         private void FixedUpdate()
         {
             if (GameManager.IsOnPause) return;
-        
-        
+
+
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.down, out hit))
             {
@@ -28,9 +29,9 @@ namespace Base.Controller
 
             var tank = player.Tank;
             var boosters = player.Boosters;
-            
+
             bool canRot = false;
-            var crp = tank.corpuses[tank.tankOptions.corpus];
+            var crp = tank.corpuses[tank.tankOptions.Corpus];
             bool isFly = true;
             for (int i = 0; i < crp.Tracks.Count; i++)
             {
@@ -41,10 +42,18 @@ namespace Base.Controller
                     rb.AddForce((crp.Tracks[i].transform.forward * boosters.SpeedIncrease * ((crp.Speed + (angle * 0.5f)) / crp.Tracks.Count) * Input.GetAxisRaw("Vertical")) + (new Vector3(0, 0.02f * Input.GetAxis("Vertical"))) * Time.fixedDeltaTime, ForceMode.Acceleration);
                 }
             }
-            rb.drag = isFly ? 0.1f : 1.5f; 
+
+            rb.drag = isFly ? 0.1f : 1.5f;
 
             if (canRot)
-                rb.MoveRotation(Quaternion.Euler(transform.localEulerAngles + (new Vector3(0, Input.GetAxis("Horizontal"), 0) * crp.RotSpeed) * boosters.SpeedIncrease * Time.fixedDeltaTime));
+            {
+                var mult = 1;
+                if (Input.GetAxis("Vertical") < 0)
+                {
+                    mult = -1;
+                }
+                rb.MoveRotation(Quaternion.Euler(transform.localEulerAngles + (new Vector3(0, Input.GetAxis("Horizontal") * mult, 0) * crp.RotSpeed) * boosters.SpeedIncrease * Time.fixedDeltaTime));
+            }
         }
     }
 }

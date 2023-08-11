@@ -1,4 +1,5 @@
-﻿using Photon.Game;
+﻿using Content.Scripts.Anticheat;
+using Photon.Game;
 using Photon.Pun;
 using UnityEngine;
 
@@ -42,8 +43,11 @@ namespace Base.Controller
             {
                 transform.localEulerAngles += new Vector3(0, (Input.GetAxis("Mouse X") + Input.GetAxis("Turret")) * sence, 0);
                 RaycastHit back, up;
-                Physics.Raycast(tank.weapons[tank.tankOptions.weapon].minPoint.transform.position, -tank.weapons[tank.tankOptions.weapon].minPoint.transform.forward, out back, Mathf.Abs(maxpoint.localPosition.z));
-                Physics.Raycast(tank.weapons[tank.tankOptions.weapon].minPoint.transform.position, tank.weapons[tank.tankOptions.weapon].minPoint.transform.up, out up, maxpoint.localPosition.y);
+                var weapon = tank.weapons[tank.tankOptions.Weapon];
+                
+                
+                Physics.Raycast(weapon.minPoint.transform.position, -weapon.minPoint.transform.forward, out back, Mathf.Abs(maxpoint.localPosition.z));
+                Physics.Raycast(weapon.minPoint.transform.position, weapon.minPoint.transform.up, out up, maxpoint.localPosition.y);
 
                 Vector3 finalPos = maxpoint.localPosition;
 
@@ -70,7 +74,7 @@ namespace Base.Controller
         {
             if (parent != null)
             {
-                var pos = tank.corpuses[tank.tankOptions.corpus].WeaponPoint.transform.position;
+                var pos = tank.corpuses[tank.tankOptions.Corpus].WeaponPoint.transform.position;
                 transform.position = Vector3.Lerp(transform.position, new Vector3(pos.x, parent.transform.position.y, pos.z), 10f * Time.fixedDeltaTime);
             }
         }

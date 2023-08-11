@@ -1,4 +1,5 @@
 using System;
+using Content.Scripts.Anticheat;
 using Photon;
 using UnityEngine;
 using Web;
@@ -14,6 +15,8 @@ namespace Menu
         [SerializeField] private WebDataService webDataService;
         private void Awake()
         {
+            ObfuseExtensions.Init();
+            tankService.tankOptions = tankService.tankOptions.Obfuscate();
             lobbyService.Init();
             webDataService.Init();
             menuService.Init(tankService);

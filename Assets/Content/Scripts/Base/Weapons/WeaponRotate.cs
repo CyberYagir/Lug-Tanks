@@ -40,13 +40,13 @@ namespace Base.Weapons
         }
         private void FixedUpdate()
         {
-            var crp = tank.corpuses[tank.tankOptions.corpus];
+            var crp = tank.corpuses[tank.tankOptions.Corpus];
             var angle = crp.RotatorData.CorpusRotator.GetTagetAngle();
 
             lastAngle = Mathf.Lerp(lastAngle, angle, 10 * Time.fixedDeltaTime);
             
             transform.position = crp.WeaponPoint.transform.position;
-            shootCamera.transform.position = tank.weapons[tank.tankOptions.weapon].shootPoint.position;
+            shootCamera.transform.position = tank.weapons[tank.tankOptions.Weapon].shootPoint.position;
 
             if (player.CameraLook != null)
             {

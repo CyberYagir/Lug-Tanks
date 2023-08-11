@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Content.Scripts.Web.Classes;
 using UnityEngine;
 using Web;
 
@@ -38,12 +39,12 @@ public class Statistics : MonoBehaviour
 
     public PlayerStats GetStats()
     {
-        var lastStats = WebDataService.data.statistics;
+        var lastStats = WebDataService.data.statistics.UnObfuscate();
 
         lastStats.lastEnter = lastEnter.ToString("yyyy-MM-dd HH:mm:ss");
         lastStats.lastIP = userIP;
         lastStats.lastSessionTime = sessionTime;
 
-        return lastStats;
+        return lastStats.Obfuscate();
     }
 }

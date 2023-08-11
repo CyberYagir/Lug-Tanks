@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using Content.Scripts.Anticheat;
+using Content.Scripts.Web.Classes;
 using CrazyGames;
 using Photon;
 using Photon.Pun;
@@ -23,7 +25,7 @@ namespace Web
         }
 
 
-        public static Responce data = null;
+        public static Responce data { get; set; } = null;
         [SerializeField] private string URL;
         [SerializeField] private Statistics statistics;
         [SerializeField] Error error;
@@ -48,24 +50,24 @@ namespace Web
             StopAllCoroutines();
         }
 
-        public void Update()
-        {
-            if (!PhotonNetwork.InRoom)
-            {
-                if (tankData != null)
-                {
-                    SetResolution.SetName("Lug-Tanks: " + data.playerData.name);
-                }
-            }
-            else
-            {
-                SetResolution.SetName("Lug-Tanks: " + data.playerData.name + " | Room: " + PhotonNetwork.CurrentRoom.Name);
-            }
-        }
+        // public void Update()
+        // {
+        //     // if (!PhotonNetwork.InRoom)
+        //     // {
+        //     //     if (tankData != null)
+        //     //     {
+        //     //         SetResolution.SetName("Lug-Tanks: " + data.playerData.name);
+        //     //     }
+        //     // }
+        //     // else
+        //     // {
+        //     //     SetResolution.SetName("Lug-Tanks: " + data.playerData.name + " | Room: " + PhotonNetwork.CurrentRoom.Name);
+        //     // }
+        // }
 
         public void LoginStart()
         {
-            if (data != null && data.playerData.id < 0) return;
+            if (data != null && data.playerData.id.ObfUn() < 0) return;
             if (!PHPMenuService.Instance.CanSendData(out error, false))
             {
                 StartCoroutine(Login(PHPMenuService.Instance.GetLogin(), PHPMenuService.Instance.GetPass()));
@@ -75,7 +77,7 @@ namespace Web
 
         public void RegStart()
         {
-            if (data != null && data.playerData.id < 0) return;
+            if (data != null && data.playerData.id.ObfUn() < 0) return;
             if (!PHPMenuService.Instance.CanSendData(out error, true))
             {
                 StartCoroutine(Register(PHPMenuService.Instance.GetLogin(), PHPMenuService.Instance.GetPass()));
@@ -110,8 +112,7 @@ namespace Web
                 error = JsonUtility.FromJson<Error>(www.text);
                 if (!ErrorData.isError)
                 {
-                    data = JsonUtility.FromJson<Responce>(www.text);
-                    print(JsonUtility.ToJson(data));
+                    data = JsonUtility.FromJson<Responce>(www.text).Obfuscate();
 
                     PhotonLobbyService.Instance.InitPUN();
                     OnLogin.Invoke();
@@ -157,9 +158,9 @@ namespace Web
 
         public static void SaveStart()
         {
-            if (data != null && data.playerData.id < 0)
+            if (data != null && data.playerData.id.ObfUn() < 0)
             {
-                PlayerPrefs.SetString(guestKey, JsonUtility.ToJson(data));
+                PlayerPrefs.SetString(guestKey, JsonUtility.ToJson(data.UnObfuscate()));
                 return;
             }
             
@@ -171,7 +172,7 @@ namespace Web
             WWWForm form = new WWWForm();
             form.AddField("fromUnity", "2003");
             form.AddField("save", "");
-            form.AddField("response", JsonUtility.ToJson(data));
+            form.AddField("response", JsonUtility.ToJson(data.UnObfuscate()));
 
             AddHeaders(form);
 
@@ -182,15 +183,17 @@ namespace Web
 
         private async void OnApplicationQuit()
         {
-            if (data != null && data.playerData.id < 0) return;
+            if (data != null && data.playerData.id.ObfUn() < 0) return;
+            
+            if (data == null) return;
             
             WWWForm form = new WWWForm();
             form.AddField("fromUnity", "2003");
             form.AddField("statisticsAdd", "");
-            form.AddField("userid", data.playerData.id);
+            form.AddField("userid", data.playerData.id.ObfUn());
 
             data.statistics = statistics.GetStats();
-            form.AddField("response", JsonUtility.ToJson(data));
+            form.AddField("response", JsonUtility.ToJson(data.UnObfuscate()));
             AddHeaders(form);
 
 
@@ -208,7 +211,7 @@ namespace Web
         {
             if (PlayerPrefs.HasKey(guestKey))
             {
-                data = JsonUtility.FromJson<Responce>(PlayerPrefs.GetString(guestKey));
+                data = JsonUtility.FromJson<Responce>(PlayerPrefs.GetString(guestKey)).Obfuscate();
             }
             else
             {
@@ -238,7 +241,7 @@ namespace Web
                         level = 0,
                         userid = userID
                     }
-                };
+                }.Obfuscate();
 
                 SaveStart();
             }

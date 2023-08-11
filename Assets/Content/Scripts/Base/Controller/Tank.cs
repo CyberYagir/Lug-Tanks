@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Base.Weapons.Arms;
+using Content.Scripts.Anticheat;
 using Photon.Game;
 using Photon.Pun;
 using Scriptable;
@@ -19,8 +20,16 @@ namespace Base.Controller
             public int team = 0;
             public Quaternion turretRotation;
             
-            
+            [NonSerialized]
             public UnityEvent OnChangeTank = new UnityEvent();
+
+            public int Team => team.ObfUn();
+
+            public int Weapon => weapon.ObfUn();
+
+            public int Corpus => corpus.ObfUn();
+
+            public float Hp => hp.ObfUn();
 
             public void ChangeCorpus(int corpus)
             {
@@ -33,7 +42,34 @@ namespace Base.Controller
                 this.weapon = weapon;
                 OnChangeTank.Invoke();
             }
+
+
+
+            public TankOptions Obfuscate()
+            {
+                return new TankOptions()
+                {
+                    corpus = corpus.Obf(),
+                    weapon = weapon.Obf(),
+                    hp = hp.Obf(),
+                    team = team.Obf(),
+                    OnChangeTank = OnChangeTank,
+                    turretRotation = turretRotation
+                };
+            }
             
+            public TankOptions UnObfuscate()
+            {
+                return new TankOptions()
+                {
+                    corpus = corpus.ObfUn(),
+                    weapon = weapon.ObfUn(),
+                    hp = hp.ObfUn(),
+                    team = team.ObfUn(),
+                    OnChangeTank = OnChangeTank,
+                    turretRotation = turretRotation
+                };
+            }
         }
 
         public enum TankTeam
@@ -104,20 +140,22 @@ namespace Base.Controller
 
         void SetEquip()
         {
+            var playerCorpus = tankOptions.Corpus;
+            var playerWeapon = tankOptions.Weapon;
             for (int i = 0; i < corpuses.Count; i++)
             {
-                corpuses[i].ActiveCorpus(i == tankOptions.corpus, player.photonView == null || player.photonView.IsMine);
-                if (i == tankOptions.corpus)
+                corpuses[i].ActiveCorpus(i == playerCorpus, player.photonView == null || player.photonView.IsMine);
+                if (i == playerCorpus)
                 {
                     rb.centerOfMass = corpuses[i].CenterOfMass;
                 }
             }
             for (int i = 0; i < weapons.Count; i++)
             {
-                weapons[i].gameObject.SetActive(i == tankOptions.weapon);
-                if (i == tankOptions.weapon)
+                weapons[i].gameObject.SetActive(i == playerWeapon);
+                if (i == playerWeapon)
                 {
-                    weapons[i].transform.position = corpuses[tankOptions.corpus].WeaponPoint.transform.position;
+                    weapons[i].transform.position = corpuses[playerCorpus].WeaponPoint.transform.position;
                 }
             }
         }
@@ -132,10 +170,10 @@ namespace Base.Controller
             }
             else
             {
-                if (tankOptions.corpus != -1)
+                if (tankOptions.Corpus != -1)
                 {
                     SetEquip();
-                    weapons[tankOptions.weapon].transform.position = corpuses[tankOptions.corpus].WeaponPoint.transform.position;
+                    weapons[tankOptions.Weapon].transform.position = corpuses[tankOptions.Corpus].WeaponPoint.transform.position;
                 }
             }
         }

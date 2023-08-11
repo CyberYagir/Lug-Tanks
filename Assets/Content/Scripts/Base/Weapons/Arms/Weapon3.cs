@@ -27,7 +27,7 @@ namespace Base.Weapons.Arms
                         var tank = targets[0].enemy.GetComponent<Tank>();
                         if (tank.Team == Tank.TankTeam.Enemy)
                         {
-                            targets[0].enemy.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) damage * Time.deltaTime, (string) PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.weapon);
+                            targets[0].enemy.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) damage * Time.deltaTime, (string) PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.Weapon);
                             Tank.SetLastPlayer(targets[0].enemy.gameObject);
                         }
                     }

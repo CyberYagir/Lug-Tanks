@@ -170,11 +170,11 @@ namespace Base.Weapons.Arms
                     RaycastHit hit;
                     var t = enemies[i];
                 
-                    if (t.tankOptions.team != 0 && (int)PhotonNetwork.LocalPlayer.CustomProperties["Team"] == t.tankOptions.team) continue;
+                    if (t.tankOptions.Team != 0 && (int)PhotonNetwork.LocalPlayer.CustomProperties["Team"] == t.tankOptions.Team) continue;
                     bool finded = false;
-                    for (int u = 0; u < t.corpuses[t.tankOptions.corpus].HitPoints.Count; u++)
+                    for (int u = 0; u < t.corpuses[t.tankOptions.Corpus].HitPoints.Count; u++)
                     {
-                        if (Physics.Raycast(shootPoint.position, t.corpuses[t.tankOptions.corpus].HitPoints[u].position - shootPoint.position, out hit))
+                        if (Physics.Raycast(shootPoint.position, t.corpuses[t.tankOptions.Corpus].HitPoints[u].position - shootPoint.position, out hit))
                         {
                             if (hit.collider != null)
                             {

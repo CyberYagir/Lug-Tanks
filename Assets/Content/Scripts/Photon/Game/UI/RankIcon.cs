@@ -1,4 +1,5 @@
-﻿using CrazyGames;
+﻿using Content.Scripts.Anticheat;
+using CrazyGames;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,15 +24,15 @@ namespace Photon.Game.UI
         {
             if (WebDataService.tankData != null)
             {
-                playerNameT.text = WebDataService.data.playerData.name;
+                playerNameT.text = WebDataService.data.playerData.name.ObfUn();
                 var currentXp = (startMaxExp * (((currRank) + 1f) * (1.25f * (currRank))));
                 var nextXp = (startMaxExp * (((currRank + 1) + 1f) * (1.25f * (currRank + 1))));
-                expLine.localScale = Vector3.Lerp(expLine.localScale, new Vector3((WebDataService.tankData.exp - currentXp) / (nextXp - currentXp), 1, 1), 6f * Time.deltaTime);
+                expLine.localScale = Vector3.Lerp(expLine.localScale, new Vector3((WebDataService.tankData.exp.ObfUn() - currentXp) / (nextXp - currentXp), 1, 1), 6f * Time.deltaTime);
                 currRank = 0;
-                xpT.text = (int)(WebDataService.tankData.exp - currentXp) + "/" + (int)(nextXp - currentXp);
+                xpT.text = (int)(WebDataService.tankData.exp.ObfUn() - currentXp) + "/" + (int)(nextXp - currentXp);
                 for (int i = 0; i < sprites.Length; i++)
                 {
-                    if (startMaxExp * ((i+1f) * (1.25f * i)) < WebDataService.tankData.exp)
+                    if (startMaxExp * ((i+1f) * (1.25f * i)) < WebDataService.tankData.exp.ObfUn())
                     {
                         currRank = i;
                     }

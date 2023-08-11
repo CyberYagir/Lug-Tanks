@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Base.Controller;
+using Content.Scripts.Anticheat;
 using UnityEngine;
 
 namespace Base.Modifyers
@@ -69,10 +70,11 @@ namespace Base.Modifyers
                 fireRateIncrease *= playerBonus[i].fireRateIncrease;
                 defenceIncrease *= playerBonus[i].defenceIncrease;
 
-                tank.tankOptions.hp += playerBonus[i].heathAdd * Time.deltaTime;
-                if (tank.tankOptions.hp > tank.corpuses[tank.tankOptions.corpus].Hp)
+                tank.tankOptions.hp.ObfAdd(playerBonus[i].heathAdd * Time.deltaTime);
+                
+                if (tank.tankOptions.Hp > tank.corpuses[tank.tankOptions.Corpus].Hp)
                 {
-                    tank.tankOptions.hp = tank.corpuses[tank.tankOptions.corpus].Hp;
+                    tank.tankOptions.hp = tank.corpuses[tank.tankOptions.Corpus].Hp.Obf();
                     playerBonus.RemoveAt(i);
                     return;
                 }
