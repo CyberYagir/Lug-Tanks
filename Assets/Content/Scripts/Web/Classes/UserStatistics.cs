@@ -39,14 +39,8 @@ namespace Content.Scripts.Web.Classes
             return new UserStatistics(ID, Userid, Kills, Deaths, RegisterDate);
         }
 
-        public void AddDeath()
-        {
-            deaths.ObfAdd(1);
-        }
+        public void AddDeath() => deaths.ObfAdd(1);
 
-        public void AddKill()
-        {
-            kills.ObfAdd(1);
-        }
+        public void AddKill() => kills.ObfAdd(1);
     }
 }

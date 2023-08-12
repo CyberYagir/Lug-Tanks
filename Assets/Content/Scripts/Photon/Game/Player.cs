@@ -290,8 +290,9 @@ namespace Photon.Game
             if (PhotonNetwork.IsMasterClient == false || withMasterClient == true)
             {
                 var team = GameManager.Instance.ActiveMap.GetTeamSpawn((int) PhotonNetwork.LocalPlayer.CustomProperties["Team"]);
-                var pos = team.spawns[Random.Range(0, team.spawns.Length)].position;
-                var rot = Quaternion.identity;
+                var spawn = team.spawns[Random.Range(0, team.spawns.Length)];
+                var pos = spawn.position;
+                var rot = spawn.rotation;
                 if (player != null)
                 {
                     pos = player.transform.position;
