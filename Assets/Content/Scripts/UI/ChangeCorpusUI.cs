@@ -22,7 +22,7 @@ namespace UI
         public override void Click()
         {
             base.Click();
-            WebDataService.data.tank.corpus = id.Obf();
+            WebDataService.UserData.Tank.SetCorpus(id);
         }
     }
 }

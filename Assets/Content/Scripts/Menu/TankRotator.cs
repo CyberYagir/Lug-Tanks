@@ -32,7 +32,7 @@ namespace Menu
 
         private void Update()
         {
-            if (WebDataService.data == null) return;
+            if (WebDataService.UserData == null) return;
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 Ray ray = camera.ScreenPointToRay(Input.mousePosition);

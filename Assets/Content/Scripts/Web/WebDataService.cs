@@ -18,14 +18,10 @@ namespace Web
     {
         public static WebDataService Instance;
 
-        public static PlayerTankData tankData
-        {
-            get => data?.tank;
-            set => data.tank = value;
-        }
+        public static Responce UserData { get; private set; } = null;
+        public static PlayerTankData TankData => UserData?.Tank;
 
 
-        public static Responce data { get; set; } = null;
         [SerializeField] private string URL;
         [SerializeField] private Statistics statistics;
         [SerializeField] Error error;
@@ -67,7 +63,7 @@ namespace Web
 
         public void LoginStart()
         {
-            if (data != null && data.playerData.id.ObfUn() < 0) return;
+            if (UserData != null && UserData.PlayerData.ID < 0) return;
             if (!PHPMenuService.Instance.CanSendData(out error, false))
             {
                 StartCoroutine(Login(PHPMenuService.Instance.GetLogin(), PHPMenuService.Instance.GetPass()));
@@ -77,7 +73,7 @@ namespace Web
 
         public void RegStart()
         {
-            if (data != null && data.playerData.id.ObfUn() < 0) return;
+            if (UserData != null && UserData.PlayerData.ID < 0) return;
             if (!PHPMenuService.Instance.CanSendData(out error, true))
             {
                 StartCoroutine(Register(PHPMenuService.Instance.GetLogin(), PHPMenuService.Instance.GetPass()));
@@ -112,7 +108,7 @@ namespace Web
                 error = JsonUtility.FromJson<Error>(www.text);
                 if (!ErrorData.isError)
                 {
-                    data = JsonUtility.FromJson<Responce>(www.text).Obfuscate();
+                    UserData = JsonUtility.FromJson<Responce>(www.text).Obfuscate();
 
                     PhotonLobbyService.Instance.InitPUN();
                     OnLogin.Invoke();
@@ -158,9 +154,9 @@ namespace Web
 
         public static void SaveStart()
         {
-            if (data != null && data.playerData.id.ObfUn() < 0)
+            if (UserData != null && UserData.PlayerData.ID < 0)
             {
-                PlayerPrefs.SetString(guestKey, JsonUtility.ToJson(data.UnObfuscate()));
+                PlayerPrefs.SetString(guestKey, JsonUtility.ToJson(UserData.UnObfuscate()));
                 return;
             }
             
@@ -172,7 +168,7 @@ namespace Web
             WWWForm form = new WWWForm();
             form.AddField("fromUnity", "2003");
             form.AddField("save", "");
-            form.AddField("response", JsonUtility.ToJson(data.UnObfuscate()));
+            form.AddField("response", JsonUtility.ToJson(UserData.UnObfuscate()));
 
             AddHeaders(form);
 
@@ -183,17 +179,17 @@ namespace Web
 
         private async void OnApplicationQuit()
         {
-            if (data != null && data.playerData.id.ObfUn() < 0) return;
+            if (UserData != null && UserData.PlayerData.ID < 0) return;
             
-            if (data == null) return;
+            if (UserData == null) return;
             
             WWWForm form = new WWWForm();
             form.AddField("fromUnity", "2003");
             form.AddField("statisticsAdd", "");
-            form.AddField("userid", data.playerData.id.ObfUn());
+            form.AddField("userid", UserData.PlayerData.ID);
 
-            data.statistics = statistics.GetStats();
-            form.AddField("response", JsonUtility.ToJson(data.UnObfuscate()));
+            UserData.SetStatistics(statistics.GetStats());
+            form.AddField("response", JsonUtility.ToJson(UserData.UnObfuscate()));
             AddHeaders(form);
 
 
@@ -211,37 +207,17 @@ namespace Web
         {
             if (PlayerPrefs.HasKey(guestKey))
             {
-                data = JsonUtility.FromJson<Responce>(PlayerPrefs.GetString(guestKey)).Obfuscate();
+                UserData = JsonUtility.FromJson<Responce>(PlayerPrefs.GetString(guestKey)).Obfuscate();
             }
             else
             {
                 var userID = -Random.Range(10000, 99999);
-                data = new Responce()
-                {
-                    playerData = new PlayerData()
-                    {
-                        id = userID,
-                        name = $"Guest-{Random.Range(100, 999)}"
-                    },
-                    userStatistics = new UserStatistics()
-                    {
-                        id = -1,
-                        deaths = 0,
-                        kills = 0,
-                        registerDate = DateTime.Now.ToString("yyyy-MM-dd"),
-                        userid = userID
-                    },
-                    statistics = null,
-                    tank = new PlayerTankData()
-                    {
-                        corpus = 0,
-                        weapon = 0,
-                        exp = 0,
-                        id = 0,
-                        level = 0,
-                        userid = userID
-                    }
-                }.Obfuscate();
+                UserData = new Responce(
+                    playerData: new PlayerData(userID, $"Guest-{Random.Range(100, 999)}"),
+                    userStatistics: new UserStatistics(-1, userID, 0, 0, DateTime.Now.ToString("yyyy-MM-dd")),
+                    statistics: null,
+                    tank: new PlayerTankData(-1, userID, 0, 0, 0, 0)
+                ).Obfuscate();
 
                 SaveStart();
             }

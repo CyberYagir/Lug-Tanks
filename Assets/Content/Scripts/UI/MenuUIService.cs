@@ -47,7 +47,7 @@ namespace UI
             
             rankIcon.UpdateElement();
             
-            if (WebDataService.tankData != null && PhotonNetwork.IsConnected)
+            if (WebDataService.TankData != null && PhotonNetwork.IsConnected)
             {
                 menuManager.gameObject.SetActive(false);
 
@@ -69,15 +69,15 @@ namespace UI
         private void ChangeCorpusWeapon()
         {
             bool isChanged = false;
-            if (WebDataService.tankData.corpus != tank.tankOptions.corpus)
+            if (WebDataService.TankData.Corpus != tank.tankOptions.Corpus)
             {
-                tank.tankOptions.ChangeCorpus(WebDataService.tankData.corpus);
+                tank.tankOptions.ChangeCorpus(WebDataService.TankData.Corpus);
                 isChanged = true;
             }
 
-            if (WebDataService.tankData.weapon != tank.tankOptions.weapon)
+            if (WebDataService.TankData.Weapon != tank.tankOptions.Weapon)
             {
-                tank.tankOptions.ChangeWeapon(WebDataService.tankData.weapon);
+                tank.tankOptions.ChangeWeapon(WebDataService.TankData.Weapon);
                 isChanged = true;
             }
 

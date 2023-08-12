@@ -1,17 +1,28 @@
 ﻿using Content.Scripts.Anticheat;
+using UnityEngine;
 
 namespace Content.Scripts.Web.Classes
 {
     [System.Serializable]
     public class PlayerData
     {
-        public int id = -1;
-        public string name;
-    
+        [SerializeField] private int id = -1;
+        [SerializeField] private string name;
+
+        public PlayerData(int id, string name)
+        {
+            this.id = id;
+            this.name = name;
+        }
+
+        public int ID => id.ObfUn();
+        public string Name => name.ObfUn();
+
+
         public PlayerData()
         {
-
         }
+
 
         public PlayerData Obfuscate()
         {

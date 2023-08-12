@@ -53,7 +53,7 @@ namespace Photon
             {
                 PhotonNetwork.GameVersion = Application.version;
                 PhotonNetwork.ConnectUsingSettings();
-                PhotonNetwork.NickName = WebDataService.data.playerData.name.ObfUn();
+                PhotonNetwork.NickName = WebDataService.UserData.PlayerData.Name;
 
             }
             else
@@ -189,7 +189,7 @@ namespace Photon
             Hashtable h = new Hashtable();
             h.Add("k", 0);
             h.Add("d", 0);
-            h.Add("Exp", WebDataService.tankData.exp.ObfUn());
+            h.Add("Exp", WebDataService.TankData.Exp);
             h.Add("Team", 0);
             PhotonNetwork.LocalPlayer.SetCustomProperties(h);
             PhotonNetwork.LoadLevel("BaseGame");

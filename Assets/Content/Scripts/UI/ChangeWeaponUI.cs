@@ -25,7 +25,7 @@ namespace UI
         public override void Click()
         {
             base.Click();
-            WebDataService.data.tank.weapon = id.Obf();
+            WebDataService.UserData.Tank.SetWeapon(id);
         }
     }
 }

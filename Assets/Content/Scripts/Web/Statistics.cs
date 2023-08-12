@@ -31,7 +31,7 @@ public class Statistics : MonoBehaviour
     
     void Update()
     {
-        if (WebDataService.data != null)
+        if (WebDataService.UserData != null)
         {
             sessionTime += Time.deltaTime;
         }
@@ -39,7 +39,7 @@ public class Statistics : MonoBehaviour
 
     public PlayerStats GetStats()
     {
-        var lastStats = WebDataService.data.statistics.UnObfuscate();
+        var lastStats = WebDataService.UserData.Statistics.UnObfuscate();
 
         lastStats.lastEnter = lastEnter.ToString("yyyy-MM-dd HH:mm:ss");
         lastStats.lastIP = userIP;

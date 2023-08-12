@@ -90,8 +90,8 @@ namespace Photon.Game
                     // ignored
                 }
 
-                tank.tankOptions.weapon = WebDataService.tankData.weapon;
-                tank.tankOptions.corpus = WebDataService.tankData.corpus;
+                tank.tankOptions.weapon = WebDataService.TankData.GetWeaponId();
+                tank.tankOptions.corpus = WebDataService.TankData.GetCorpusId();
                 tank.tankOptions.team = ((int) PhotonNetwork.LocalPlayer.CustomProperties["Team"]).Obf();
                 tank.tankOptions.hp = tank.corpuses[tank.tankOptions.Corpus].Hp.Obf();
             }
@@ -246,7 +246,7 @@ namespace Photon.Game
                 // ignored
             }
 
-            WebDataService.data.userStatistics.deaths.ObfAdd(1);
+            WebDataService.UserData.UserStatistics.AddDeath();
         }
 
         [PunRPC]
@@ -254,11 +254,11 @@ namespace Photon.Game
         {
             if (PhotonNetwork.NickName == playerKiller)
             {
-                WebDataService.tankData.exp.ObfAdd(15);
-                WebDataService.data.userStatistics.kills.ObfAdd(1);
+                WebDataService.TankData.AddXp(15);
+                WebDataService.UserData.UserStatistics.AddKill();
 
 
-                PhotonNetwork.LocalPlayer.CustomProperties["Exp"] = WebDataService.tankData.exp.ObfUn();
+                PhotonNetwork.LocalPlayer.CustomProperties["Exp"] = WebDataService.TankData.Exp;
 
 
                 WebDataService.SaveStart();

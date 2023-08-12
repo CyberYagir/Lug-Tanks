@@ -33,13 +33,13 @@ namespace Base.Controller
 
             public void ChangeCorpus(int corpus)
             {
-                this.corpus = corpus;
+                this.corpus = corpus.Obf();
                 OnChangeTank.Invoke();
             }
             
             public void ChangeWeapon(int weapon)
             {
-                this.weapon = weapon;
+                this.weapon = weapon.Obf();
                 OnChangeTank.Invoke();
             }
 
