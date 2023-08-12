@@ -85,11 +85,11 @@ namespace Base.Weapons.Arms
             else
             {
                 RaycastHit hit;
-                if (Physics.Raycast(shootPoint.transform.position, targets[0].enemy.gameObject.transform.position - shootPoint.transform.position, out hit))
+                if (Physics.Raycast(shootPoint.transform.position, targets[0].point.position - shootPoint.transform.position, out hit))
                 {
                     targets[0].enemy.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) damage, (string) PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.Weapon);
                     Tank.SetLastPlayer(targets[0].enemy.gameObject);
-                    CreateLine(shootPoint.transform.position, targets[0].enemy.transform.position);
+                    CreateLine(shootPoint.transform.position, hit.point);
                 }
             }
         }

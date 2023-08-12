@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Base.Controller
@@ -65,5 +66,20 @@ namespace Base.Controller
                 col.gameObject.layer = layer;
             }
         }
+
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.cyan;
+            for (int i = 0; i < hitPoints.Count; i++)
+            {
+                for (int j = 0; j < hitPoints.Count; j++)
+                {
+                    Gizmos.DrawLine(hitPoints[i].position, hitPoints[j].position);
+                }
+            }
+        }
+#endif
     }
 }

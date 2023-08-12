@@ -41,7 +41,7 @@ namespace Photon
 
         private void Update()
         {
-            emission -= Time.deltaTime;
+            emission -= Time.deltaTime/2f;
             clonedMat.SetFloat(ProgressHash, Mathf.Clamp01(emission));
 
         }

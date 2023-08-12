@@ -153,13 +153,17 @@ namespace Base.Weapons.Arms
         [System.Serializable]
         public class Target {
             public GameObject enemy;
+            public Transform point;
             public float angle;
         }
-    
-        List<GameObject> ret = new List<GameObject>(20);
+
+        private List<GameObject> viewedEnemies = new List<GameObject>(20);
+        private List<Transform> viewedEnemiesPoints = new List<Transform>(20);
+        private List<Target> targets = new List<Target>(20);
         public List<Target> Enemies(Transform shootPoint)
         {
-            ret.Clear();
+            viewedEnemies.Clear();
+            viewedEnemiesPoints.Clear();
             var enemies = GameManager.Instance.GetEnemies();
             if (WeaponRotate.CameraInstance == null) return new List<Target>();
             for (int i = 0; i < enemies.Count; i++)
@@ -181,7 +185,8 @@ namespace Base.Weapons.Arms
                                 if (hit.transform == enemies[i].transform)
                                 {
                                     finded = true;
-                                    ret.Add(enemies[i].gameObject);
+                                    viewedEnemies.Add(enemies[i].gameObject);
+                                    viewedEnemiesPoints.Add(t.corpuses[t.tankOptions.Corpus].HitPoints[u]);
                                     break;
                                 }
                             }
@@ -194,28 +199,28 @@ namespace Base.Weapons.Arms
                             {
                                 if (hit.transform == enemies[i].transform)
                                 {
-                                    ret.Add(enemies[i].gameObject);
+                                    viewedEnemies.Add(enemies[i].gameObject);
                                 }
                             }
                         }
                     }
                 }
             }
-            var trgs = new List<Target>();
-            for (int i = 0; i < ret.Count; i++)
+            targets.Clear();
+            for (int i = 0; i < viewedEnemies.Count; i++)
             {
                 bool add = true;
                 if (maxDist != 0)
                 {
-                    if (Vector3.Distance(shootPoint.transform.position, ret[i].gameObject.transform.position) > maxDist)
+                    if (Vector3.Distance(shootPoint.transform.position, viewedEnemies[i].gameObject.transform.position) > maxDist)
                     {
                         add = false;
                     }
                 }
                 if (add)
-                    trgs.Add(new Target() { angle = Vector3.Angle(shootPoint.forward, ret[i].transform.position - shootPoint.position), enemy = ret[i] });
+                    targets.Add(new Target() { angle = Vector3.Angle(shootPoint.forward, viewedEnemies[i].transform.position - shootPoint.position), enemy = viewedEnemies[i], point = viewedEnemiesPoints[i]});
             }
-            return trgs.OrderBy(x => x.angle).ToList();
+            return targets.OrderBy(x => x.angle).ToList();
         }
 
         public static bool IsEnemyTeam(GameObject hit)

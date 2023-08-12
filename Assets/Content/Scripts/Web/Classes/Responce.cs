@@ -31,10 +31,10 @@ namespace Web.Classes
         public Responce Obfuscate()
         {
             return new Responce(
-                playerData:     PlayerData.Obfuscate(),
-                tank:           Tank.Obfuscate(),
-                userStatistics: UserStatistics.Obfuscate(),
-                statistics:     Statistics.Obfuscate()
+                playerData:     PlayerData?.Obfuscate(),
+                tank:           Tank?.Obfuscate(),
+                userStatistics: UserStatistics?.Obfuscate(),
+                statistics:     Statistics?.Obfuscate()
             );
         }
 
@@ -42,10 +42,10 @@ namespace Web.Classes
         public Responce UnObfuscate()
         {
             return new Responce(
-                playerData: PlayerData.UnObfuscate(),
-                tank: Tank.UnObfuscate(),
-                userStatistics: UserStatistics.UnObfuscate(),
-                statistics: Statistics.UnObfuscate()
+                playerData: PlayerData?.UnObfuscate(),
+                tank: Tank?.UnObfuscate(),
+                userStatistics: UserStatistics?.UnObfuscate(),
+                statistics: Statistics?.UnObfuscate()
             );
         }
 

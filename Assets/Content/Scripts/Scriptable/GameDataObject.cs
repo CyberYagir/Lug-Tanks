@@ -80,11 +80,27 @@ namespace Scriptable
             }
         }
         
+        [System.Serializable]
+        public class LevelProgress
+        {
+            [SerializeField] private Sprite[] sprites;
+            [SerializeField] private int startMaxExp = 50;
+
+            public int StartMaxExp => startMaxExp;
+            public int LevelsCount => sprites.Length;
+
+            public Sprite GetIcon(int id) => sprites[id];
+        }
+        
+        
         [SerializeField] private Teams teamsData;
         [SerializeField] private Maps maps;
         [SerializeField] private GameModes gameModes;
+        [SerializeField] private LevelProgress levelProgress;
         public Teams TeamsData => teamsData;
         public Maps MapsData => maps;
         public GameModes GameModesData => gameModes;
+
+        public LevelProgress PlayerLevelsData => levelProgress;
     }
 }
