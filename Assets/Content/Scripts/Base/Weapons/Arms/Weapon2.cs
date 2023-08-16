@@ -25,13 +25,13 @@ namespace Base.Weapons.Arms
 
         IEnumerator ShootDelay()
         {
-            while (energy > 0.01f)
+            while (GetEnergy() > 0.01f)
             {
-                energy -= Time.deltaTime * 100f;
+                WeaponValues.AddToEnergy(-Time.deltaTime * 100f);
                 yield return null;
             }
 
-            energy = 0;
+            WeaponValues.SetToEnergy(0);
             playAnimation = true;
             AddPhysics();
             Shoot();
@@ -47,13 +47,13 @@ namespace Base.Weapons.Arms
 
         protected override void ClampMaxEnergy()
         {
-            if (energy < 100)
+            if (GetEnergy() < 100)
             {
                 if (canShoot)
-                    AddEnergy();
+                    AddUpdateEnergy();
             }
             else
-                energy = 100;
+                WeaponValues.SetToEnergy(100);
         }
 
         protected override void ShootProcess()
@@ -73,7 +73,7 @@ namespace Base.Weapons.Arms
                 {
                     var tank = GetComponentInParent<Tank>();
                     if (tank.Team == Tank.TankTeam.Enemy)
-                        hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) damage, (string) PhotonNetwork.NickName, tank.tankOptions.Weapon);
+                        hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) GetDamage(hit.distance), (string) PhotonNetwork.NickName, tank.tankOptions.Weapon);
                     CreateLine(shootPoint.transform.position, hit.point);
                     
                 }
@@ -87,7 +87,7 @@ namespace Base.Weapons.Arms
                 RaycastHit hit;
                 if (Physics.Raycast(shootPoint.transform.position, targets[0].point.position - shootPoint.transform.position, out hit))
                 {
-                    targets[0].enemy.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) damage, (string) PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.Weapon);
+                    targets[0].enemy.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) GetDamage(hit.distance), (string) PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.Weapon);
                     Tank.SetLastPlayer(targets[0].enemy.gameObject);
                     CreateLine(shootPoint.transform.position, hit.point);
                 }

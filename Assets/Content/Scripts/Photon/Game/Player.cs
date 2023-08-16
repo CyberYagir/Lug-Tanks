@@ -26,8 +26,7 @@ namespace Photon.Game
         [SerializeField] private Move tankMove;
         [SerializeField] private WeaponRotate weaponRotate;
         [SerializeField] private CameraLook cameraLook;
-
-
+        private bool getFirstSyncPacket = false;
         private float timeToDestroy;
         private CorpusRotator corpusRotator;
         
@@ -79,7 +78,6 @@ namespace Photon.Game
             else
             {
                 tankMove.Init(this);
-                canvas.Init(this);
                 tankBoosters.Init(tank);
                 try
                 {
@@ -94,6 +92,9 @@ namespace Photon.Game
                 tank.tankOptions.corpus = WebDataService.TankData.GetCorpusId();
                 tank.tankOptions.team = ((int) PhotonNetwork.LocalPlayer.CustomProperties["Team"]).Obf();
                 tank.tankOptions.hp = tank.corpuses[tank.tankOptions.Corpus].Hp.Obf();
+                
+                
+                canvas.Init(this);
             }
         }
 
@@ -131,8 +132,11 @@ namespace Photon.Game
         {
             if (!photonView.IsMine)
             {
-                if (tank.tankOptions.Weapon != -1)
-                    tank.weapons[tank.tankOptions.Weapon].transform.rotation = Quaternion.Lerp(tank.weapons[tank.tankOptions.Weapon].transform.rotation, tank.tankOptions.turretRotation, tank.weapons[tank.tankOptions.Weapon].GetRotSpeed() * 2f * Time.deltaTime);
+                if (getFirstSyncPacket)
+                {
+                    if (tank.tankOptions.Weapon != -1)
+                        tank.weapons[tank.tankOptions.Weapon].transform.rotation = Quaternion.Lerp(tank.weapons[tank.tankOptions.Weapon].transform.rotation, tank.tankOptions.turretRotation, tank.weapons[tank.tankOptions.Weapon].GetRotSpeed() * 2f * Time.deltaTime);
+                }
             }
             else
             {
@@ -316,6 +320,7 @@ namespace Photon.Game
                 tank.tankOptions = JsonUtility.FromJson<Tank.TankOptions>((string) stream.ReceiveNext()).Obfuscate();
                 tank.bonuses = ((int[]) stream.ReceiveNext()).ToList();
                 tank.corpuses[tank.tankOptions.Corpus].RotatorData.CorpusRotator.RotateCorpus((float)stream.ReceiveNext());
+                getFirstSyncPacket = true;
             }
         }
     }

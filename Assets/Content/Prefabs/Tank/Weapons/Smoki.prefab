@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 884016300374012853}
   - component: {fileID: 4938705427614935372}
   - component: {fileID: 7098972006801308841}
+  - component: {fileID: 537137166720226152}
   m_Layer: 2
   m_Name: Cube.004
   m_TagString: Untagged
@@ -145,6 +146,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &537137166720226152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742697460740972503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034bc47afcbf5e141a58d5c20b7808e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4469385475254796696
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,6 +175,8 @@ GameObject:
   - component: {fileID: 987563265177258933}
   - component: {fileID: 8298714750555734043}
   - component: {fileID: 9212037987877155181}
+  - component: {fileID: -8100320336495307128}
+  - component: {fileID: -1537434941912645857}
   m_Layer: 2
   m_Name: Smoki
   m_TagString: Untagged
@@ -251,25 +266,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d015af512d752504d9be5cc96053c399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energy: 100
-  shot_energy: 10
-  energy_add: 2
-  cooldown: 1
-  damage: 15
-  rotSpeed: 3
-  time: 1
-  fov: 20
-  maxDist: 0
-  upForce: 50
-  cameraRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  addTime: 1
-  waitTofull: 0
-  multiplyDeltaTime: 0
+  weaponData:
+    energy: 100
+    shotEnergy: 10
+    addEnergy: 2
+    cooldown: 1
+    damage: 15
+    rotSpeed: 3
+    maxDist: 0
+    upForce: 50
+    addTime: 1
+    waitToFull: 0
+    multiplyDeltaTime: 0
+  cameraViewData:
+    fov: 20
+    cameraRect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 1
+      height: 1
+  damageScaler:
+    haveScaler: 1
+    minDistance: 70
+    middleDistance: 140
+    highDistance: 200
   minPoint: {fileID: 2731034504015556127}
   shootPoint: {fileID: 6462220782516390071}
   particles: {fileID: 4892210009192538181, guid: 76cfd049000b776428ec8b9e47afc2a6,
@@ -452,6 +473,91 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-8100320336495307128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4469385475254796696}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe91dc294731a9428c0941ea7579110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  complexMaskingMode: 0
+  drawingMode: 1
+  outlineLayer: 0
+  outlineTargets:
+  - IsVisible: 0
+    CutoutMask: 8
+    edgeDilateAmount: 5
+    frontEdgeDilateAmount: 5
+    backEdgeDilateAmount: 5
+    renderer: {fileID: 8380012294790820006}
+    SubmeshIndex: 0
+    BoundsMode: 0
+    Bounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0.5, y: 0.5, z: 0.5}
+    CutoutThreshold: 0.5
+    CullMode: 2
+    cutoutTextureName: 
+    DilateRenderingMode: 0
+    cutoutTextureIndex: 0
+  - IsVisible: 0
+    CutoutMask: 8
+    edgeDilateAmount: 5
+    frontEdgeDilateAmount: 5
+    backEdgeDilateAmount: 5
+    renderer: {fileID: 7098972006801308841}
+    SubmeshIndex: 0
+    BoundsMode: 0
+    Bounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0.5, y: 0.5, z: 0.5}
+    CutoutThreshold: 0.5
+    CullMode: 2
+    cutoutTextureName: 
+    DilateRenderingMode: 0
+    cutoutTextureIndex: 0
+  renderStyle: 1
+  outlineParameters:
+    enabled: 1
+    color: {r: 1, g: 0, b: 0, a: 1}
+    dilateShift: 1
+    blurShift: 0
+    fillPass:
+      shader: {fileID: 0}
+      serializedProperties: []
+  backParameters:
+    enabled: 1
+    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    dilateShift: 1
+    blurShift: 1
+    fillPass:
+      shader: {fileID: 0}
+      serializedProperties: []
+  frontParameters:
+    enabled: 1
+    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    dilateShift: 1
+    blurShift: 1
+    fillPass:
+      shader: {fileID: 0}
+      serializedProperties: []
+--- !u!114 &-1537434941912645857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4469385475254796696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034bc47afcbf5e141a58d5c20b7808e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6425754199910673046
 GameObject:
   m_ObjectHideFlags: 0

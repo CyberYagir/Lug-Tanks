@@ -40,21 +40,27 @@ namespace Photon.Game.UI
                 {
                     if (Physics.Raycast(camera.transform.position, point.position - camera.transform.position, out var hit))
                     {
-                        if (hit.rigidbody.gameObject == Tank.lastPlayer)
+                        if (hit.distance < 100)
                         {
-                            showIndicator = true;
-                            pname.text = Tank.lastPlayer.name;
-                        
-                            hp.transform.localScale = new Vector3(tank.tankOptions.Hp / tank.corpuses[tank.tankOptions.Corpus].Hp, 1, 1);
-                            indicator.transform.position = Vector3.Lerp(indicator.transform.position, camera.WorldToScreenPoint(tank.damageDisplayPoint.position, Camera.MonoOrStereoscopicEye.Mono), 10f * Time.deltaTime);
-                            bonus.SetActive(tank.bonuses.Count != 0);
-
-                            for (int i = 0; i < bonuses.Count; i++)
+                            if (hit.rigidbody != null)
                             {
-                                bonuses[i].SetActive(tank.bonuses.Contains(i));
+                                if (hit.rigidbody.gameObject == Tank.lastPlayer)
+                                {
+                                    showIndicator = true;
+                                    pname.text = Tank.lastPlayer.name;
+
+                                    hp.transform.localScale = new Vector3(tank.tankOptions.Hp / tank.corpuses[tank.tankOptions.Corpus].Hp, 1, 1);
+                                    indicator.transform.position = Vector3.Lerp(indicator.transform.position, camera.WorldToScreenPoint(tank.damageDisplayPoint.position, Camera.MonoOrStereoscopicEye.Mono), 10f * Time.deltaTime);
+                                    bonus.SetActive(tank.bonuses.Count != 0);
+
+                                    for (int i = 0; i < bonuses.Count; i++)
+                                    {
+                                        bonuses[i].SetActive(tank.bonuses.Contains(i));
+                                    }
+
+                                    break;
+                                }
                             }
-                            
-                            break;
                         }
                     }
                 }

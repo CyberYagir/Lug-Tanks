@@ -5,34 +5,167 @@ using Base.Modifyers;
 using Photon.Game;
 using Photon.Pun;
 using UnityEngine;
+using Range = DG.DemiLib.Range;
 
 namespace Base.Weapons.Arms
 {
-    public class Weapon : MonoBehaviour {
+    public class Weapon : MonoBehaviour
+    {
+        [System.Serializable]
+        public class DamageScaler
+        {
+            public enum DamageType
+            {
+                FullDamage,
+                MiddleDamage,
+                LowDamage,
+                OutDamage
+            }
+            
+            [SerializeField] private bool haveScaler;
+            [SerializeField] private float minDistance;
+            [SerializeField] private float middleDistance;
+            [SerializeField] private float highDistance;
 
-        [SerializeField]
-        protected float energy = 100, shot_energy, energy_add, cooldown, damage, rotSpeed, time, fov, maxDist, upForce;
-        public Rect cameraRect = new Rect(0, 0, 1, 1);
-        public bool addTime = true, waitTofull;
-        public bool multiplyDeltaTime;
+
+            public float GetDamage(float damage, float distance, out DamageType type)
+            {
+                if (!haveScaler)
+                {
+                    type = DamageType.FullDamage;
+                    return damage;
+                }
+
+
+                if (distance <= minDistance)
+                {
+                    type = DamageType.FullDamage;
+                    return damage;
+                }
+
+                if (distance <= middleDistance)
+                {
+                    type = DamageType.MiddleDamage;
+                    return damage * 0.5f;
+                }
+
+                if (distance <= highDistance)
+                {
+                    type = DamageType.LowDamage;
+                    return damage * 0.25f;
+                }
+                
+                if (distance > highDistance)
+                {
+                    type = DamageType.OutDamage;
+                    return damage * 0.1f;
+                }
+                
+                type = DamageType.FullDamage;
+                return damage;
+            }
+        }
+
+        [System.Serializable]
+        public class WeaponData
+        {
+            public enum InputType
+            {
+                Click, Hold
+            }
+            
+            [SerializeField] private float energy = 100;
+            [SerializeField] private float shotEnergy;
+            [SerializeField] private float addEnergy;
+            [Space]
+            [SerializeField] private float cooldown;
+            [SerializeField] private float damage;
+            [SerializeField] private float rotSpeed;
+            [SerializeField] private float maxDist;
+            [SerializeField] private float upForce;
+
+            [Space] 
+            [SerializeField] private InputType inputType;
+            [SerializeField] private bool addTime = true;
+            [SerializeField] private bool waitToFull;
+            [SerializeField] private bool multiplyDeltaTime;
+
+            public bool MultiplyDeltaTime => multiplyDeltaTime;
+            public bool WaitToFull => waitToFull;
+            public bool AddTime => addTime;
+            public float UpForce => upForce;
+            public float MaxDist => maxDist;
+            public float RotSpeed => rotSpeed;
+            public float Damage => damage;
+            public float Cooldown => cooldown;
+            public float AddEnergy => addEnergy;
+            public float ShotEnergy => shotEnergy;
+            public float Energy => energy;
+
+
+            public void AddToEnergy(float val) => energy += val;
+
+            public void SetToEnergy(float val) => energy = val;
+
+
+            public bool IsShoot()
+            {
+                switch (inputType)
+                {
+                    case InputType.Click:
+                        return Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Space);
+                        break;
+                    case InputType.Hold:
+                        return Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Space);
+                }
+
+                return false;
+            }
+        }
+
+        [System.Serializable]
+        public class CameraViewData
+        {
+            [SerializeField] private float fov;
+            [SerializeField] private Rect cameraRect = new Rect(0, 0, 1, 1);
+
+            public Rect CameraRect => cameraRect;
+            public float FieldOfView => fov;
+        }
+
+        [SerializeField] private WeaponData weaponData;
+        [SerializeField] private CameraViewData cameraViewData;
+        [SerializeField] private DamageScaler damageScaler;
+        
+        
         public Transform minPoint;
         public Transform shootPoint;
-        public Action shootAction;
-        public Action updateAction;
-        public Action notShootAction;
 
 
+
+        protected float time = 999;
         private bool wait;
         private WeaponRotate rotate;
         private Rigidbody rb;
         private Player player;
         
-        public float GetRotSpeed() => rotSpeed;
-        public float GetCooldown() => cooldown;
-        public float GetEnergy() => energy;
-        public float GetTime() => time;
-        public float GetShotEnergy() => shot_energy;
         
+        public Action shootAction;
+        public Action updateAction;
+        public Action notShootAction;
+
+        public WeaponData WeaponValues => weaponData;
+
+
+        public float GetRotSpeed() => weaponData.RotSpeed;
+        public float GetCooldown() => weaponData.Cooldown;
+        public float GetEnergy() => weaponData.Energy;
+        public float GetTime() => time;
+        public float GetShotEnergy() => weaponData.ShotEnergy;
+
+        public float GetDamage(float distance) => damageScaler.GetDamage(weaponData.Damage, distance, out var type);        
+        public float GetDamage(float distance, out DamageScaler.DamageType type) => damageScaler.GetDamage(weaponData.Damage, distance, out type);
+
         
         
         private void Awake()
@@ -44,31 +177,25 @@ namespace Base.Weapons.Arms
 
         public void Update()
         {
-            rotate.rotateSpeed = rotSpeed;
-            var cam = WeaponRotate.CameraInstance;
-            if (cam != null)
-            {
-                cam.fieldOfView = fov;
-                cam.rect = cameraRect;
-            }
-
+            rotate.rotateSpeed = GetRotSpeed();
+            ConfigurateCamera();
             ClampMaxEnergy();
         
         
-            if (addTime)
+            if (weaponData.AddTime)
                 time += Time.deltaTime * player.Boosters.FireRateIncrease;
 
 
             if (GameManager.IsOnPause) return;
         
         
-            if (!waitTofull)
+            if (!weaponData.WaitToFull)
             {
-                if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Space))
+                if (weaponData.IsShoot())
                 {
-                    if (time >= cooldown)
+                    if (time >= GetCooldown())
                     {
-                        if (energy >= shot_energy)
+                        if (GetEnergy() >= GetShotEnergy())
                         {
                             ShootProcess();
                         }
@@ -86,22 +213,22 @@ namespace Base.Weapons.Arms
             {
                 if (wait)
                 {
-                    if (energy == 100)
+                    if (GetEnergy() == 100)
                     {
                         wait = false;
                     }
                 }
-                if (Input.GetKey(KeyCode.Mouse0) && !wait)
+                if (weaponData.IsShoot() && !wait)
                 {
-                    if (time >= cooldown)
+                    if (time >= GetCooldown())
                     {
-                        if (energy >= shot_energy && !wait)
+                        if (GetEnergy() >= GetShotEnergy() && !wait)
                         {
                             AddPhysics();
                             
                             shootAction.Invoke();
                             time = 0;
-                            energy -= shot_energy * (multiplyDeltaTime ?  Time.deltaTime : 1);
+                            weaponData.AddToEnergy(-GetShotEnergy() * (weaponData.MultiplyDeltaTime ?  Time.deltaTime : 1));
                         }
                         else
                         {
@@ -121,10 +248,20 @@ namespace Base.Weapons.Arms
                 updateAction.Invoke();
         }
 
+        private void ConfigurateCamera()
+        {
+            var cam = WeaponRotate.CameraInstance;
+            if (cam != null)
+            {
+                cam.fieldOfView = cameraViewData.FieldOfView;
+                cam.rect = cameraViewData.CameraRect;
+            }
+        }
+
         protected void AddPhysics()
         {
-            rb.AddTorque(-rotate.transform.right * upForce);
-            rb.AddForce(-rotate.transform.forward * upForce * 2);
+            rb.AddTorque(-rotate.transform.right * weaponData.UpForce);
+            rb.AddForce(-rotate.transform.forward * weaponData.UpForce * 2);
         }
 
         protected virtual void ShootProcess()
@@ -132,22 +269,22 @@ namespace Base.Weapons.Arms
             AddPhysics();
             shootAction.Invoke();
             time = 0;
-            energy -= shot_energy;
+            weaponData.AddToEnergy(-GetShotEnergy());
         }
 
         protected virtual void ClampMaxEnergy()
         {
-            if (energy < 100)
+            if (GetEnergy() < 100)
             {
-                AddEnergy();
+                AddUpdateEnergy();
             }
             else
-                energy = 100;
+                weaponData.SetToEnergy(100);
         }
 
-        protected void AddEnergy()
+        protected void AddUpdateEnergy()
         {
-            energy += energy_add * Time.deltaTime * player.Boosters.FireRateIncrease;
+            weaponData.AddToEnergy(weaponData.AddEnergy * Time.deltaTime * player.Boosters.FireRateIncrease);
         }
 
         [System.Serializable]
@@ -210,9 +347,9 @@ namespace Base.Weapons.Arms
             for (int i = 0; i < viewedEnemies.Count; i++)
             {
                 bool add = true;
-                if (maxDist != 0)
+                if (weaponData.MaxDist != 0)
                 {
-                    if (Vector3.Distance(shootPoint.transform.position, viewedEnemies[i].gameObject.transform.position) > maxDist)
+                    if (Vector3.Distance(shootPoint.transform.position, viewedEnemies[i].gameObject.transform.position) > weaponData.MaxDist)
                     {
                         add = false;
                     }

@@ -13,6 +13,7 @@ namespace Misc
         
         private void Update()
         {
+            if (Application.isPlaying) return;
             renderer = GetComponentsInChildren<Renderer>();
             if (renderer.Length == 0) return;
 
@@ -26,6 +27,7 @@ namespace Misc
 
         private void OnDrawGizmos()
         {
+            if (Application.isPlaying) return;
             var col = color;
             col.a *= 0.3f;
             

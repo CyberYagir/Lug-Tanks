@@ -14,8 +14,8 @@ namespace Base.Weapons.Arms
         {
             shootAction += () =>
             {
-                animator.SetBool(IsShoot, energy > shot_energy);
-                if (energy < shot_energy)
+                animator.SetBool(IsShoot, GetEnergy() > GetShotEnergy());
+                if (GetEnergy() < GetShotEnergy())
                 {
                     animator.SetBool(IsShoot, false);
                 }
@@ -27,7 +27,7 @@ namespace Base.Weapons.Arms
                         var tank = targets[0].enemy.GetComponent<Tank>();
                         if (tank.Team == Tank.TankTeam.Enemy)
                         {
-                            targets[0].enemy.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, (float) damage * Time.deltaTime, (string) PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.Weapon);
+                            targets[0].enemy.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, GetDamage(0) * Time.deltaTime, (string) PhotonNetwork.NickName, GetComponentInParent<Tank>().tankOptions.Weapon);
                             Tank.SetLastPlayer(targets[0].enemy.gameObject);
                         }
                     }

@@ -9,6 +9,7 @@ namespace Content.Scripts.Misc
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
+            if (Application.isPlaying) return;
             foreach (Transform child in transform)
             {
                 var color = Color.green;
