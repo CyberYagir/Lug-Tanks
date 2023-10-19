@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2022.2/staging' branch; Version is '2022.2.10f1 (bcebec703747) revision 12381164'; Using compiler version '192829333'; Build Type 'Release'
-OS: 'Windows 10  (10.0.19045) 64bit Professional' Language: 'ru' Physical Memory: 16236 MB
+OS: 'Windows 10  (10.0.19045) 64bit Professional' Language: 'ru' Physical Memory: 14188 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
 
 COMMAND LINE ARGUMENTS:
@@ -15,7 +15,7 @@ D:/Unity/Projects/Lug-Tanks
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-64126
+56082
 Successfully changed project path to: D:/Unity/Projects/Lug-Tanks
 D:/Unity/Projects/Lug-Tanks
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,11 +47,11 @@ D:/Unity/Projects/Lug-Tanks
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [20904] Host "[IP] 100.101.246.177 [Port] 0 [Flags] 2 [Guid] 1556708266 [EditorId] 1556708266 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-VH8M8RJ) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [20084] Host "[IP] 100.101.247.111 [Port] 0 [Flags] 2 [Guid] 683380456 [EditorId] 683380456 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-VH8M8RJ) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [20904] Host "[IP] 100.101.246.177 [Port] 0 [Flags] 2 [Guid] 1556708266 [EditorId] 1556708266 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-VH8M8RJ) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [20084] Host "[IP] 100.101.247.111 [Port] 0 [Flags] 2 [Guid] 683380456 [EditorId] 683380456 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-VH8M8RJ) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 10.46 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 9.77 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.2.10f1 (bcebec703747)
 [Subsystems] Discovering subsystems at path D:/Unity/Editors/2022.2.10f1/Editor/Data/Resources/UnitySubsystems
@@ -62,51 +62,51 @@ Direct3D:
     Renderer: NVIDIA GeForce RTX 3050 Laptop GPU (ID=0x25e2)
     Vendor:   NVIDIA
     VRAM:     3977 MB
-    Driver:   31.0.15.3623
+    Driver:   31.0.15.3742
 Initialize mono
 Mono path[0] = 'D:/Unity/Editors/2022.2.10f1/Editor/Data/Managed'
 Mono path[1] = 'D:/Unity/Editors/2022.2.10f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'D:/Unity/Editors/2022.2.10f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56124
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56596
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: D:/Unity/Editors/2022.2.10f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: D:/Unity/Editors/2022.2.10f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: D:/Unity/Editors/2022.2.10f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.005400 seconds.
-- Loaded All Assemblies, in  0.321 seconds
+Registered in 0.005441 seconds.
+- Loaded All Assemblies, in  0.352 seconds
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Android Extension - Scanning For ADB Devices 232 ms
+Android Extension - Scanning For ADB Devices 283 ms
 Native extension for WebGL target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.518 seconds
+- Finished resetting the current domain, in  0.611 seconds
 Domain Reload Profiling:
 	ReloadAssembly (185ms)
-		BeginReloadAssembly (83ms)
+		BeginReloadAssembly (88ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
 		LoadAllAssembliesAndSetupDomain (0ms)
-			LoadAssemblies (83ms)
+			LoadAssemblies (88ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (132ms)
-				TypeCache.Initialize (131ms)
-					TypeCache.ScanAssembly (129ms)
+			SetupTypeCache (162ms)
+				TypeCache.Initialize (161ms)
+					TypeCache.ScanAssembly (158ms)
 				ResolveRequiredComponents (1ms)
 		FinalizeReload (0ms)
 			ReleaseScriptCaches (0ms)
 			RebuildScriptCaches (0ms)
-			SetupLoadedEditorAssemblies (464ms)
+			SetupLoadedEditorAssemblies (548ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (313ms)
-				SetLoadedEditorAssemblies (4ms)
+				InitializePlatformSupportModulesInManaged (379ms)
+				SetLoadedEditorAssemblies (5ms)
 				RefreshPlugins (0ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (104ms)
-				ProcessInitializeOnLoadMethodAttributes (42ms)
+				ProcessInitializeOnLoadAttributes (113ms)
+				ProcessInitializeOnLoadMethodAttributes (49ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
@@ -114,50 +114,50 @@ Domain Reload Profiling:
 ========================================================================
 Worker process is ready to serve import requests
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.663 seconds
-Refreshing native plugins compatible for Editor in 2.67 ms, found 0 plugins.
+- Loaded All Assemblies, in  0.763 seconds
+Refreshing native plugins compatible for Editor in 2.74 ms, found 0 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Native extension for WebGL target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.509 seconds
+- Finished resetting the current domain, in  0.603 seconds
 Domain Reload Profiling:
-	ReloadAssembly (208ms)
-		BeginReloadAssembly (127ms)
+	ReloadAssembly (227ms)
+		BeginReloadAssembly (149ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
+			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (25ms)
-		LoadAllAssembliesAndSetupDomain (454ms)
-			LoadAssemblies (284ms)
+			CreateAndSetChildDomain (41ms)
+		LoadAllAssembliesAndSetupDomain (536ms)
+			LoadAssemblies (329ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (232ms)
-				TypeCache.Initialize (206ms)
-					TypeCache.ScanAssembly (201ms)
+			SetupTypeCache (273ms)
+				TypeCache.Initialize (237ms)
+					TypeCache.ScanAssembly (231ms)
 				ResolveRequiredComponents (10ms)
 		FinalizeReload (0ms)
 			ReleaseScriptCaches (0ms)
 			RebuildScriptCaches (0ms)
-			SetupLoadedEditorAssemblies (359ms)
+			SetupLoadedEditorAssemblies (428ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (18ms)
+				InitializePlatformSupportModulesInManaged (21ms)
 				SetLoadedEditorAssemblies (3ms)
 				RefreshPlugins (0ms)
-				BeforeProcessingInitializeOnLoad (56ms)
-				ProcessInitializeOnLoadAttributes (208ms)
-				ProcessInitializeOnLoadMethodAttributes (71ms)
+				BeforeProcessingInitializeOnLoad (64ms)
+				ProcessInitializeOnLoadAttributes (249ms)
+				ProcessInitializeOnLoadMethodAttributes (88ms)
 				AfterProcessingInitializeOnLoad (3ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (5ms)
+			AwakeInstancesAfterBackupRestoration (6ms)
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 2.90 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 6.16 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3715 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 81 unused Assets / (1.7 MB). Loaded Objects now: 4181.
+Unloading 3716 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 81 unused Assets / (1.7 MB). Loaded Objects now: 4182.
 Memory consumption went from 0.62 GB to 0.62 GB.
-Total: 4.518900 ms (FindLiveObjects: 0.414600 ms CreateObjectMapping: 0.314400 ms MarkObjects: 3.290600 ms  DeleteObjects: 0.497900 ms)
+Total: 14.662900 ms (FindLiveObjects: 1.136300 ms CreateObjectMapping: 0.439100 ms MarkObjects: 11.262100 ms  DeleteObjects: 1.822300 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
@@ -166,35 +166,80 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
   custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
   custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 12472.086882 seconds.
-  path: Assets/Plugins/MeasureTool
-  artifactKey: Guid(e63799a4c08e7c34bb5425462abb1c49) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/Plugins/MeasureTool using Guid(e63799a4c08e7c34bb5425462abb1c49) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: '1912de703cc73eafc0de9ec1d75f23fc') in 0.135617 seconds 
+  Time since last request: 35092.085758 seconds.
+  path: Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_Height.png
+  artifactKey: Guid(86bcc1465163c57488331836c1fcc543) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_Height.png using Guid(86bcc1465163c57488331836c1fcc543) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa44b4af3f9889f574c57714216d1468') in 0.151697 seconds 
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_BaseColor.png
+  artifactKey: Guid(ddbe972d120b6f7408bfa6e1adca6178) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_BaseColor.png using Guid(ddbe972d120b6f7408bfa6e1adca6178) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '9bbf96bc23a9ff4ef2f9774b37b8590d') in 0.397000 seconds 
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 1
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000040 seconds.
-  path: Assets/Plugins/MeasureTool/MeasureTool.cs
-  artifactKey: Guid(95a29c1e0a896f84d8bf0eba0cdfafc4) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/Plugins/MeasureTool/MeasureTool.cs using Guid(95a29c1e0a896f84d8bf0eba0cdfafc4) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'e30cc72e72b43d846060ae8bb7636a78') in 0.039411 seconds 
+  Time since last request: 0.000025 seconds.
+  path: Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_Normal.png
+  artifactKey: Guid(30a782809c6511e4da1a298be3a66b83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_Normal.png using Guid(30a782809c6511e4da1a298be3a66b83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1bd7535d2f156f8d3a464474031173af') in 0.008467 seconds 
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_Emissive.png
+  artifactKey: Guid(7f5f13e6fe785374fa140cd97db69192) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_Emissive.png using Guid(7f5f13e6fe785374fa140cd97db69192) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'e74ab2cae8ce292a548451bed7252ff2') in 0.016287 seconds 
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 1
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000028 seconds.
-  path: Assets/Plugins/MeasureTool/Readme.txt
-  artifactKey: Guid(70a4de8f2a1cfe446850eae3d44d2924) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
-Start importing Assets/Plugins/MeasureTool/Readme.txt using Guid(70a4de8f2a1cfe446850eae3d44d2924) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
- -> (artifact id: 'ccbc8f92b76ce977e9b7ccbf245682d7') in 0.002684 seconds 
+  Time since last request: 0.000022 seconds.
+  path: Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_Roughness.png
+  artifactKey: Guid(3b8bcf12f6b03204dbe07c5c749ed000) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_Roughness.png using Guid(3b8bcf12f6b03204dbe07c5c749ed000) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'ee171606f4d23079a0a73a98eeabe4b8') in 0.014842 seconds 
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_Metallic.png
+  artifactKey: Guid(fbab250524fad2b4fb0f1f2b57fd4c92) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_Metallic.png using Guid(fbab250524fad2b4fb0f1f2b57fd4c92) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '85e55e2e7c2ff4e2304a79827701a386') in 0.013674 seconds 
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000063 seconds.
+  path: Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_BaseColor.png
+  artifactKey: Guid(ddbe972d120b6f7408bfa6e1adca6178) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_BaseColor.png using Guid(ddbe972d120b6f7408bfa6e1adca6178) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '10e180bcfab99cc27ba400bcfe2d2968') in 0.007951 seconds 
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_Emissive.png
+  artifactKey: Guid(7f5f13e6fe785374fa140cd97db69192) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Content/Models/TanksNew/SmokiWasp/Texture 4K/Tank1_LP_DefaultMaterial_Emissive.png using Guid(7f5f13e6fe785374fa140cd97db69192) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e3aa675f326ca887c502399fac57d2d0') in 0.008895 seconds 
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+TcpMessagingSession - receive error: operation aborted. errorcode: 995, details: Операция ввода/вывода была прервана из-за завершения потока команд или по запросу приложения.
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Base.Controller;
 using Base.Modifyers;
 using Photon.Game;
 using Photon.Pun;
@@ -9,7 +10,7 @@ using Range = DG.DemiLib.Range;
 
 namespace Base.Weapons.Arms
 {
-    public class Weapon : MonoBehaviour
+    public class Weapon : TankPart
     {
         [System.Serializable]
         public class DamageScaler

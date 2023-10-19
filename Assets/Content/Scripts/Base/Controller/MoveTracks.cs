@@ -5,8 +5,8 @@ using UnityEngine;
 public class MoveTracks : MonoBehaviour
 {
     [SerializeField] private int idLeft, idRight;
-    [SerializeField] private Rigidbody rigidbody;
-    [SerializeField] private MeshRenderer meshRenderer;
+    private Rigidbody rigidbody;
+    private MeshRenderer meshRenderer;
     private void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
@@ -14,7 +14,7 @@ public class MoveTracks : MonoBehaviour
     }
     private void Update()
     {
-        meshRenderer.materials[idLeft].mainTextureOffset += new Vector2(rigidbody.velocity.z + Input.GetAxis("Horizontal"), 0);
-        meshRenderer.materials[idRight].mainTextureOffset += new Vector2(rigidbody.velocity.z - Input.GetAxis("Horizontal"), 0);
+        meshRenderer.materials[idLeft].mainTextureOffset += new Vector2(0, rigidbody.velocity.z + Input.GetAxis("Horizontal"));
+        meshRenderer.materials[idRight].mainTextureOffset += new Vector2(0, rigidbody.velocity.z - Input.GetAxis("Horizontal"));
     }
 }

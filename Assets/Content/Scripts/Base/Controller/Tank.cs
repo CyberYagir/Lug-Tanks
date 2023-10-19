@@ -124,7 +124,7 @@ namespace Base.Controller
 
                 for (int i = 0; i < weapons.Count; i++)
                 {
-                    weapons[i].GetComponent<Renderer>().material.SetTexture(MainTex, teamsData.GetTeam(team).Texture);
+                    weapons[i].SetTexture(teamsData.GetTeam(team).Texture);
                 }
             }
         }
