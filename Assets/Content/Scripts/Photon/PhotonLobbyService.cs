@@ -22,12 +22,12 @@ namespace Photon
         [SerializeField] private TMP_Text errorText, lobbyText;
         [SerializeField] private UIRooms rooms;
         [SerializeField] private int mapsCount = 1;
-
         private string autoRegion;
 
         public string AutoRegion => autoRegion;
 
 
+        public UnityEvent<bool> OnConnectingProcess;
         public UnityEvent OnConnectToMaster = new UnityEvent();
 
         public void Init()
@@ -45,7 +45,13 @@ namespace Photon
             DontDestroyOnLoad(gameObject);
 
         }
-        
+
+        public override void OnConnected()
+        {
+            base.OnConnected();
+            OnConnectingProcess.Invoke(false);
+        }
+
 
         public void InitPUN()
         { 
@@ -54,6 +60,7 @@ namespace Photon
                 PhotonNetwork.GameVersion = Application.version;
                 PhotonNetwork.ConnectUsingSettings();
                 PhotonNetwork.NickName = WebDataService.UserData.PlayerData.Name;
+                OnConnectingProcess.Invoke(true);
 
             }
             else
@@ -90,8 +97,9 @@ namespace Photon
             PhotonNetwork.JoinLobby(new TypedLobby("DEFAULT", LobbyType.Default));
             mainUI.SetActive(true);
             autoRegion = PhotonNetwork.NetworkingClient.CloudRegion;
-            
-            
+
+
+            OnConnectingProcess.Invoke(false);
             OnConnectToMaster.Invoke();
         }
         public override void OnJoinedLobby()
@@ -104,6 +112,7 @@ namespace Photon
         }
         public void CreateRoom()
         {
+            OnConnectingProcess.Invoke(true);
             int map = Random.Range(0, mapsCount);
             string name = "Room [" + (PhotonNetwork.CountOfRooms + 1) + "]";
             
@@ -122,6 +131,7 @@ namespace Photon
 
         public void CreateRoom(string name, bool visible, byte players, int time, int map = 0, string mode = "FFA")
         {
+            OnConnectingProcess.Invoke(true);
             if (name.Replace(" ", "") == "")
             {
                 name = $"Room [{PhotonNetwork.CountOfRooms + 1}]";
@@ -182,6 +192,7 @@ namespace Photon
         {
             base.OnJoinRoomFailed(returnCode, message);
             print(message);
+            OnConnectingProcess.Invoke(false);
         }
         public override void OnJoinedRoom()
         {
@@ -192,7 +203,15 @@ namespace Photon
             h.Add("Exp", WebDataService.TankData.Exp);
             h.Add("Team", 0);
             PhotonNetwork.LocalPlayer.SetCustomProperties(h);
-            PhotonNetwork.LoadLevel("BaseGame");
+            if (isTutorialRoom)
+            {
+                PhotonNetwork.LoadLevel("TutorialGame");
+            }
+            else
+            {
+                PhotonNetwork.LoadLevel("BaseGame");
+            }
+            OnConnectingProcess.Invoke(false);
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
@@ -202,12 +221,20 @@ namespace Photon
         }
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
+            OnConnectingProcess.Invoke(false);
             errorText.text = "Failed to create room";
         }
     
         private void OnApplicationQuit()
         {
             ClearErrorPrefs();
+        }
+
+        private bool isTutorialRoom;
+        public void CreateAndJoinInTutorialRoom()
+        {
+            isTutorialRoom = true;
+            CreateRoom("_tutorialLevel", false, 1, int.MaxValue, 0);
         }
     }
 }

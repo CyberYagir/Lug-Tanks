@@ -18,8 +18,8 @@ namespace Menu
             ObfuseExtensions.Init();
             tankService.tankOptions = tankService.tankOptions.Obfuscate();
             lobbyService.Init();
-            webDataService.Init();
-            menuService.Init(tankService);
+            webDataService.Init(); 
+            menuService.Init(tankService, lobbyService);
             phpMenuService.Init(tankService);
         }
 

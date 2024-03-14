@@ -27,7 +27,7 @@ namespace UI
         
         private Tank tank;
     
-        public void Init(Tank tank)
+        public void Init(Tank tank, PhotonLobbyService photonLobbyService)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
